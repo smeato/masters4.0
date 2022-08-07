@@ -1,0 +1,88 @@
+{% extends 'scrapbook/base.html' %} 
+{% load static %} 
+
+{%  block body_block %}
+<link href="static/scrapbook/css/index.css" rel="stylesheet">
+
+<div class="container-fluid">
+
+    <!-- left side of page welcome greeting. Personalised if user is logged in-->
+    <div class="row">
+        <div id="left_side" class="col-sm-4">
+    
+            {% if user.is_authenticated %} 
+            <h1 class="welcome ">Welcome back to Scrapbook {{ user.get_short_name }}</h1>
+        
+
+            {% else %} 
+            <h1 class="welcome">Welcome to Scrapbook! </h1>
+            <br />
+            {% endif %}
+        </div>
+
+
+
+        <!-- if user is not logged in show log in form and register link-->
+        {% if not user.is_authenticated %}
+            <!--right side of page-->
+        <div id="right_side" class="col-sm-8">
+
+            <div class="container">
+            <div class="row">
+                <div class="card" id="login">
+                    <div class="card-body">
+                        <h5 class="card-title">Log In</h5>
+                        <form id="login_form" method="post" action="{% url 'scrapbook:login' %}">
+                            {% csrf_token %} 
+                            <div class="form-group">
+                                <label>Username</label>
+                                {{ form.username }}
+                                <input class="col-form-label-sm" type="text" name="username" value="" size="5%"/>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Password</label>
+                                {{ form.password }}
+                                <input class="col-form-label-sm" type="password" name="password" value="" size="5%"/>
+                            </div>
+                            <button class="button btn btn-success" type="submit" value="submit">Log In</button>
+                        </form>
+                    </div>
+                    
+                </div> 
+                
+            </div>
+            <div class="row justify-content-center">
+                <a href="{% url 'scrapbook:register' %}"><button id="register_link" class="button btn btn-warning"><h3>I'm New</h3><h5><br>(Register)</h5></button></a>
+                </div>
+            </div>
+        </div>
+            
+        
+            <!-- if user is logged in show links to scrapbooks that are available to them-->
+            {% else %}
+            <div id="right" class="col-sm-8">
+
+                <div class="row justify-content-center"> 
+                    <a href= "{% url 'scrapbook:scrapbook_view' username=user.username %}"><button id="button1" class="button btn btn-sm btn-success"><strong><h5>Take Me to<br>My Scrapbook</h5></strong></button></a>
+                </div>
+                
+                {% for scrapbook in books %} 
+                <div class="row justify-content-center buttons">
+                    <a href= "{% url 'scrapbook:scrapbook_view' username=scrapbook.owner.username %}"> <button id="button2" class="button btn btn-sm btn-warning"><strong>{{scrapbook.owner}}'s scrapbook</strong></button></a>
+                </div>
+                {% endfor %}
+
+                <div class="row justify-content-center buttons">
+                    <a id="logout"href="{% url 'scrapbook:logout' %}"><button class="btn btn-danger">Log out</button></a>
+                </div>
+            </div>
+            {% endif %}
+
+            
+    </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'scrapbook/base.html' %} 
+{% load static %}
+
+{% block body_block %} 
+<style>
+
+    #title_section {
+        display: block;
+    }
+
+    div {
+        display: none;
+    }
+
+</style>
+<form method="post" enctype="multipart/form-data" action="{% url 'scrapbook:create_page' username=scrapbook.owner.username %}">
+{% csrf_token %} 
+
+<!--<div class="row">
+<div class="col-sm px-5"> -->
+<div id="title_section">
+<fieldset>
+    <legend><h1 id="title-header">Enter a Title For This Page</h1></legend>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>
+    {% endif %} 
+    <input type="text" id="title_input" name="title" placeholder="Type here...">
+    <button id="title_button" type="button" class="btn btn-success">DONE</button>
+</fieldset>
+</div>
+<!--</div> -->
+
+</br>
+<div id="song_section">
+<fieldset>
+    <legend><h1>Add a Song</h1></legend>
+    <input type="text" id="song_input" name="song_title" placeholder="Song Title:">
+    <input type="text" id="artist_input" name="artist" placeholder="Artist/Band:">
+    <button id="song_button" type="button" class="btn btn-success">DONE</button>
+</fieldset>
+</div>
+
+
+<div id='picture_section' class="col-sm" id="right_page">
+    
+        {% csrf_token %}
+    <fieldset>
+        <legend><h1>Add Pictures</h1></legend>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>
+        {% endif %} 
+        <input type="file" id="picture_input" name="page_image">
+        <button id="picture_button" type="button" class="btn btn-success">DONE</button>
+    </fieldset>
+    </form>
+</div>
+<div id="video_section">
+    <fieldset>
+        <br>
+        <legend><h1>Upload a Video</h1></legend></fieldset><br> 
+        <input type="file" id="video_input" name="page_video">
+        <legend><h2>OR</h2></legend><br>
+        <legend><h1>Copy and Paste <br>a YouTube Link</h1></legend>
+        <input type="url" id="youtube_input" name="vid_url" placeholder="Copy and paste here">
+        <h4>There's only space for one video on each scrapbook page.</h4>
+
+        {% if page %} 
+            <h1>{{ page.vid_id }}</h1>
+        {% endif %} 
+        <button id="video_button" type="button" class="btn btn-success">DONE</button>
+
+
+    </fieldset><br> 
+</div>
+<div id="finish">
+    <button id="submit_button" type="submit" class="btn btn-success">Take Me To My New Page</button>
+</div>
+</form>
+
+<iframe id="myframe" style="border-radius:12px" src="" width="40%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+<script type="text/javascript" src="/static/js/page_form.js"> </script>
+<script>
+    var url = "{{ page.vid_id }}"
+</script>
+
+{% endblock %} 

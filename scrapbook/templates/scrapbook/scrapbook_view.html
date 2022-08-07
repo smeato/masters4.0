@@ -1,0 +1,14 @@
+{% if viewable %}
+
+    {{ username }}'s scrapbook
+
+    {% if page_list %} 
+        {% for page in page_list %} 
+        <a href="{{ page.get_absolute_url }}">{{page.title}}</a>
+        {% endfor %}
+    {% else %} 
+        <p>No Pages yet</p>
+    {% endif %} 
+{% else %} 
+    <h1>You don't have access to this scrapbook.</h1>
+{% endif %} 

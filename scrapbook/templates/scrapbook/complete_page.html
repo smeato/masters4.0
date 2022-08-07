@@ -1,0 +1,72 @@
+{% extends 'scrapbook/base.html' %} 
+{% block body_block %} 
+
+<script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<h1>{{ page.title }}</h1>
+
+<div id="song_selection">
+<h4>What song would you like to put on this scrapbook page?</h4>
+<h5>Is there a song that brings back fond memories? Or just one that you enjoy listening to?</h5>
+<input id="song_title" type="text" placeholder="Song title">
+<input id="song_artist" type="text" placeholder="Artist/Band (optional)">
+<button id="search_button" type="button" class="btn btn-success">DONE</button>
+
+<form>
+    {% csrf_token %}
+</form>
+
+<button id="button1" type="button" class="btn btn-success" style="display: none">This One</button>
+<iframe id="embed1" style="border-radius:12px" src="" width="40%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+<button id="button2" type="button" class="btn btn-success" style="display: none">This One</button>
+<iframe id="embed2" style="border-radius:12px" src="" width="40%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+<button id="button3" type="button" class="btn btn-success" style="display: none">This One</button>
+<iframe id="embed3" style="border-radius:12px" src="" width="40%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+<button id="button4" type="button" class="btn btn-success" style="display: none">This One</button>
+<iframe id="embed4" style="border-radius:12px" src="" width="40%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+</div>
+
+
+<div id="video_selection" style="display: none">
+    <h1>Video Selection</h1>
+    <h4>Since you haven't uploaded a video you can find one on YouTube to use instead.</h3><br>
+    <h5 class="text-danger">Info: YouTube won't let you use a video with copyright music so some videos may not work, sorry!</h2>
+
+
+    <input id="yt_link" type="url" placeholder="paste the link here">
+    <button id="yt_button" class="btn btn-success" type="submit">Check</button>
+
+
+    <br>
+    <br>
+    <iframe id="yt_vid" width="560" height="315" src="" 
+    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+    <button id="add_vid" class="btn btn-success" type="button">Add to Page</button>
+    <button id="no_vid" class="btn btn-warning" type="button">Skip</button>
+</div>
+
+<div id="finished" style="display:none">
+    <h1>All Done!</h1>
+    <a href="{% url 'scrapbook:page_view' page_pk=page.id %}"><button id="gotoPage">Take Me to My New Page</button></a> 
+</div>
+
+{% if not page.video_file %} 
+<script id="pageIdScript">
+    var vid_required = true;
+</script>
+{% else %} 
+<script>
+    var vid_required = false;
+</script>
+{% endif %}
+<script id="pageIdScript">
+    var page_id = "{{page.id}}";
+</script>
+
+
+<script type="text/javascript" src="/static/js/complete_page.js"> </script>
+{% endblock %}

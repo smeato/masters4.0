@@ -1,0 +1,72 @@
+a {
+    color: green;
+}
+
+#right_side {
+    background: url("/static/scrapbook/images/scrapbook.png");
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    background-size: contain;
+}
+
+#right {
+    background: url("/static/scrapbook/images/scrapbook.png");
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    background-size: contain;
+}
+
+#left_side {
+    background-color: gold;
+    height: 100vh;
+}
+
+#login {
+    width: 30%;
+    height: 40%;
+    align-content: center;
+    margin: 10% auto;
+
+}
+
+#login_form {
+    height: 70%;
+    margin: 0 auto;
+    align-content: center;
+    size: 10%
+}
+
+#register_link {
+    margin: 0 auto;
+
+
+}
+
+.welcome {
+    height: 100%;
+    margin: 0 auto;
+    padding: 100px;
+    text-align: center;
+}
+
+#button1 {
+    margin-top: 35%;
+    height: 100%;
+    width: 100%;
+}
+
+#button2 {
+    margin-top: 50%;
+    height: 100%;
+    width: 100%;
+}
+
+a {
+    size: 8;
+}
+
+#logout {
+    margin-top: 10%;
+}
