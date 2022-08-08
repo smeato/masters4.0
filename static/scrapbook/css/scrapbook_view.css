@@ -18,6 +18,12 @@
     color: rgb(255, 255, 255);
 }
 
+#collab_button {
+    border-radius: 20%;
+    border-color: black;
+    color: rgb(255, 255, 255);
+}
+
 #clock {
     background: #4C651A;
     color: white;
@@ -84,4 +90,8 @@
     border-width: medium;
     margin: 0 auto;
     margin-bottom: 2%;
+}
+
+#row1 {
+    padding-top: 20px;
 }

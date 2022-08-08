@@ -1,0 +1,41 @@
+#header {
+    background-color: rgba(224, 198, 248, 0.49);
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+#help_button {
+    border-radius: 20%;
+    background-color: rgb(255, 128, 0);
+    border-color: black;
+    color: rgb(255, 255, 255);
+}
+
+#home_button {
+    border-radius: 20%;
+    background-color: rgb(85, 4, 151);
+    border-color: black;
+    color: rgb(255, 255, 255);
+}
+
+#clock {
+    background: #4C651A;
+    color: white;
+}
+
+.collab {
+    margin-top: 2%;
+    color: rgb(85, 4, 151);
+
+}
+
+#collabs {
+    border: black;
+    border-radius: 20%;
+    border-width: 5rem;
+}
+
+#add_button {
+    background-color: #4C651A"
+
+}

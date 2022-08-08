@@ -32,7 +32,7 @@ class UserPreferences(models.Model):
     
 class Scrapbook(models.Model):
     owner = models.OneToOneField(User, related_name='owner', on_delete=models.CASCADE)
-    collaborators = models.ManyToManyField(User, blank=True)
+    collaborators = models.ManyToManyField(User, related_name='collaborators', blank=True)
     
     def __str__(self):
         return self.owner.username 

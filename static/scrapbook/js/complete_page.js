@@ -59,16 +59,19 @@ async function getSpotifyResults() {
             if (document.getElementById("embed2").src != "") {
                 document.getElementById("button2").style = "display: block";
                 document.getElementById("button2").addEventListener('click', getSong, false);
+                document.getElementById("button1").addEventListener('click', nextSection, false);
             }
             document.getElementById("embed3").setAttribute("src", data['result 3']);
             if (document.getElementById("embed3").src != "") {
                 document.getElementById("button3").style = "display: block";
                 document.getElementById("button3").addEventListener('click', getSong, false);
+                document.getElementById("button1").addEventListener('click', nextSection, false);
             }
             document.getElementById("embed4").setAttribute("src", data['result 4']);
             if (document.getElementById("embed4").src != "") {
                 document.getElementById("button4").style = "display: block";
                 document.getElementById("button4").addEventListener('click', getSong, false);
+                document.getElementById("button1").addEventListener('click', nextSection, false);
             }
         })
 
@@ -108,9 +111,10 @@ async function getSong(e) {
         .catch(err => console.log(err))
         .then(data => {
             document.getElementById("song_selection").style = "display: none";
-
+            console.log(data['vid_required']);
             if (data['vid_required']) {
                 document.getElementById("video_selection").style = "display: block";
+                console.log("should be visible")
             }
 
         })

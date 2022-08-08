@@ -25,12 +25,9 @@
         <div class="col-sm-4">
             <div class="container">
                 <div class="row justify-content-center text-center">
-                    <h1>{{ scrapbook.owner.first_name }}'s Scrapbook </h1><br><h3>username:({{ scrapbook.owner.username}})</h3>
+                    <h1>{{ scrapbook.owner.first_name }}'s Scrapbook </h1><br><h3>username: ({{ scrapbook.owner.username}})</h3>
                 </div>
-                <div class="row justify-content-center">
-                    
-                    <h3>{{ page.title}}</h3>
-                </div>
+          
             </div>
         </div>
 
@@ -45,8 +42,15 @@
 
     </div>
 
-    <div class="row justify-content-center">
-        <div class="col-sm-6 justify-content-center">
+    <div id="row1" class="row">
+        {% if is_owner %}
+        <div class="col-sm-2 float-left">
+            <a href="{% url 'scrapbook:manage_sharing' username=scrapbook.owner.username %}">
+                <button id="collab_button" class="btn btn-md btn-danger"><h4><strong>Manage <br>Sharing</strong><br></h4><h6>(add/remove collaborator)</h6></button>
+            </a>
+            </div>
+        {% endif %}
+        <div class="col-sm-4 justify-content-center">
         <a href="{% url 'scrapbook:create_page' username=username %}">
             <div id="create-card" class="card" >
                 <!--<a target="_blank" href="https://icons8.com/icon/37839/add">Add</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>-->
@@ -57,12 +61,12 @@
             </div>
             </a>
         </div>
-        <div class="col-sm-6 justify-content-center">
+        <div class="col-sm-4 justify-content-center">
             <a href="{% url 'scrapbook:random_page' username=username %}">
                 <div id="random-card" class="card" >
                     <img id="shuffle-icon"  class="card-img-top mx-auto" src="{% static 'scrapbook/images/shuffle.png' %}" alt="a shuffle button">
                     <div class="card-body card-block">
-                        <h4 id="card-link" class="card-title">Go Down Memory Lane<br>(random page)</h4>
+                        <h5 id="card-link" class="card-title">Take a Trip Down Memory Lane<br></h5><h6 class="text-center">(random page)</h6>
                     </div>
                 </div>
                 </a>

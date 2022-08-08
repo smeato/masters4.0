@@ -36,7 +36,7 @@ def index(request):
     return render(request, 'scrapbook/index.html', context)
 
 # class based view for listing all pages in the given scrapbook
-class ScrapbookView(ListView):
+class ScrapbookView(LoginRequiredMixin, ListView):
     model = Page 
     
     template_name = 'scrapbook/scrapbook_view.html'
@@ -49,12 +49,15 @@ class ScrapbookView(ListView):
         
         if self.user == self.request.user:
             self.viewable = True 
+            self.is_owner = True
         else:
             self.current_collaborator = self.scrapbook.collaborators.filter(username=self.request.user.username)
             if self.current_collaborator:
                 self.viewable = True
+                self.is_owner = False
             else:
                 self.viewable = False
+                return reverse_lazy('scrapbook:index')
         
         if not self.viewable:
             return reverse_lazy('scrapbook:no_access')
@@ -65,10 +68,63 @@ class ScrapbookView(ListView):
         context['username'] = self.user.username 
         context['scrapbook'] = self.scrapbook
         context['viewable'] = self.viewable 
+        context['is_owner'] = self.is_owner
         context['clock'] = get_clock()
             
         return context
 
+@login_required
+def manage_sharing(request, username):
+    owner = get_object_or_404(User, username=username)
+    scrapbook = get_object_or_404(Scrapbook, owner=owner)
+    if request.user != scrapbook.owner: 
+        return redirect(reverse('scrapbook:index'))
+    
+    collaborators = []
+    for c in scrapbook.collaborators.all():
+        collaborators.append(c)
+            
+    context = {}
+    context['clock'] = get_clock
+    context['collaborators'] = collaborators
+    
+    return render(request,'scrapbook/manage_sharing.html', context)
+
+@login_required
+def delete_collaborator(request, username):
+    owner = get_object_or_404(User, username=username)
+    scrapbook = get_object_or_404(Scrapbook, owner=owner)
+    if request.user != scrapbook.owner: 
+        return redirect(reverse('scrapbook:index'))
+    
+    if is_ajax(request):
+        data = json.load(request)
+        user = User.objects.get(username=data['removed_collab'])
+        print(user)
+        print(scrapbook)
+        scrapbook.collaborators.remove(user)
+        scrapbook.save()
+        return JsonResponse(data)
+    return
+
+@login_required
+def add_collaborator(request, username):
+    owner = get_object_or_404(User, username=username)
+    scrapbook = get_object_or_404(Scrapbook, owner=owner)
+    if request.user != scrapbook.owner: 
+        return redirect(reverse('scrapbook:index'))
+    
+    if is_ajax(request):
+        data = json.load(request)
+        user = User.objects.get(username=data['add_collab'])
+        if not user:
+            error = {'message': "no user"}
+            return JsonResponse(error)
+        scrapbook.collaborators.add(user)
+        scrapbook.save()
+        return JsonResponse(data)
+    
+    
 
 class PageCreateView(LoginRequiredMixin, CreateView):
     model = Page
@@ -166,7 +222,7 @@ def complete_page(request, page_pk):
     current_user = request.user 
     
     if current_user != page.creator:
-        return redirect(reverse('scrapbook:no_access'))
+        return redirect(reverse('scrapbook:index'))
 
     context['user'] = current_user
     context['page'] = page
@@ -178,6 +234,18 @@ def complete_page(request, page_pk):
 
 @login_required
 def page_view(request, page_pk):
+    page = get_object_or_404(Page, id=page_pk)
+    scrapbook = page.scrapbook
+    owner = scrapbook.owner
+    current_collaborator = scrapbook.collaborators.filter(username=request.user.username)
+    
+    if owner == request.user:
+        pass
+    elif owner == current_collaborator:
+        pass
+    else:
+        return redirect(reverse('scrapbook:index'))
+    
     context = {}
     context['page'] = get_object_or_404(Page, pk=page_pk)
     context['scrapbook'] = context['page'].scrapbook

@@ -45,37 +45,38 @@
 </div>
 
 <div id="song_selection">
-<h4>What song would you like to put on this scrapbook page?</h4>
-<h5>Is there a song that brings back fond memories? Or just one that you enjoy listening to?</h5>
-<input id="song_title" type="text" placeholder="Song title">
-<input id="song_artist" type="text" placeholder="Artist/Band (optional)">
-<button id="search_button" type="button" class="btn btn-success">DONE</button>
+    <h4>What song would you like to put on this scrapbook page?</h4>
+    <h5>Is there a song that brings back fond memories? Or just one that you enjoy listening to?</h5>
+    <input id="song_title" type="text" placeholder="Song title">
+    <input id="song_artist" type="text" placeholder="Artist/Band (optional)">
+    <button id="search_button" type="button" class="btn btn-success">DONE</button>
 
-<form>
-    {% csrf_token %}
-</form>
+    <form>
+        {% csrf_token %}
+    </form>
 
-<div class="container">
-<div class="row" id="songs">
-<div class="col-sm-3">
-<button id="button1" type="button" class="btn btn-success justify-content-center" style="display: none">This One</button>
-<iframe id="embed1" style="border-radius:12px" src="" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-</div>
-<div class="col-sm-3">
-<button id="button2" type="button" class="btn btn-success" style="display: none">This One</button>
-<iframe id="embed2" style="border-radius:12px" src="" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-</div>
+    <div class="container">
+        <div class="row" id="songs">
+            <div class="col-sm-3">
+                <button id="button1" type="button" class="btn btn-success justify-content-center" style="display: none">This One</button>
+                <iframe id="embed1" style="border-radius:12px" src="" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            </div>
+            <div class="col-sm-3">
+                <button id="button2" type="button" class="btn btn-success" style="display: none">This One</button>
+                <iframe id="embed2" style="border-radius:12px" src="" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            </div>
 
-<div class="col-sm-3">
-<button id="button3" type="button" class="btn btn-success" style="display: none">This One</button>
-<iframe id="embed3" style="border-radius:12px" src="" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-</div>
+            <div class="col-sm-3">
+                <button id="button3" type="button" class="btn btn-success" style="display: none">This One</button>
+                <iframe id="embed3" style="border-radius:12px" src="" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            </div>
 
-<div class="col-sm-3">
-<button id="button4" type="button" class="btn btn-success" style="display: none">This One</button>
-<iframe id="embed4" style="border-radius:12px" src="" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-</div>
-</div>
+            <div class="col-sm-3">
+                <button id="button4" type="button" class="btn btn-success" style="display: none">This One</button>
+                <iframe id="embed4" style="border-radius:12px" src="" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -100,9 +101,13 @@
     <button id="no_vid" class="btn btn-warning" type="button">Skip</button>
 </div>
 
-<div id="finished" style="display:none">
+<div id="finished" style="display:none" class="container">
+    <div class="row justify-content-center">
     <h1>All Done!</h1>
+    </div>
+    <div class="row justify-content-center">
     <a href="{% url 'scrapbook:page_view' page_pk=page.id %}"><button id="gotoPage">Take Me to My New Page</button></a> 
+    </div>
 </div>
 
 {% if not page.video_file %} 
