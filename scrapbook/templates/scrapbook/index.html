@@ -53,7 +53,7 @@
                 
             </div>
             <div class="row justify-content-center">
-                <a href="{% url 'scrapbook:register' %}"><button id="register_link" class="button btn btn-warning"><h3>I'm New</h3><h5><br>(Register)</h5></button></a>
+                <a href="{% url 'scrapbook:register' %}"><button id="register_link" class="button btn btn-warning"><h4>I'm New<br></h4><h6>(Register)</h6></button></a>
                 </div>
             </div>
         </div>
@@ -62,21 +62,20 @@
             <!-- if user is logged in show links to scrapbooks that are available to them-->
             {% else %}
             <div id="right" class="col-sm-8">
-
-                <div class="row justify-content-center"> 
-                    <a href= "{% url 'scrapbook:scrapbook_view' username=user.username %}"><button id="button1" class="button btn btn-sm btn-success"><strong><h5>Take Me to<br>My Scrapbook</h5></strong></button></a>
+                <div class="container">
+                <div id="my_scrapbook" class="row justify-content-center"> 
+                    <a href= "{% url 'scrapbook:scrapbook_view' username=user.username %}"><button id="my" class="button btn btn-sm"><strong><h5>Take Me to<br>My Scrapbook</h5></strong></button></a>
                 </div>
                 
                 {% for scrapbook in books %} 
-                <div class="row justify-content-center buttons">
-                    <a href= "{% url 'scrapbook:scrapbook_view' username=scrapbook.owner.username %}"> <button id="button2" class="button btn btn-sm btn-warning"><strong>{{scrapbook.owner}}'s scrapbook</strong></button></a>
+                <div class="row justify-content-center text-center buttons mx-auto">
+                    <a href= "{% url 'scrapbook:scrapbook_view' username=scrapbook.owner.username %}"> <button class="button2 button btn btn-sm"><strong>{{scrapbook.owner.first_name}}'s scrapbook<br>({{scrapbook.owner.username}})</strong></button></a>
                 </div>
                 {% endfor %}
 
-                <div class="row justify-content-center buttons">
+                <div class="row justify-content-center">
                     <a id="logout"href="{% url 'scrapbook:logout' %}"><button class="btn btn-danger">Log out</button></a>
                 </div>
-            </div>
             {% endif %}
 
             

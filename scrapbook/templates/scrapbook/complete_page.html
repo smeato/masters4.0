@@ -1,9 +1,48 @@
 {% extends 'scrapbook/base.html' %} 
-{% block body_block %} 
 
+{% load static %}
+{% block body_block %} 
+<link href="{% static 'scrapbook/css/complete_page.css' %}" rel="stylesheet">
 <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<h1>{{ page.title }}</h1>
+
+
+<div id="header" class="row">
+
+    <!-- column for buttons-->
+    <div class="col-sm-4">
+        <div class="container">
+            <div class="row">
+                <a href="{% url 'scrapbook:help' %}"><button id="help_button" class="btn btn-primary"><strong>HELP PAGE</strong></button></a> 
+            </div>
+            <div class="row">
+                <a href="{% url 'scrapbook:index' %}"><button id="home_button" class="btn btn-primary"><strong>HOME</strong></button></a> 
+            </div>
+        </div>
+    </div>
+
+    <!--column for scrapbook and title-->
+    <div class="col-sm-4">
+        <div class="container">
+            <div class="row justify-content-center">
+                <h3>{{ page.title }}</h3>
+            </div>
+            <div class="row justify-content-center">
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- column for dementia clock-->
+    <div class="col-sm-4">
+        <div class="container">
+            <div id="clock" class="row justify-content-center">
+                <h4>{{ clock|linebreaks }}</h4>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 <div id="song_selection">
 <h4>What song would you like to put on this scrapbook page?</h4>
@@ -16,18 +55,30 @@
     {% csrf_token %}
 </form>
 
-<button id="button1" type="button" class="btn btn-success" style="display: none">This One</button>
-<iframe id="embed1" style="border-radius:12px" src="" width="40%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-
-<button id="button2" type="button" class="btn btn-success" style="display: none">This One</button>
-<iframe id="embed2" style="border-radius:12px" src="" width="40%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-
-<button id="button3" type="button" class="btn btn-success" style="display: none">This One</button>
-<iframe id="embed3" style="border-radius:12px" src="" width="40%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-
-<button id="button4" type="button" class="btn btn-success" style="display: none">This One</button>
-<iframe id="embed4" style="border-radius:12px" src="" width="40%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+<div class="container">
+<div class="row" id="songs">
+<div class="col-sm-3">
+<button id="button1" type="button" class="btn btn-success justify-content-center" style="display: none">This One</button>
+<iframe id="embed1" style="border-radius:12px" src="" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 </div>
+<div class="col-sm-3">
+<button id="button2" type="button" class="btn btn-success" style="display: none">This One</button>
+<iframe id="embed2" style="border-radius:12px" src="" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+</div>
+
+<div class="col-sm-3">
+<button id="button3" type="button" class="btn btn-success" style="display: none">This One</button>
+<iframe id="embed3" style="border-radius:12px" src="" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+</div>
+
+<div class="col-sm-3">
+<button id="button4" type="button" class="btn btn-success" style="display: none">This One</button>
+<iframe id="embed4" style="border-radius:12px" src="" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+</div>
+</div>
+</div>
+
+
 
 
 <div id="video_selection" style="display: none">
@@ -63,10 +114,11 @@
     var vid_required = false;
 </script>
 {% endif %}
+
+<script type="text/javascript" src="{% static 'scrapbook/js/complete_page.js' %}"> </script>
+
 <script id="pageIdScript">
     var page_id = "{{page.id}}";
 </script>
 
-
-<script type="text/javascript" src="/static/js/complete_page.js"> </script>
 {% endblock %}

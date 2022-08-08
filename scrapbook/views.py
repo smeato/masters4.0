@@ -18,7 +18,7 @@ from django.http import JsonResponse
 import json 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import date
-
+import random
 from pathlib import Path
 
 
@@ -31,7 +31,6 @@ def index(request):
         context['books'] = []
         scrapbooks = Scrapbook.objects.filter(collaborators__username=user.username)
         for book in scrapbooks: 
-            print(book)
             context['books'].append(book)
         
     return render(request, 'scrapbook/index.html', context)
@@ -64,7 +63,10 @@ class ScrapbookView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['username'] = self.user.username 
+        context['scrapbook'] = self.scrapbook
         context['viewable'] = self.viewable 
+        context['clock'] = get_clock()
+            
         return context
 
 
@@ -168,6 +170,7 @@ def complete_page(request, page_pk):
 
     context['user'] = current_user
     context['page'] = page
+    context['clock'] = get_clock()
     return render(request,'scrapbook/complete_page.html', context)
             
 
@@ -178,26 +181,16 @@ def page_view(request, page_pk):
     context = {}
     context['page'] = get_object_or_404(Page, pk=page_pk)
     context['scrapbook'] = context['page'].scrapbook
-    today = date.today()
-    context['day'] = today.strftime("%d %B, %Y")
-    weekday = today.weekday() 
-    if weekday == 1: 
-        day = "Monday"
-    elif weekday == 2:
-        day = "Tuesday"
-    elif weekday == 3:
-        day = "Wednesday"
-    elif weekday == 4:
-        day = "Thursday"
-    elif weekday == 5:
-        day = "Friday"
-    elif weekday == 6:
-        day = "Saturday"
-    elif weekday == 7:
-        day = "Sunday"
-        
-    context['weekday'] = day  
+    context['clock'] = get_clock() 
     return render(request, 'scrapbook/page_view.html', context)
+
+
+def random_page(request, username):
+    owner = User.objects.get(username=username)
+    scrapbook = Scrapbook.objects.get(owner=owner)
+    pages = Page.objects.filter(scrapbook=scrapbook)
+    rand_page = random.choice(pages) 
+    return redirect('scrapbook:page_view', page_pk=rand_page.id)
 
 def no_access(request):
     return render(request, 'scrapbook/no_access.html')
@@ -236,14 +229,23 @@ def add_note(request):
     if is_ajax(request):
         data = json.load(request)
         page = get_object_or_404(Page, id=data['page_pk'])
-        new_note = TextNote(page=page, text=data['note'], creator=request.user)
+        print(data['title'])
+        new_note = TextNote(page=page, text=data['note'], creator=request.user, title=data['title'])
         new_note.save()
         return JsonResponse(data)
 
 @login_required
 def view_notes(request, page_pk):
     page = get_object_or_404(Page, id=page_pk)
-    
+    print(page_pk)
+    context= {}
+    context['notes'] = []
+    notes = TextNote.objects.filter(page = page)
+    for note in notes:
+        print(note)
+        context['notes'].append(note)
+    context['page'] = page
+    return render(request, 'scrapbook/view_notes.html', context)
     
 @login_required
 def user_logout(request):
@@ -292,3 +294,23 @@ class AjaxTest(View):
 def is_ajax(request):
     return request.headers.get('X-Requested-With') == 'XMLHttpRequest'
 
+def get_clock():
+    tdy = date.today()
+    d8t = tdy.strftime("%d %B, %Y")
+    wkday = tdy.weekday() 
+    if wkday == 0: 
+        tday = "Monday"
+    elif wkday == 1:
+        tday = "Tuesday"
+    elif wkday == 2:
+        tday = "Wednesday"
+    elif wkday == 3:
+        tday = "Thursday"
+    elif wkday == 4:
+        tday = "Friday"
+    elif wkday == 5:
+        tday = "Saturday"
+    elif wkday == 6:
+        tday = "Sunday"
+        
+    return "Today is " + tday + "\n" + d8t

@@ -70,9 +70,9 @@ class Image(models.Model):
     
 class TextNote(models.Model):
     page = models.ForeignKey('Page', on_delete=models.CASCADE)
-    text = models.TextField()
+    text = models.TextField(max_length=10000)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
-    
+    title = models.CharField(max_length=100)
     
     
 class VoiceNote(models.Model):

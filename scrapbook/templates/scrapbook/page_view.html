@@ -36,7 +36,7 @@
         <div class="col-sm-4">
             <div class="container">
                 <div id="clock" class="row justify-content-center">
-                    <h4>Today is {{weekday}} <br>{{day}}</h4>
+                    <h4>{{clock|linebreaks}}</h4>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
                 <p>Sorry, your internet browser is having trouble with playing videos on the page.</p> 
             </video>
             {% elif page.vid_src %}
-                <iframe id="youtube" width="100%" height="100%" src="" 
+                <iframe id="youtube" width="100%" height="70%" src="" 
                 frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             {% else %} 
                 <button class="btn btn-success">No video yet. Add now.</button>
@@ -64,18 +64,24 @@
             <div class="container">
                 <div id="note_card" class="card">
                     <div  class="card-body">
-                        <h5 class="card-title">Add a Note</h5>
+                        <h6 class="card-text text-center">Add a Note</h6>
+                        <h6 class="card-subtitle">Title</h6>
+                        <div class="form-group">
+                            <input id="title_input" class="form-control txtarea"></input>
+                        </div>
+                        <h6 class="card-subtitle">Note</h6>
                         <div class="form-group">
                             {% csrf_token %}
-                            <textarea class="form-control txtarea" id="add_note" rows="2"></textarea>
+                            <textarea class="form-control txtarea" id="add_note" rows="3"></textarea>
                         </div>
-                        <button class="btn btn-success" id="add">
+                        
+                        <button class="btn btn-sm btn-success" id="add">
                         Add Note</button>
                     </div>
                 </div>
                 <hr>
                 <div class="text-center">
-                <button id="notes_button" class="btn btn-success "><h3>Open Notes</h3></button>
+                <a href="{% url 'scrapbook:view_notes' page_pk=page.id %}"><button id="notes_button" class="btn btn-sm btn-success "><h5>Open Notes</h5></button></a>
                 </div>
             </div>
         </div>
@@ -90,7 +96,7 @@
 
     <!-- row for song-->
     <div id="spotify_row" class="row justify-content-center">
-        <iframe id="spotify" style="border-radius:12px" src="" width="100%" height="100%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        <iframe id="spotify" style="border-radius:12px" src="" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
     </div>
 
 </div>
