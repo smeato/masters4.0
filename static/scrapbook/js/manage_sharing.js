@@ -23,8 +23,10 @@ function addListeners() {
                 },
                 body: JSON.stringify({ 'removed_collab': id })
             })
-            //.then(// todo error check)
-        }, false);
+                .then(response => {
+                    $("#ycollabs").load(window.location.href + " #collabs");
+                }, false)
+        });
 
     }
 }
