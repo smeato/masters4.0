@@ -13,15 +13,6 @@ from os import urandom
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-### import subprocess
-###subprocess.call('ffmpeg -i video.mp4 video.flv') # check the ffmpeg command line :)
-
-## try this with one. Split file path based on . char and convert to mp4
-#check how slow it is
-#https://stackoverflow.com/questions/49617878/converting-mov-to-mp4-with-ffmpeg-better-quality
-
-
-
 
 USERNAME_MAX = 15
 PASSWORD_MIN = 4
@@ -34,10 +25,14 @@ class Account(models.Model):
     id = models.IntegerField() 
     has_scrapbook = models.BooleanField(default=True)
     shares_scrapbook = models.BooleanField(default=False)
+    recovery_email = models.EmailField(blank=True)
     
     def save(self, *args, **kwargs):
         self.id = self.user.id
         super(Account, self).save(*args, **kwargs)
+        
+    def __str__(self):
+        return self.user.username 
     
 @receiver(post_save, sender=User)
 def create_account(sender, instance, created, **kwargs):
@@ -47,8 +42,8 @@ def create_account(sender, instance, created, **kwargs):
         
     
 class Scrapbook(models.Model):
-    owner = models.OneToOneField('Account', related_name='owner', on_delete=models.CASCADE)
-    collaborators = models.ManyToManyField('Account', related_name='collaborators', blank=True)
+    owner = models.OneToOneField(User, related_name='owner', on_delete=models.CASCADE)
+    collaborators = models.ManyToManyField(User, related_name='collaborators', blank=True)
     share_code = models.CharField(max_length=20)    #new test
 
     def __str__(self):

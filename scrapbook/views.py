@@ -48,6 +48,7 @@ class ScrapbookView(LoginRequiredMixin, ListView):
         self.scrapbook = get_object_or_404(Scrapbook, owner=self.user)
         
         self.viewable = False
+        self.is_owner = False 
         
         if self.user == self.request.user:
             self.viewable = True 
@@ -339,7 +340,20 @@ def register(request):
             user = reg_form.save()
             account = Account(user=user)
             user.set_password(user.password)
-            new_scrapbook = Scrapbook(owner=account)
+            account.recovery_email = reg_form.cleaned_data['recovery_email']
+            if reg_form.cleaned_data['role'] == 'owner':
+                account.has_scrapbook = True
+                account.shares_scrapbook = False
+            elif reg_form.cleaned_data['role'] == 'contributor':
+                account.has_scrapbook = False
+                account.shares_scrapbook = True
+            elif reg_form.cleaned_data['role'] == 'own/contrib':
+                account.has_scrapbook = True
+                account.shares_scrapbook = True
+            
+            account.save()
+            print(reg_form.cleaned_data['role'])
+            new_scrapbook = Scrapbook(owner=user)
             new_scrapbook.save()
             user.save()
             
@@ -356,7 +370,9 @@ def register(request):
         reg_form = RegForm()
         
     context['form'] = reg_form
-    context['registered'] = registered      
+    context['registered'] = registered    
+    if registered or request.user.is_authenticated:
+        return redirect(reverse('scrapbook:index'))
     return render(request, 'scrapbook/register.html', context)
 
 
