@@ -1,17 +1,33 @@
 from django.contrib.auth.models import User
 from django.forms import ClearableFileInput, FileField, ImageField, ModelForm, TextInput, URLInput
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from pyparsing import Char
 
 
 from scrapbook.models import Page
 
-class UserForm(ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
+ROLES =[('owner', 'I want to make a scrapbook'),
+        ( 'contributor', 'I want to help someone with their scrapbook'), 
+        ('own/contrib', 'I want to do both'),]
+
+class RegForm(UserCreationForm):
+        role = forms.CharField(label='What would you like to use Scrapbook for?', widget=forms.Select(choices=ROLES))
+        recovery_email = forms.EmailField(label='If you need to reset your password, what email should we send the reset link to?')
+        
+        class Meta:
+                model = User
+                fields = ['username', 'password1', 'password2', 'first_name','role']
+        
+
+
+# class UserForm(ModelForm):
+#     password = forms.CharField(widget=forms.PasswordInput())
     
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password', 'first_name')
+    
+#     class Meta:
+#         model = User
+#         fields = ('username', 'email', 'password', 'first_name')
         
 
 

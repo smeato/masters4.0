@@ -6,10 +6,15 @@
     registered
 {% else %} 
     <p>Register here</p>
+
     <form id="user_form" method="post" action="{% url 'scrapbook:register' %}" enctype="multipart/form-data">
         {% csrf_token %} 
-        {{ user_form.as_p}}
-
+        {% for field in form %} 
+        <div>
+        {{ field.errors}}
+        {{ field.label_tag}} {{field}}
+        </div>
+        {% endfor %}
         <input type="submit" name="submit" value="Register"/>
     </form>
 {% endif %} 

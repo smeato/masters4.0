@@ -4,8 +4,8 @@ import os
 from django.contrib.auth.decorators import login_required 
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect 
-from .models import Image, Page, Scrapbook, User, TextNote
-from scrapbook.forms import UserForm 
+from .models import Image, Page, Scrapbook, User, TextNote, Account
+from scrapbook.forms import RegForm
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect 
 from django.urls import reverse, reverse_lazy
@@ -25,11 +25,13 @@ from pathlib import Path
 # Create your views here.
 def index(request): 
     context = {}
+
     
     if request.user.is_authenticated:
         user = request.user
+        account = Account.objects.get(user=user)
         context['books'] = []
-        scrapbooks = Scrapbook.objects.filter(collaborators__username=user.username)
+        scrapbooks = Scrapbook.objects.filter(collaborators__id=user.id)
         for book in scrapbooks: 
             context['books'].append(book)
         
@@ -331,11 +333,14 @@ def register(request):
     registered = False
     
     if request.method == 'POST':
-        user_form = UserForm(request.POST)
+        reg_form = RegForm(request.POST)
         
-        if user_form.is_valid():
-            user = user_form.save()
+        if reg_form.is_valid():
+            user = reg_form.save()
+            account = Account(user=user)
             user.set_password(user.password)
+            new_scrapbook = Scrapbook(owner=account)
+            new_scrapbook.save()
             user.save()
             
             registered = True
@@ -345,12 +350,12 @@ def register(request):
                 return redirect(reverse('scrapbook:index'))
 
         else:
-            print(user_form.errors)
+            context['errors'] = reg_form.errors
     
     else:
-        user_form = UserForm()
+        reg_form = RegForm()
         
-    context['user_form'] = user_form
+    context['form'] = reg_form
     context['registered'] = registered      
     return render(request, 'scrapbook/register.html', context)
 

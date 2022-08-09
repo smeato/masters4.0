@@ -47,7 +47,9 @@
         <div class="col-sm-2 float-left">
             <a href="{% url 'scrapbook:manage_sharing' username=scrapbook.owner.username %}">
                 <button id="collab_button" class="btn btn-md btn-danger"><h4><strong>Manage <br>Sharing</strong><br></h4><h6>(add/remove collaborator)</h6></button>
+                <button id="code_button" class="btn btn-md btn-warning"><h4><strong>{{scrapbook.share_code}}</h4></button>
             </a>
+
             </div>
         {% endif %}
         <div class="col-sm-4 justify-content-center">
