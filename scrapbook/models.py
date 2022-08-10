@@ -26,9 +26,11 @@ class Account(models.Model):
     has_scrapbook = models.BooleanField(default=True)
     shares_scrapbook = models.BooleanField(default=False)
     recovery_email = models.EmailField(blank=True)
+    recovery_relationship = models.CharField(max_length=20)
     
     def save(self, *args, **kwargs):
         self.id = self.user.id
+        self.user.email = self.recovery_email
         super(Account, self).save(*args, **kwargs)
         
     def __str__(self):

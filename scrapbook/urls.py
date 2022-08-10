@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views 
 from scrapbook.views import ScrapbookView
+from django.contrib.auth import views as auth_views
 
 app_name = 'scrapbook'
 urlpatterns = [
@@ -26,5 +27,5 @@ urlpatterns = [
     path('register', views.register, name='register'),
     path('account-help', views.account_recovery, name='account_recovery'),
     path('access-denied', views.no_access, name='no_access'),
-    path('ajax', views.AjaxTest.as_view(), name='ajax_test'),
+    path('password_reset', views.password_reset_request, name='password_reset'),
 ]

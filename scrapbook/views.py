@@ -1,5 +1,6 @@
 #from typing_extensions import Required
 from asyncio import subprocess
+from cgitb import reset
 import os
 from django.contrib.auth.decorators import login_required 
 from django.shortcuts import get_object_or_404, render
@@ -20,6 +21,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import date
 import random
 from pathlib import Path
+from django.core.mail import send_mail, BadHeaderError
+from django.contrib.auth.forms import PasswordResetForm
+from django.template.loader import render_to_string
+from django.db.models.query_utils import Q 
+from django.utils.http import urlsafe_base64_encode
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
+from django.contrib.auth import authenticate
 
 
 # Create your views here.
@@ -30,10 +39,12 @@ def index(request):
     if request.user.is_authenticated:
         user = request.user
         account = Account.objects.get(user=user)
+        context['account'] = account
         context['books'] = []
         scrapbooks = Scrapbook.objects.filter(collaborators__id=user.id)
-        for book in scrapbooks: 
-            context['books'].append(book)
+        if account.shares_scrapbook:
+            for book in scrapbooks: 
+                context['books'].append(book)
         
     return render(request, 'scrapbook/index.html', context)
 
@@ -341,6 +352,7 @@ def register(request):
             account = Account(user=user)
             user.set_password(user.password)
             account.recovery_email = reg_form.cleaned_data['recovery_email']
+            account.recovery_relationship = reg_form.cleaned_data['recovery_relationship']
             if reg_form.cleaned_data['role'] == 'owner':
                 account.has_scrapbook = True
                 account.shares_scrapbook = False
@@ -352,7 +364,6 @@ def register(request):
                 account.shares_scrapbook = True
             
             account.save()
-            print(reg_form.cleaned_data['role'])
             new_scrapbook = Scrapbook(owner=user)
             new_scrapbook.save()
             user.save()
@@ -403,3 +414,34 @@ def get_clock():
         tday = "Sunday"
         
     return "Today is " + tday + "\n" + d8t
+
+
+def password_reset_request(request):
+    if request.method == "POST":
+        reset_form = PasswordResetForm(request.POST)
+        if reset_form.is_valid():
+            data = reset_form.cleaned_data['email']
+            users = User.objects.filter(Q(email=data))
+            if users.exists():
+                for user in users:
+                    subject = "Password Reset for Scrapbook"
+                    email_template_name = 'accounts/password_reset_email.txt'
+                    info = {
+                        'email': user.email, 
+                        'domain': 'localhost:8000',
+                        'site_name': 'Scrapbook', 
+                        'uid': urlsafe_base64_encode(force_bytes(user.pk)), 
+                        'user': user, 
+                        'token': default_token_generator.make_token(user), 
+                        'protocol': 'http',
+                    }
+                    email = render_to_string(email_template_name, info)
+                    try: 
+                        send_mail(subject, email, '2263320s@student.gla.ac.uk', [user.email], fail_silently=False)
+                    except BadHeaderError:
+                        return HttpResponse('Invalid header found.')
+                    return redirect(reverse('password_reset_done'))
+    reset_form = PasswordResetForm() 
+    return render(request, 'accounts/password_reset.html', context={'reset_form': reset_form})            
+        
+                

@@ -11,13 +11,21 @@ ROLES =[('owner', 'I want to make a scrapbook'),
         ( 'contributor', 'I want to help someone with their scrapbook'), 
         ('own/contrib', 'I want to do both'),]
 
+RELATIONSHIPS =[ ('own', 'Me'),
+                ('partner/spouse', 'Partner/Spouse'), 
+                ('child', 'Child'), 
+                ('friend', 'Friend'), 
+                ('carer', 'Carer/Assistant')]
+
 class RegForm(UserCreationForm):
-        role = forms.CharField(label='What would you like to use Scrapbook for?', widget=forms.Select(choices=ROLES))
+
         recovery_email = forms.EmailField(label='If you need to reset your password, what email should we send the reset link to?')
+        recovery_relationship = forms.CharField(label='Who does this email belong to?', widget=forms.Select(choices=RELATIONSHIPS))
+        role = forms.CharField(label='What would you like to use Scrapbook for?', widget=forms.Select(choices=ROLES))
         
         class Meta:
                 model = User
-                fields = ['username', 'password1', 'password2', 'first_name', 'recovery_email', 'role']
+                fields = ['username', 'password1', 'password2', 'first_name', 'recovery_email', 'role', 'recovery_relationship']
         
 
 

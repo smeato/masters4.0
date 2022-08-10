@@ -42,7 +42,7 @@ REGISTRATION_OPEN = True
 REGISTRATION_AUTO_LOGIN = True
 LOGIN_REDIRECT_URL = 'scrapbook:index'
 LOGOUT_REDIRECT_URL = 'scrapbook:index'
-LOGIN_URL = 'auth_login'
+LOGIN_URL = 'scrapbook:login'
 
 # Application definition
 
@@ -138,3 +138,5 @@ MEDIA_ROOT = MEDIA_DIR
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

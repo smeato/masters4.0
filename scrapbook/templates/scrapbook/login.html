@@ -8,7 +8,7 @@
     <div id="login" class="row justify-content-center">
         <div class="card" id="login">
             <div class="card-body">
-                <h5 class="card-title">Log In</h5>
+                <h3 class="card-title">Log In</h3>
                 <form id="login_form" method="post" action="{% url 'scrapbook:login' %}">
                     {% csrf_token %} 
                     <div class="form-group">
@@ -22,14 +22,13 @@
                         {{ form.password }}
                         <input class="col-form-label-md" type="password" name="password" value="" size="40%"/>
                     </div>
-                    <button class="button btn btn-lg btn-success" type="submit" value="submit">Log In</button>
+                    <button class="button btn btn-md btn-success" type="submit" value="submit">Log In</button>
                 </form>
+                <a href="{% url 'scrapbook:password_reset' %}"><button class="btn btn-md btn-danger">I'm not sure of my password</button></a>
             </div>
             
         </div> 
         
     </div>
-    <div class="row justify-content-center">
-        <button class="btn btn-md btn-danger">I'm Not Sure</button>
-    </div>
+   
 {% endblock %}
