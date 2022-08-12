@@ -1,0 +1,46 @@
+{% extends 'scrapbook/base.html' %} 
+{% load static %} 
+
+{% block body_block %}
+<link href="{% static 'scrapbook/css/add_scrapbook.css' %}" rel="stylesheet">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div id="info_side" class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h1 id="title">How to Add a Scrapbook</h1>
+                    </div>
+                    <div>
+                        <h3 id="explanation"><strong>To access someone else's scrapbook you need a unique code that looks something like this:</strong></h3>
+                        <button id="example_code" class="btn btn-md btn-warning"><h4><strong>BJEXTLP</h4></button>
+                        <h5>If they would like to share with you then they can find this code in the top left of their scrapbook contents page, or individual page.</h5>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div id="code_side" class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h1 class="text-danger">Got a code?</h1>
+                    </div>
+                    <div>
+                        <h3 class="label">Enter it below:</h3>
+                        <input class="form-group" type="text">
+                        {% csrf_token %}
+                        <button class="btn btn-danger btn-lg" id="code_input">Add</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}

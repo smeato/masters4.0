@@ -40,6 +40,7 @@ def index(request):
         user = request.user
         account = Account.objects.get(user=user)
         context['account'] = account
+        print (context['account'].shares_scrapbook)
         context['books'] = []
         scrapbooks = Scrapbook.objects.filter(collaborators__id=user.id)
         if account.shares_scrapbook:
@@ -139,7 +140,14 @@ def add_collaborator(request, username):
         return JsonResponse(data)
     
     
-
+def add_scrapbook(request):
+    context = {}
+    context['user'] = request.user 
+    context['account'] = Account.objects.get(user=context['user'])
+    return render(request,'scrapbook/add_scrapbook.html', context)
+    
+    
+    
 class PageCreateView(LoginRequiredMixin, CreateView):
     model = Page
     fields = ['title', 'video_file', 'image_file']
@@ -386,7 +394,24 @@ def register(request):
         return redirect(reverse('scrapbook:index'))
     return render(request, 'scrapbook/register.html', context)
 
-
+def check_username(request):
+    if is_ajax(request):
+        data = json.load(request)
+        response = {}
+        try:
+            user = User.objects.get(username=data['username'])
+            account = Account.objects.get(user=user)
+            print(data['username'])
+            response['relationship'] = account.recovery_relationship
+        except User.DoesNotExist:
+            response['relationship'] = 'none'
+       
+        print(response['relationship'])    
+        return JsonResponse(response)
+    
+    
+    
+    
 class AjaxTest(View):
     def get(self, request):
         return render(request, 'scrapbook/ajax_test.html')

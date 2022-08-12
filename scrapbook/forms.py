@@ -25,7 +25,7 @@ class RegForm(UserCreationForm):
         
         class Meta:
                 model = User
-                fields = ['username', 'password1', 'password2', 'first_name', 'recovery_email', 'role', 'recovery_relationship']
+                fields = ['username', 'password1', 'password2', 'first_name', 'recovery_email', 'recovery_relationship', 'role',]
         
 
 

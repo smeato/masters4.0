@@ -16,6 +16,7 @@ urlpatterns = [
     path('complete-page/song-search/', views.song_search, name='song_search'),
     path('complete-page/song-save/', views.song_save, name='song_save'),
     path('complete-page/youtube-search/', views.youtube_search, name='youtube_search'),
+    path('add-scrapbook/', views.add_scrapbook, name='add_scrapbook'),
     #path('create-gallery/<int:page_pk>/', views.create_gallery, name='create_gallery'),
     path('view/<int:page_pk>', views.page_view, name='page_view'), 
     path('view/page/add-note/', views.add_note, name='add_note'),
@@ -28,4 +29,5 @@ urlpatterns = [
     path('account-help', views.account_recovery, name='account_recovery'),
     path('access-denied', views.no_access, name='no_access'),
     path('password_reset', views.password_reset_request, name='password_reset'),
+    path('check-username/', views.check_username, name='check_username'),
 ]

@@ -2,22 +2,38 @@
 {% load static %} 
 
 {%  block body_block %}
-<link href="static/scrapbook/css/index.css" rel="stylesheet">
-
+<link href="{% static 'scrapbook/css/index.css' %}" rel="stylesheet">
 <div class="container-fluid">
 
     <!-- left side of page welcome greeting. Personalised if user is logged in-->
     <div class="row">
         <div id="left_side" class="col-sm-4">
-    
-            {% if user.is_authenticated %} 
-            <h1 class="welcome ">Welcome back to Scrapbook {{ user.get_short_name }}</h1>
-        
-
-            {% else %} 
-            <h1 class="welcome">Welcome to Scrapbook! </h1>
-            <br />
-            {% endif %}
+            <div class="container">
+                <div class="row justify-content-center">
+                    {% if not user.is_authenticated %} 
+                        <div class="row">
+                            <h1 class="welcome">Welcome to Scrapbook! </h1>
+                            <br />
+                        </div>
+                    {% else %} 
+                            <h1 class="welcome ">Welcome back to Scrapbook, {{ user.get_short_name }}</h1>
+                            {% if account.has_scrapbook %} 
+                                <div class="row text-center border-dark">
+                                    <h3>To go to your scrapbook click "Take Me to My Scrapbook".</h3>
+                                </div>
+                            {% endif %} 
+                            {% if account.shares_scrapbook %} 
+                                <div class="row text-center  border-dark">
+                                    {% if books %}
+                                        <h3  class=" border-dark">To look at, or add to, someone else's scrapbook click the label with their name. Click "Add a Scrapbook" if someone else wants to add you too.</h3>
+                                    {% else %} 
+                                        <h3 class="border-dark">To get started on helping someone with their scrapbook click "Add a Scrapbook".</h3>
+                                    {% endif %} 
+                                </div>
+                            {% endif %} 
+                    {% endif %}
+                </div>
+            </div>
         </div>
 
 
@@ -28,32 +44,32 @@
         <div id="right_side" class="col-sm-8">
 
             <div class="container">
-            <div class="row">
-                <div class="card" id="login">
-                    <div class="card-body">
-                        <h5 class="card-title">Log In</h5>
-                        <form id="login_form" method="post" action="{% url 'scrapbook:login' %}">
-                            {% csrf_token %} 
-                            <div class="form-group">
-                                <label>Username</label>
-                                {{ form.username }}
-                                <input class="col-form-label-sm" type="text" name="username" value="" size="5%"/>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Password</label>
-                                {{ form.password }}
-                                <input class="col-form-label-sm" type="password" name="password" value="" size="5%"/>
-                            </div>
-                            <button class="button btn btn-success" type="submit" value="submit">Log In</button>
-                        </form>
-                    </div>
+                <div class="row">
+                    <div class="card mb-3" id="login">
+                        <div class="card-body">
+                            <h5 class="card-title">Log In</h5>
+                            <form id="login_form" method="post" action="{% url 'scrapbook:login' %}">
+                                {% csrf_token %} 
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    {{ form.username }}
+                                    <input class="col-form-label-sm" type="text" name="username" value="" size="5%"/>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    {{ form.password }}
+                                    <input class="col-form-label-sm" type="password" name="password" value="" size="5%"/>
+                                </div>
+                                <button class="button btn btn-success" type="submit" value="submit">Log In</button>
+                            </form>
+                            <a id="unsure_password" href="{% url 'scrapbook:password_reset' %}"><button class="btn btn-danger">I'm not sure</button></a>
+                        </div>
                     
-                </div> 
-                
-            </div>
-            <div class="row justify-content-center">
-                <a href="{% url 'scrapbook:register' %}"><button id="register_link" class="button btn btn-warning"><h4>I'm New<br></h4><h6>(Register)</h6></button></a>
+                    </div> 
+                </div>
+                <div class="row justify-content-center">
+                    <a href="{% url 'scrapbook:register' %}"><button id="register_link" class="button btn btn-warning"><h4>I'm New<br></h4><h6>(Register)</h6></button></a>
                 </div>
             </div>
         </div>
@@ -63,15 +79,23 @@
             {% else %}
             <div id="right" class="col-sm-8">
                 <div class="container">
+                
+                    {% if account.has_scrapbook %}
                 <div id="my_scrapbook" class="row justify-content-center"> 
                     <a href= "{% url 'scrapbook:scrapbook_view' username=user.username %}"><button id="my" class="button btn btn-sm"><strong><h4>Take Me to<br>My Scrapbook</h4></strong></button></a>
                 </div>
+                    {% endif %}
                 
+                {% if account.shares_scrapbook %}
                 {% for scrapbook in books %} 
                 <div class="row justify-content-center text-center buttons mx-auto">
                     <a href= "{% url 'scrapbook:scrapbook_view' username=scrapbook.owner.username %}"> <button class="button2 button btn btn-sm"><strong>{{scrapbook.owner.first_name}}'s scrapbook<br>({{scrapbook.owner.username}})</strong></button></a>
                 </div>
                 {% endfor %}
+                <div  class="row justify-content-center text-center buttons mx-auto">
+                    <a id="add_scrapbook" href="{% url 'scrapbook:add_scrapbook' %}"><button class="btn btn-warning btn-lg">Add a Scrapbook</button></a>
+                </div>
+                {% endif %}
 
                 <div class="row justify-content-center">
                     <a id="logout"href="{% url 'scrapbook:logout' %}"><button class="btn btn-danger">Log out</button></a>
