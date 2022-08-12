@@ -15,7 +15,7 @@
                     <div>
                         <h3 id="explanation"><strong>To access someone else's scrapbook you need a unique code that looks something like this:</strong></h3>
                         <button id="example_code" class="btn btn-md btn-warning"><h4><strong>BJEXTLP</h4></button>
-                        <h5>If they would like to share with you then they can find this code in the top left of their scrapbook contents page, or individual page.</h5>
+                        <h5>If they would like to share their scrapbook with you they can find this code in the top left of their scrapbook contents page, or any individual page.</h5>
                     </div>
 
                 </div>
@@ -30,9 +30,9 @@
                     </div>
                     <div>
                         <h3 class="label">Enter it below:</h3>
-                        <input class="form-group" type="text">
+                        <input id="code_input" class="form-group" type="text">
                         {% csrf_token %}
-                        <button class="btn btn-danger btn-lg" id="code_input">Add</button>
+                        <button class="btn btn-danger btn-lg" id="add_button">Add</button>
                     </div>
                 </div>
 
@@ -43,4 +43,5 @@
 
 </div>
 
+<script type="text/javascript" src="{% static 'scrapbook/js/add_scrapbook.js' %}"> </script>
 {% endblock %}

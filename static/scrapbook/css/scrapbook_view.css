@@ -25,8 +25,10 @@
 }
 
 #clock {
-    background: #4C651A;
-    color: white;
+    background: rgba(226, 179, 7, 0.73);
+    color: black;
+    border-radius: 15px;
+    padding-top: 5%;
 }
 
 

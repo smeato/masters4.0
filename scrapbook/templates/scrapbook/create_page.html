@@ -2,17 +2,17 @@
 {% load static %}
 
 {% block body_block %} 
-<style>
+<!-- <style>
 
     #title_section {
         display: block;
     }
 
     div {
-        display: none;
+        display: block;
     }
 
-</style>
+</style> -->
 <form method="post" enctype="multipart/form-data" action="{% url 'scrapbook:create_page' username=scrapbook.owner.username %}">
 {% csrf_token %} 
 
@@ -28,7 +28,7 @@
 </fieldset>
 </div>
 <!--</div> -->
-
+<!-- 
 </br>
 <div id="song_section">
 <fieldset>
@@ -80,6 +80,6 @@
 <script type="text/javascript" src="/static/js/page_form.js"> </script>
 <script>
     var url = "{{ page.vid_id }}"
-</script>
+</script> -->
 
 {% endblock %} 

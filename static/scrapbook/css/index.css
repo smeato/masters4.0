@@ -37,14 +37,12 @@
 #register_link {
     margin: 0 auto;
     margin-top: 0;
-
-
 }
 
 .welcome {
     height: 100%;
     margin: 0 auto;
-    padding: 100px;
+    padding: 5%;
     text-align: center;
 }
 
@@ -74,13 +72,15 @@
 }
 
 .buttons {
-    margin-top: 2%;
+    margin-top: 5%;
     margin-bottom: 0;
-    height: 50%;
+    height: 100%;
     width: 200px;
     /* background-color: rgba(224, 198, 248, 0.49); */
     border-color: black;
     border-width: 2px;
+    background-color: rgba(224, 198, 248, 0.838);
+    z-index: 9;
 }
 
 a {
@@ -88,7 +88,7 @@ a {
 }
 
 #logout {
-    margin-top: 10%;
+    margin-top: 2%;
 }
 
 #unsure_password {
@@ -98,6 +98,17 @@ a {
 }
 
 #add_scrapbook {
-    margin-top: 200px;
-    background-color: none;
+    margin-top: 5%;
+    background-color: rgb(225, 183, 32);
+    z-index: 9;
+}
+
+.border-dark {
+    border-width: 20px;
+    border-color:
+        black;
+}
+
+#book_cover {
+    margin-top: 5%;
 }

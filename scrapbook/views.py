@@ -45,6 +45,7 @@ def index(request):
         scrapbooks = Scrapbook.objects.filter(collaborators__id=user.id)
         if account.shares_scrapbook:
             for book in scrapbooks: 
+                print(book)
                 context['books'].append(book)
         
     return render(request, 'scrapbook/index.html', context)
@@ -147,7 +148,20 @@ def add_scrapbook(request):
     return render(request,'scrapbook/add_scrapbook.html', context)
     
     
-    
+def add_with_code(request):
+    if is_ajax(request):
+        response = {}
+        data = json.load(request)
+        code = data['code']
+        print(code)
+        scrapbook = Scrapbook.objects.get(share_code=code)
+        if not scrapbook:
+            response['user'] = 'none'
+        else:
+            response['user'] = scrapbook.owner.username
+            scrapbook.collaborators.add(request.user)
+        return JsonResponse(response)
+
 class PageCreateView(LoginRequiredMixin, CreateView):
     model = Page
     fields = ['title', 'video_file', 'image_file']
