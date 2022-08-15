@@ -1,0 +1,23 @@
+{% extends 'scrapbook/base.html' %} 
+{% load static %} 
+
+{% block page_title %} 
+<h4>Add or Change the image for {{page.title}}</h4>
+{% endblock %} 
+
+{% block extra_button %} 
+    <a href="{% url 'scrapbook:scrapbook_view' username=page.scrapbook.owner.username %}"><button id="back" class="btn btn-primary"><strong>BACK</strong></button></a> 
+{% endblock %} 
+
+{% block body_block %} 
+<div class="container-fluid">
+<div class="row justify-content-center text-center pt-5">
+<form enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+<input class="btn btn-success" type="submit" value="Update">
+</form>
+</div>
+
+</div>
+{% endblock %}

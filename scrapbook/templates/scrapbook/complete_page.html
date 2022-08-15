@@ -1,55 +1,23 @@
 {% extends 'scrapbook/base.html' %} 
 
 {% load static %}
+
+{% block page_title %}
+<h3>Complete Your Page</h3>
+{% endblock %} 
+
 {% block body_block %} 
 <link href="{% static 'scrapbook/css/complete_page.css' %}" rel="stylesheet">
 <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-
-<div id="header" class="row">
-
-    <!-- column for buttons-->
-    <div class="col-sm-4">
-        <div class="container">
-            <div class="row">
-                <a href="{% url 'scrapbook:help' %}"><button id="help_button" class="btn btn-primary"><strong>HELP PAGE</strong></button></a> 
-            </div>
-            <div class="row">
-                <a href="{% url 'scrapbook:index' %}"><button id="home_button" class="btn btn-primary"><strong>HOME</strong></button></a> 
-            </div>
-        </div>
-    </div>
-
-    <!--column for scrapbook and title-->
-    <div class="col-sm-4">
-        <div class="container">
-            <div class="row justify-content-center">
-                <h3>{{ page.title }}</h3>
-            </div>
-            <div class="row justify-content-center">
-                
-            </div>
-        </div>
-    </div>
-
-    <!-- column for dementia clock-->
-    <div class="col-sm-4">
-        <div class="container">
-            <div id="clock" class="row justify-content-center">
-                <h4>{{ clock|linebreaks }}</h4>
-            </div>
-        </div>
-    </div>
-
-</div>
-
+<div class="container-fluid justify-content-center">
 <div id="song_selection">
-    <h4>What song would you like to put on this scrapbook page?</h4>
+    <h4>What song makes you think of "{{page.title}}"?</h4>
     <h5>Is there a song that brings back fond memories? Or just one that you enjoy listening to?</h5>
     <input id="song_title" type="text" placeholder="Song title">
     <input id="song_artist" type="text" placeholder="Artist/Band (optional)">
-    <button id="search_button" type="button" class="btn btn-success">DONE</button>
+    <button id="search_button" type="button" class="btn btn-success">SEARCH</button>
 
     <form>
         {% csrf_token %}
@@ -85,7 +53,7 @@
 <div id="video_selection" style="display: none">
     <h1>Video Selection</h1>
     <h4>Since you haven't uploaded a video you can find one on YouTube to use instead.</h3><br>
-    <h5 class="text-danger">Info: YouTube won't let you use a video with copyright music so some videos may not work, sorry!</h2>
+    <h5 class="text-danger">Info: YouTube won't let you use a video with copyrighted music so some videos may not work, sorry!</h2>
 
 
     <input id="yt_link" type="url" placeholder="paste the link here">
@@ -106,10 +74,10 @@
     <h1>All Done!</h1>
     </div>
     <div class="row justify-content-center">
-    <a href="{% url 'scrapbook:page_view' page_pk=page.id %}"><button id="gotoPage">Take Me to My New Page</button></a> 
+    <a href="{% url 'scrapbook:page_view' page_pk=page.id %}"><button class="btn btn-success btn-lg" id="gotoPage">Take Me to My New Page</button></a> 
     </div>
 </div>
-
+</div>
 {% if not page.video_file %} 
 <script id="pageIdScript">
     var vid_required = true;

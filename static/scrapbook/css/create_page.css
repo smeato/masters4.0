@@ -1,0 +1,25 @@
+/* .container-fluid {
+    padding-top: 2%;
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+    padding-right: 2%;
+    padding-left: 2%;
+    max-width: 100vw;
+    background-color: rgba(224, 198, 248, 0.49);
+} */
+
+#back {
+    border-radius: 20%;
+    border-color: black;
+    color: rgb(255, 255, 255);
+    width: 115px;
+}
+
+#form {
+    margin-left: 500px;
+}
+
+#ideas {
+    margin-top: 150px;
+}

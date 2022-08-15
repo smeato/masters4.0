@@ -6,9 +6,53 @@
     <meta name="viewport" content="width=device-width", initial-scale="1" charset="UTF-8"/>
     <title>{% block title_block %}Scrapbook{% endblock %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="{% static 'scrapbook/css/base.css' %}" rel="stylesheet">
 </head>
 
 <body>
+    {% block top_block %} 
+    <div id="header" class="row">
+
+        <!-- column for buttons-->
+        <div class="col-sm-4">
+            <div class="container">
+                <div class="row">
+                    <a href="{% url 'scrapbook:help' %}"><button id="help_button" class="btn btn-primary"><strong>HELP PAGE</strong></button></a> 
+                </div>
+                <div class="row">
+                    <a href="{% url 'scrapbook:index' %}"><button id="home_button" class="btn btn-primary"><strong>HOME</strong></button></a> 
+                </div> 
+                <div id="extra" class="row">
+                    {% block extra_button %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+
+        <!--column for scrapbook and title-->
+        <div class="col-sm-4">
+            <div class="container">
+                <div class="row justify-content-center text-center">
+                    {% block page_title %}
+                    <h1>{{ scrapbook.owner.first_name }}'s Scrapbook </h1><br><h3>(username: {{ scrapbook.owner.username}})</h3>
+                    {% endblock %}
+                </div>
+  
+            </div>
+        </div>
+
+        <!-- column for dementia clock-->
+        <div class="col-sm-4">
+            <div class="container">
+                <div id="clock" class="row justify-content-center">
+                    <h4>{{ clock|linebreaks}}</h4>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {% endblock %}
     <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     {% block body_block %} 

@@ -1,0 +1,30 @@
+#header {
+    background-color: rgba(224, 198, 248, 0.49);
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+#help_button {
+    border-radius: 20%;
+    background-color: rgb(255, 128, 0);
+    border-color: black;
+    color: rgb(255, 255, 255);
+    width: 115px;
+    margin-bottom: 5%;
+}
+
+#home_button {
+    border-radius: 20%;
+    background-color: rgb(85, 4, 151);
+    border-color: black;
+    color: rgb(255, 255, 255);
+    width: 115px;
+    margin-bottom: 5%;
+}
+
+#clock {
+    background: rgba(226, 179, 7, 0.73);
+    color: black;
+    border-radius: 15px;
+    padding-top: 5%;
+}

@@ -1,17 +1,32 @@
 {% extends 'scrapbook/base.html' %} 
 {% load static %} 
 
-{% block body_block %} 
-<div class="container">
-{% for note in notes %}
+{% block page_title %} 
+    <h1>{{page.title}}: Notes</h1>
+{% endblock %} 
 
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">{{note.title}}</h5>
-            <p>{{ note.text }}</p>
-        </div>
-    </div>
-        
-{% endfor %} 
+{% block extra_button %} 
+    <a href="{% url 'scrapbook:scrapbook_view' username=page.scrapbook.owner.username %}"><button id="back" class="btn btn-primary"><strong>BACK</strong></button></a> 
+{% endblock %}
+
+{% block body_block %} 
+<link href="{% static 'scrapbook/css/view_notes.css' %}" rel="stylesheet">
+<div class="container">
+    {% if notes %} 
+        {% for note in notes %}
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{note.title}}</h5>
+                    <p>{{ note.text }}</p>
+                </div>
+            </div>
+                
+        {% endfor %} 
+    {% else %} 
+        <div class="row justify-content-center">
+            <h3>No Notes Yet. Click or tap 'back' and add a note from there.</h3>
+        </div>    
+    {% endif %} 
 </div>
 {% endblock %}

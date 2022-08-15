@@ -1,85 +1,59 @@
 {% extends 'scrapbook/base.html' %} 
 {% load static %}
 
+
+<link href="{% static 'scrapbook/css/create_page.css' %}" rel="stylesheet">
+
+{% block page_title %} 
+<h1>Create a Scrapbook Page</h1>
+{% endblock %}
+
+{% block extra_button %} 
+<a href="{% url 'scrapbook:scrapbook_view' username=username %}"><button id="back" class="btn btn-primary"><strong>BACK</strong></button></a> 
+{% endblock %}
+
 {% block body_block %} 
-<!-- <style>
+<div class="container-fluid">
+    <div id="ideas" class="row justify-content-center">
+        <h3>Some Ideas: </h3>
+    </div>
+        <div class="row justify-content-center text-center">
+            <div class="col col-sm-4 h4">
+                <ul>
+                    <li>favourite places/events/things</li>
+                    <li>favourite things (sports, shows)</li>
+                </ul>
+            </div>
+            <div class="col col-sm-4 h4">
+                <ul>
+                    
+                    <li>fond memories</li>
+                    <li>family members</li>
+                </ul>
+            </div>
+            <div class="col col-sm-4 h4">
+                <ul>
+                    <li>dreams, goals, wishes</li>
+                    <li>stories you love to tell!</li>
+                </ul>
+            </div>
+            
+        </div>
 
-    #title_section {
-        display: block;
-    }
-
-    div {
-        display: block;
-    }
-
-</style> -->
-<form method="post" enctype="multipart/form-data" action="{% url 'scrapbook:create_page' username=scrapbook.owner.username %}">
-{% csrf_token %} 
-
-<!--<div class="row">
-<div class="col-sm px-5"> -->
-<div id="title_section">
-<fieldset>
-    <legend><h1 id="title-header">Enter a Title For This Page</h1></legend>
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>
-    {% endif %} 
-    <input type="text" id="title_input" name="title" placeholder="Type here...">
-    <button id="title_button" type="button" class="btn btn-success">DONE</button>
-</fieldset>
+        <div class="row">
+                
+            <form id="form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="col-col-sm-4">
+                <h3>{{field.label}}: {{ field}}</h3>
+            </div>
+            {% endfor %}
+            <input class="btn btn-lg btn-success" type="submit" value="DONE">
+            </form>
+        </div>
 </div>
-<!--</div> -->
-<!-- 
-</br>
-<div id="song_section">
-<fieldset>
-    <legend><h1>Add a Song</h1></legend>
-    <input type="text" id="song_input" name="song_title" placeholder="Song Title:">
-    <input type="text" id="artist_input" name="artist" placeholder="Artist/Band:">
-    <button id="song_button" type="button" class="btn btn-success">DONE</button>
-</fieldset>
-</div>
 
 
-<div id='picture_section' class="col-sm" id="right_page">
-    
-        {% csrf_token %}
-    <fieldset>
-        <legend><h1>Add Pictures</h1></legend>
-        {% if error_message %}<p><strong>{{ error_message }}</strong></p>
-        {% endif %} 
-        <input type="file" id="picture_input" name="page_image">
-        <button id="picture_button" type="button" class="btn btn-success">DONE</button>
-    </fieldset>
-    </form>
-</div>
-<div id="video_section">
-    <fieldset>
-        <br>
-        <legend><h1>Upload a Video</h1></legend></fieldset><br> 
-        <input type="file" id="video_input" name="page_video">
-        <legend><h2>OR</h2></legend><br>
-        <legend><h1>Copy and Paste <br>a YouTube Link</h1></legend>
-        <input type="url" id="youtube_input" name="vid_url" placeholder="Copy and paste here">
-        <h4>There's only space for one video on each scrapbook page.</h4>
-
-        {% if page %} 
-            <h1>{{ page.vid_id }}</h1>
-        {% endif %} 
-        <button id="video_button" type="button" class="btn btn-success">DONE</button>
-
-
-    </fieldset><br> 
-</div>
-<div id="finish">
-    <button id="submit_button" type="submit" class="btn btn-success">Take Me To My New Page</button>
-</div>
-</form>
-
-<iframe id="myframe" style="border-radius:12px" src="" width="40%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-
-<script type="text/javascript" src="/static/js/page_form.js"> </script>
-<script>
-    var url = "{{ page.vid_id }}"
-</script> -->
 
 {% endblock %} 

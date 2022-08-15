@@ -28,7 +28,16 @@ class RegForm(UserCreationForm):
                 fields = ['username', 'password1', 'password2', 'first_name', 'recovery_email', 'recovery_relationship', 'role',]
         
 
-
+class PageForm(forms.ModelForm):
+        class Meta:
+                model = Page 
+                fields = ('title', 'video_file', 'image_file')
+                widgets = {
+                        'title': forms.TextInput(attrs={'class': 'form-group', 'label':'Give your page a title'}),
+                        'video_file': forms.FileInput(attrs={'class': 'form-group', 'label':'Upload a video here or use YouTube in a later step'}), 
+                        'image_file': forms.FileInput(attrs={'class': 'form-group', 'label':'Upload a picture'}),
+                }
+        
 # class UserForm(ModelForm):
 #     password = forms.CharField(widget=forms.PasswordInput())
     

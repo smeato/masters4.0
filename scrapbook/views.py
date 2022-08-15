@@ -6,13 +6,13 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect 
 from .models import Image, Page, Scrapbook, User, TextNote, Account
-from scrapbook.forms import RegForm
+from scrapbook.forms import PageForm, RegForm
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect 
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, View
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from django.http import JsonResponse
@@ -164,10 +164,17 @@ def add_with_code(request):
 
 class PageCreateView(LoginRequiredMixin, CreateView):
     model = Page
-    fields = ['title', 'video_file', 'image_file']
+    form_class = PageForm
+    template_name = 'scrapbook/create_page.html'
     
     def get_success_url(self) -> str:
         return reverse_lazy('scrapbook:complete_page', kwargs={'page_pk': self.object.pk})
+    
+    def get_context_data(self, **kwargs):
+        context = super(PageCreateView, self).get_context_data(**kwargs)
+        context['clock'] = get_clock()
+        context['username'] = self.request.user.username
+        return context
     
     def form_valid(self, form): 
         form.instance.creator = self.request.user 
@@ -266,7 +273,27 @@ def complete_page(request, page_pk):
     return render(request,'scrapbook/complete_page.html', context)
             
 
-
+class PageImageUpdateView(UpdateView):
+    model = Page 
+    fields = ['image_file']
+    template_name_suffix = '_image_update_form'
+    
+    def get_object(self, queryset= None):
+        return Page.objects.get(id=self.kwargs['page_pk'])
+    
+    def get_context_data(self, **kwargs):
+        context = super(PageImageUpdateView, self).get_context_data(**kwargs)
+        context['clock'] = get_clock()
+        context['page'] = get_object_or_404(Page, id=self.kwargs['page_pk'])
+        context['username'] = self.request.user.username
+        return context
+    
+    def form_valid(self, form): 
+        form.instance.page = get_object_or_404(Page, id=self.kwargs['page_pk'])
+        return super().form_valid(form)
+    
+    def get_success_url(self) -> str:
+        return reverse_lazy('scrapbook:page_view', kwargs={'page_pk': self.object.pk})
 
 @login_required
 def page_view(request, page_pk):
@@ -346,9 +373,9 @@ def view_notes(request, page_pk):
     context['notes'] = []
     notes = TextNote.objects.filter(page = page)
     for note in notes:
-        print(note)
         context['notes'].append(note)
     context['page'] = page
+    context['clock'] = get_clock()
     return render(request, 'scrapbook/view_notes.html', context)
     
 @login_required

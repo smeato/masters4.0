@@ -68,7 +68,7 @@ class Scrapbook(models.Model):
         
 class Page(models.Model):
     title = models.CharField(max_length=50)
-    creator = models.ForeignKey('Account', related_name='creator', on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, related_name='creator', on_delete=models.CASCADE)
     scrapbook = models.ForeignKey('Scrapbook', on_delete=models.CASCADE)
     vid_src = models.CharField(max_length=22, blank=True)
     song_embed = models.CharField(max_length=24, blank=True)
