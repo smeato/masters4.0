@@ -6,9 +6,9 @@
 
 #help_button {
     border-radius: 20%;
-    background-color: rgb(255, 128, 0);
+    background: rgba(226, 179, 7, 0.73);
     border-color: black;
-    color: rgb(255, 255, 255);
+    color: black;
     width: 115px;
     margin-bottom: 5%;
 }

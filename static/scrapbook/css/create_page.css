@@ -14,12 +14,35 @@
     border-color: black;
     color: rgb(255, 255, 255);
     width: 115px;
+    background-color: #4C651A;
 }
 
 #form {
-    margin-left: 500px;
+    margin-left: 32%;
+    margin-top: 2%;
 }
 
 #ideas {
-    margin-top: 150px;
+    margin-top: 2%;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.idea {
+    border-width: 30px;
+    border-radius: 100%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    text-align: center;
+    background-color: rgba(226, 179, 7, 0.73);
+}
+
+#done {
+    background-color: #4C651A;
+    color: white;
+}
+
+#bubbles {
+    margin-left: 5px;
+    margin-right: 5px;
 }
