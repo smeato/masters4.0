@@ -4,11 +4,12 @@
 }
 
 #back {
-    border-radius: 20%;
+    border-radius: 15px;
     border-color: black;
     color: rgb(255, 255, 255);
     width: 115px;
     background-color: #4C651A;
+    margin-left: 15px;
 }
 
 #name {

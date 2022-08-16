@@ -26,6 +26,9 @@
     </form>
 
     <div class="container">
+        <div class="row">
+            <h4  id="message"></h4>
+        </div>
         <div class="row" id="songs">
             <div class="col-sm-3">
                 <button class="song_button btn btn-lg" id="button1" type="button" style="display: none">This One</button>
@@ -60,6 +63,7 @@
     <div class="form-group">
     <input class="form-control-lg" id="yt_link" type="url" placeholder="paste the link here">
     <button id="yt_button" class="btn btn-lg" type="submit">Check</button>
+    <button id="no_vid" class="btn btn-warning btn-lg" type="button">Skip</button>
     </div>
 
     <br>
@@ -67,13 +71,13 @@
     <iframe id="yt_vid" width="560" height="315" src="" 
     frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-    <button id="add_vid" class="btn btn-success" type="button">Add to Page</button>
-    <button id="no_vid" class="btn btn-warning" type="button">Skip</button>
+    <button id="add_vid" class="btn btn-success btn-lg" type="button">Add to Page</button>
+    
 </div>
 
 <div id="finished" style="display:none" class="container">
     <div class="row justify-content-center">
-    <h1>All Done!</h1>
+    <h1>Page Complete!</h1>
     </div>
     <div class="row justify-content-center">
     <a href="{% url 'scrapbook:page_view' page_pk=page.id %}"><button class="btn btn-success btn-lg" id="gotoPage">Take Me to My New Page</button></a> 

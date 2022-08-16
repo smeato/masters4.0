@@ -11,6 +11,7 @@
     color: black;
     width: 115px;
     margin-bottom: 5%;
+    margin-left: 15px;
 }
 
 #home_button {
@@ -20,6 +21,7 @@
     color: rgb(255, 255, 255);
     width: 115px;
     margin-bottom: 5%;
+    margin-left: 15px;
 }
 
 #clock {
@@ -27,4 +29,5 @@
     color: black;
     border-radius: 15px;
     padding-top: 5%;
+    margin-right: 5px;
 }

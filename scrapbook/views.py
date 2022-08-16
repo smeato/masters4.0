@@ -204,10 +204,13 @@ def song_search(request):
         result = spotify.search(q, 5, 0, "track")
         response = {}
         no_of_results = len(result['tracks']['items'])
+        print(no_of_results)
         
         
         embedPre = "https://open.spotify.com/embed/track/"
         embedPost = "?utm_source=generator"
+        
+        response['resultsNum'] = no_of_results
         
         if no_of_results >= 1:
             embed1 = embedPre + result['tracks']['items'][0]['id'] + embedPost
@@ -221,6 +224,7 @@ def song_search(request):
         if no_of_results >= 4:
             embed4 = embedPre + result['tracks']['items'][3]['id'] + embedPost
             response['result 4'] = embed4
+            
       
             
         return JsonResponse(response)
@@ -293,7 +297,7 @@ class PageImageUpdateView(UpdateView):
         return super().form_valid(form)
     
     def get_success_url(self) -> str:
-        return reverse_lazy('scrapbook:page_view', kwargs={'page_pk': self.object.pk})
+        return reverse_lazy('scrapbook:page_view', kwargs={'page_pk': self.object.id})
 
 @login_required
 def page_view(request, page_pk):
@@ -401,7 +405,7 @@ def register(request):
             account = Account(user=user)
             user.set_password(user.password)
             #stores email in lowercase
-            account.recovery_email = reg_form.cleaned_data['recovery_email'].lower()
+            account.recovery_email = reg_form.cleaned_data['recovery_email']
             account.recovery_relationship = reg_form.cleaned_data['recovery_relationship']
             if reg_form.cleaned_data['role'] == 'owner':
                 account.has_scrapbook = True
@@ -450,9 +454,7 @@ def check_username(request):
        
         print(response['relationship'])    
         return JsonResponse(response)
-    
-    
-    
+      
     
 class AjaxTest(View):
     def get(self, request):
@@ -467,7 +469,7 @@ def password_reset_request(request):
         reset_form = PasswordResetForm(request.POST)
         if reset_form.is_valid():
             # checks email in lowercase to be case insensitive
-            data = reset_form.cleaned_data['email'].lower()
+            data = reset_form.cleaned_data['email']
             users = User.objects.filter(Q(email=data))
             if users.exists():
                 for user in users:
@@ -475,7 +477,7 @@ def password_reset_request(request):
                     email_template_name = 'accounts/password_reset_email.txt'
                     info = {
                         'email': user.email, 
-                        'domain': 'localhost:8000',
+                        'domain': '192.168.1.103:8000',
                         'site_name': 'Scrapbook', 
                         'uid': urlsafe_base64_encode(force_bytes(user.pk)), 
                         'user': user, 
@@ -491,4 +493,3 @@ def password_reset_request(request):
     reset_form = PasswordResetForm() 
     return render(request, 'accounts/password_reset.html', context={'reset_form': reset_form})            
         
-                

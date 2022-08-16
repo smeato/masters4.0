@@ -1,12 +1,14 @@
 document.getElementById("search_button").addEventListener("click", getSpotifyResults, false);
 document.getElementById("yt_button").addEventListener("click", updateSrc, false);
 document.getElementById("add_vid").addEventListener("click", saveYtEmbed, false);
+document.getElementById("no_vid").addEventListener("click", gotoEnd, false);
 
 const csrf_token = document.querySelector('[name=csrfmiddlewaretoken]').value;
 var vid_id = "{{ page.vid_id }}"
 
 window.onload = function () {
     //document.getElementById("yt_vid").src = "https://www.youtube.com/embed/" + vid_id;
+
 }
 
 function updateSrc() {
@@ -21,6 +23,7 @@ function updateSrc() {
         vid_id = link.split("youtu.be/")[1];
     }
     document.getElementById("yt_vid").src = "https://www.youtube.com/embed/" + vid_id;
+    document.getElementById("add_vid").style = "display: block;"
 }
 
 async function getSpotifyResults() {
@@ -48,30 +51,36 @@ async function getSpotifyResults() {
         })
         .catch(err => console.log(err))
         .then(data => {
-            document.getElementById("embed1").setAttribute("src", data['result 1']);
-            if (document.getElementById("embed1").src != "") {
+
+            if (data['resultsNum'] == 0) {
+                document.getElementById("message").innerText = "No results. Check for typing errors, try searching without the artist/band or use fewer words. "
+            }
+            else {
+                document.getElementById("message").innerText = ""
+            }
+            if (data['resultsNum'] > 0) {
+                document.getElementById("embed1").setAttribute("src", data['result 1']);
                 document.getElementById("button1").style = "display: block";
                 document.getElementById("button1").addEventListener('click', getSong, false);
                 document.getElementById("button1").addEventListener('click', nextSection, false);
-
             }
-            document.getElementById("embed2").setAttribute("src", data['result 2']);
-            if (document.getElementById("embed2").src != "") {
+            if (data['resultsNum'] > 1) {
+                document.getElementById("embed2").setAttribute("src", data['result 2']);
                 document.getElementById("button2").style = "display: block";
                 document.getElementById("button2").addEventListener('click', getSong, false);
-                document.getElementById("button1").addEventListener('click', nextSection, false);
+                document.getElementById("button2").addEventListener('click', nextSection, false);
             }
-            document.getElementById("embed3").setAttribute("src", data['result 3']);
-            if (document.getElementById("embed3").src != "") {
+            if (data['resultsNum'] > 2) {
+                document.getElementById("embed3").setAttribute("src", data['result 3']);
                 document.getElementById("button3").style = "display: block";
                 document.getElementById("button3").addEventListener('click', getSong, false);
-                document.getElementById("button1").addEventListener('click', nextSection, false);
+                document.getElementById("button3").addEventListener('click', nextSection, false);
             }
-            document.getElementById("embed4").setAttribute("src", data['result 4']);
-            if (document.getElementById("embed4").src != "") {
+            if (data['resultsNum'] > 3) {
+                document.getElementById("embed4").setAttribute("src", data['result 4']);
                 document.getElementById("button4").style = "display: block";
                 document.getElementById("button4").addEventListener('click', getSong, false);
-                document.getElementById("button1").addEventListener('click', nextSection, false);
+                document.getElementById("button4").addEventListener('click', nextSection, false);
             }
         })
 
@@ -114,6 +123,7 @@ async function getSong(e) {
             console.log(data['vid_required']);
             if (data['vid_required']) {
                 document.getElementById("video_selection").style = "display: block";
+                document.getElementById("add_vid").style = "display:none;"
                 console.log("should be visible")
             }
 
@@ -157,4 +167,11 @@ function nextSection() {
     }
 
     document.getElementById("song_selection").style = "display: none";
+}
+
+
+function gotoEnd() {
+    document.getElementById("song_selection").style = "display: none";
+    document.getElementById("video_selection").style = "display: none";
+    document.getElementById("finished").style = "display: block";
 }

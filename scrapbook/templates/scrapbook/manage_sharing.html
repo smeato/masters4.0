@@ -23,7 +23,7 @@
                 {% csrf_token %}
                 {% if collaborators %}
                     {% for c in collaborators %} 
-                        <div  class="collab row justify-content-center">
+                        <div class="collabs collab row justify-content-center">
                             <h3 id="name" class="text-right">{{c.first_name}} </h3>
                             <h3 id="username" class="text-right">({{c.username}})</h3>
                             <button id="{{c.username}}" class="remove btn btn-danger text-right">Stop Sharing</button>

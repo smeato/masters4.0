@@ -3,14 +3,14 @@ const csrf_token = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
 
 window.onload = function () {
-    //document.getElementById("yt_vid").src = "https://www.youtube.com/embed/" + vid_id;
     addListeners();
 }
 
 function addListeners() {
-    var buttons = document.getElementsByClassName('remove');
+    let buttons = document.getElementsByClassName('remove');
     for (let button of buttons) {
-        id = button.getAttribute('id');
+        let id = button.getAttribute('id');
+        console.log(id)
 
         document.getElementById(id).addEventListener('click', function (e) {
 
@@ -25,7 +25,7 @@ function addListeners() {
                 body: JSON.stringify({ 'removed_collab': id })
             })
                 .then(response => {
-                    $("#collabs").load(window.location.href + " #collabs");
+                    document.getElementById(id).innerHTML = "REMOVED";
                 }, false)
         });
 
