@@ -1,41 +1,49 @@
-#header {
-    background-color: rgba(224, 198, 248, 0.49);
-    padding-top: 25px;
-    padding-bottom: 25px;
+#add_button {
+    background-color: #4C651A;
+
 }
 
-#help_button {
+#back {
     border-radius: 20%;
-    background-color: rgb(255, 128, 0);
     border-color: black;
     color: rgb(255, 255, 255);
+    width: 115px;
+    background-color: #4C651A;
 }
 
-#home_button {
-    border-radius: 20%;
-    background-color: rgb(85, 4, 151);
-    border-color: black;
-    color: rgb(255, 255, 255);
+#name {
+    padding-right: 5px;
 }
 
-#clock {
-    background: #4C651A;
-    color: white;
+#username {
+    padding-left: 10px;
+    padding-right: 10px;
+
 }
 
 .collab {
-    margin-top: 2%;
-    color: rgb(85, 4, 151);
-
+    margin-bottom: 20px;
 }
 
-#collabs {
-    border: black;
-    border-radius: 20%;
-    border-width: 5rem;
+#heading {
+    border-radius: 15px;
+    background-color: #e2b307ba;
+    height: 125px;
 }
 
-#add_button {
-    background-color: #4C651A"
+#how_to {
 
+    border-radius: 15px;
+    background-color: #4C651A;
+    color: white;
+    height: 125px;
+}
+
+#code_button {
+    margin-left: 0;
+    margin-top: 0px;
+}
+
+li {
+    padding-left: 20px;
 }

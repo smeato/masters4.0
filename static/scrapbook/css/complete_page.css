@@ -7,34 +7,21 @@
     margin-top: 2%;
 }
 
-#header {
-    background-color: rgba(224, 198, 248, 0.49);
-    padding-top: 25px;
-    padding-bottom: 25px;
-}
-
-
-#help_button {
-    border-radius: 20%;
-    background-color: rgb(255, 128, 0);
-    border-color: black;
-    color: rgb(255, 255, 255);
-}
-
-#home_button {
-    border-radius: 20%;
-    background-color: rgb(85, 4, 151);
-    border-color: black;
-    color: rgb(255, 255, 255);
-}
-
-#clock {
-    background: #4C651A;
+.card {
+    background-color: #4C651A;
     color: white;
 }
 
+#search_button {
+    background-color: #4C651A;
+}
 
-.card {
+.song_button {
+    background-color: #4C651A;
+    color: white;
+}
+
+#yt_button {
     background-color: #4C651A;
     color: white;
 }

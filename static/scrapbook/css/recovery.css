@@ -1,4 +1,18 @@
 #recovery {
-    margin-top: 100px;
+    margin-top: 50px;
+}
 
+#send {
+    background-color: #4C651A;
+    color: white;
+}
+
+#username_button {
+    background-color: #4C651A;
+    color: white;
+}
+
+#button {
+    background-color: #4C651A;
+    color: white;
 }

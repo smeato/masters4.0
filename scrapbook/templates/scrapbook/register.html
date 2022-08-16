@@ -1,6 +1,10 @@
 {% extends 'scrapbook/base.html' %}
 {% load static %} 
 
+{% block page_title %} 
+<h1>Registration</h1>
+{% endblock %}
+
 {% block body_block %}
 {% if registered %} 
     registered
@@ -28,10 +32,10 @@
                     </div>
                 {% endfor %}
                     <div class="row">
-                        <h6 class="text-warning mt-0">Put your own email if possible. If you need to put another <strong>make sure you trust them with the contents of your scrapbook</strong></h6>
+                        <h5 class="text-warning mt-0">Put your own email if possible. If you need to put another <strong>make sure you trust them with the contents of your scrapbook</strong></h5>
                     </div>
                     <div class="row">
-                <input type="submit" name="submit" value="Register"/>
+                <input class="btn" id="register" type="submit" name="submit" value="Register"/>
                 </div>
             </div>
             </form>

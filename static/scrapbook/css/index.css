@@ -15,7 +15,7 @@
 }
 
 #left_side {
-    background-color: rgba(226, 179, 7, 0.73);
+    background-color: #e2b307ba;
     height: 100vh;
 }
 
@@ -85,6 +85,11 @@
 
 a {
     size: 8;
+}
+
+#login_button {
+    background-color: #4C651A;
+    color: white;
 }
 
 #logout {

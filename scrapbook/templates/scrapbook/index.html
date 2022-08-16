@@ -68,7 +68,7 @@
                                     {{ form.password }}
                                     <input class="col-form-label-sm" type="password" name="password" value="" size="5%"/>
                                 </div>
-                                <button class="button btn btn-success" type="submit" value="submit">Log In</button>
+                                <button id="login_button" class="button btn" type="submit" value="submit">Log In</button>
                             </form>
                             <a id="unsure_password" href="{% url 'scrapbook:password_reset' %}"><button class="btn btn-danger">I'm not sure</button></a>
                         </div>

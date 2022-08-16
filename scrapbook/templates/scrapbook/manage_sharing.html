@@ -2,59 +2,64 @@
 {% load static %}
 
 {% block page_title %} 
-<h3>Manage Sharing</h3>
+<h1>Manage Sharing</h1>
 {% endblock %}
 
 {% block extra_button %} 
-<a href="{% url 'scrapbook:scrapbook_view' username=page.scrapbook.owner.username %}"><button id="back" class="btn btn-primary"><strong>BACK</strong></button></a> 
+<a href="{% url 'scrapbook:scrapbook_view' username=user.username %}"><button id="back" class="btn btn-primary"><strong>BACK</strong></button></a> 
 {% endblock %}
 
 {% block body_block %}
 <link href="{% static 'scrapbook/css/manage_sharing.css' %}" rel="stylesheet">
 
 <div class="container-fluid">
-    <!-- main collaborator management seciton-->
+    <!-- main collaborator management section-->
     <div class="row">
-        <div class="col-sm-6 d-flex align-items-center justify-content-center">
-            <div id="collabs" class="container">
-                <div class="row">
-                    <h2>You currently share with:</h2>
-                </div>
-                {% csrf_token %}
-                {% for c in collaborators %} 
-                
-                <div class="collab row align">
-                    <h3 class="collab">{{c.first_name}} </h3>
-                    <h3 style="text-indent: 40px; margin-right: 20px;" class="collab">({{c.username}})</h3>
-                <button id="{{c.username}}" class="remove btn btn-danger">Stop Sharing</button>
-                </div>
-                <div class="row justify-content-center">
-                    
-                </div>
-                {% endfor %}
-            </div>
-        </div>
         <div class="col-sm-6">
-            <!-- <div class="container">
-                <div class="row">
-                <h3>Add a Collaborator</h3>
-                <div class="row">
-                <label>Enter their username:</label>
-                </div>
-                <div class="row">
-                <input id="user_add" type="text">
-                <button id="add_button" class="btn btn-md">Add</button>
-                </div>
-            </div> -->
+            <div id="heading" class="row justify-content-center text-center mb-5 mt-3 pt-3 pb-3 ml-3 mr-3 border border-dark">
+                <h2>You Currently <br>Share With:</h2>
             </div>
-            
+            <div class="collabs">
+                {% csrf_token %}
+                {% if collaborators %}
+                    {% for c in collaborators %} 
+                        <div  class="collab row justify-content-center">
+                            <h3 id="name" class="text-right">{{c.first_name}} </h3>
+                            <h3 id="username" class="text-right">({{c.username}})</h3>
+                            <button id="{{c.username}}" class="remove btn btn-danger text-right">Stop Sharing</button>
+                        </div>
+                    {% endfor %}
+                {% else %} 
+                    <div  class="collab row justify-content-center">
+                        <h3>No one yet.</h3>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
 
+        <div class="col-sm-6">
+            <div id="how_to" class="row justify-content-center text-center mb-5 mt-3 pt-3 pb-3 ml-3 mr-3 border border-dark">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <h2>How to Share </h2>
+                    </div>
+                    <div class="row justify-content-center">
+                        <button id="code_button" class="btn btn-md btn-warning"><h5><strong>{{scrapbook.share_code}}</h5></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify content center h5 mx-auto ">
+                <ul>
+                    <li class="pb-3">To share your scrapbook with someone they must make their own Scrapbook account.</li>
+                    <li class="pb-3">When they register they should select 'I want to help someone with their scrapbook' or 'I want to do both'</li>
+                    <li class="pb-3">When they log in they will see a button that says 'Add a Scrapbook'.</li>
+                    <li class="pb-3">Once they enter your code (in the yellow box above) they will be able to view your scrapbook and even add pages.</li>
+                </ul>
+            </div>
         </div>
     </div>
-    </div>
-
-
 </div>
+
 
 <script type="text/javascript" src="{% static 'scrapbook/js/manage_sharing.js' %}"> </script>
 {% endblock %}

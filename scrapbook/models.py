@@ -93,13 +93,13 @@ class Page(models.Model):
 class Image(models.Model):
     gallery = models.ForeignKey(Page, on_delete=models.CASCADE)
     image_file = models.ImageField(upload_to='page_images', blank=True)
-    uploaded_by = models.ForeignKey('Account', on_delete=models.CASCADE, default='')
+    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, default='')
     
     
 class TextNote(models.Model):
     page = models.ForeignKey('Page', on_delete=models.CASCADE)
     text = models.TextField(max_length=10000)
-    creator = models.ForeignKey('Account', on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     
     
@@ -107,7 +107,7 @@ class VoiceNote(models.Model):
     title = models.CharField(max_length=100)
     page = models.ForeignKey('Page', on_delete=models.CASCADE)
     audio = models.FileField(blank=True, upload_to='page_audio_files')
-    creator = models.ForeignKey('Account', on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.title

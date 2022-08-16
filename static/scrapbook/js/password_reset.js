@@ -52,9 +52,6 @@ function getHint() {
                 document.getElementById("recovery_relationship").innerHTML = 'a carer or assistant';
             }
 
-
-
-
         })
 
 

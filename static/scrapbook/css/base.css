@@ -5,7 +5,7 @@
 }
 
 #help_button {
-    border-radius: 20%;
+    border-radius: 15px;
     background: rgba(226, 179, 7, 0.73);
     border-color: black;
     color: black;
@@ -14,8 +14,8 @@
 }
 
 #home_button {
-    border-radius: 20%;
-    background-color: rgb(85, 4, 151);
+    border-radius: 15px;
+    background-color: #550497;
     border-color: black;
     color: rgb(255, 255, 255);
     width: 115px;

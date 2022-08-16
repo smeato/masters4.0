@@ -2,68 +2,77 @@
 {% load static %} 
 
 {% block body_block %}
-{% if viewable %}
 
 <link href="{% static 'scrapbook/css/scrapbook_view.css' %}" rel="stylesheet">
 <!-- header section with title, nav buttons and dementia clock-->
 <div class="container-fluid">
-
-    <div id="row1" class="row">
-        {% if is_owner %}
-        <div class="col-sm-2 float-left">
-            <a href="{% url 'scrapbook:manage_sharing' username=scrapbook.owner.username %}">
-                <!-- <button id="collab_button" class="btn btn-md btn-danger"><h4><strong>Manage <br>Sharing</strong><br></h4><h6>(add/remove collaborator)</h6></button> -->
-                <button id="code_button" class="btn btn-md btn-warning"><h4><strong>{{scrapbook.share_code}}</h4></button>
-            </a>
-
-            </div>
-        {% endif %}
-        <div class="col-sm-4 justify-content-center">
-        <a href="{% url 'scrapbook:create_page' username=username %}">
-            <div id="create-card" class="card" >
-                <!--<a target="_blank" href="https://icons8.com/icon/37839/add">Add</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>-->
-                <img id="add-icon"  class="card-img-top mx-auto" src="{% static 'scrapbook/images/add.png' %}" alt="an add button">
-                <div class="card-body card-block">
-                    <h4 id="card-link" class="card-title">Create New Page</h4>
+    <div class="row justify-content-center"> 
+        <div class="col-sm-6">
+            {% if is_owner %} 
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card btn-group">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h4>Manage Sharing</h4><a href="{% url 'scrapbook:manage_sharing' username=scrapbook.owner.username %}">
+                                        <button id="code_button" class="btn btn-md btn-warning"><h5><strong>{{scrapbook.share_code}}</h5></button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>  
                 </div>
-            </div>
-            </a>
+            {% endif %}
         </div>
-        <div class="col-sm-4 justify-content-center">
+        <div id="contents" class="col-sm-6 align pt-2">
+            <h1>Contents</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 my-5">
+            <a href="{% url 'scrapbook:create_page' username=username %}">
+                <div id="create-card" class="card" >
+                    <img id="add-icon"  class="card-img-top mx-auto" src="{% static 'scrapbook/images/add.png' %}" alt="an add button">
+                        <div class="card-body card-block">
+                            <h4 id="card-link" class="card-title">Create New Page</h4>
+                        </div>
+                </div>
+            </a>
+        </div>  
+        <div class="col-sm-3 my-5" id="left_side">
             <a href="{% url 'scrapbook:random_page' username=username %}">
                 <div id="random-card" class="card" >
                     <img id="shuffle-icon"  class="card-img-top mx-auto" src="{% static 'scrapbook/images/shuffle.png' %}" alt="a shuffle button">
-                    <div class="card-body card-block">
-                        <h5 id="card-link" class="card-title">Take a Trip Down Memory Lane<br></h5><h6 class="text-center">(random page)</h6>
-                    </div>
+                        <div class="card-body card-block">
+                            <h5 id="card-link" class="card-title">Take a Trip Down Memory Lane<br></h5><h6 class="text-center">(random page)</h6>
+                        </div>
                 </div>
-                </a>
+            </a>    
+        </div>
+  
+        <div class="col-sm-6">
+            <div class="container-fluid">
+                <div id="page_side" class="row border-left">
+                    {% if page_list %} 
+                        {% for page in page_list %} 
+                        <div id="pages_col" class="col">
+                            <a href="{{ page.get_absolute_url }}">
+                            <div class="card" style="width: 14rem;">
+                                <img style="height: 10rem;" class="card-img-top" src="{{ MEDIA_URL }}{{page.image_file}}" alt="{{page.title}} image">
+        
+                                <div class="card-body card-block">
+                                    <h4 style="color: white;" id="card-link" class="card-title">{{page.title}}</h4>
+                                </div>
+                            </div>
+                            </a>   
+                        </div>
+                        {% endfor %}
+                    {% else %} 
+                    <h3>No pages yet. Click 'Create New Page' to get started. </h3> 
+                    {% endif %}
+                </div>
             </div>
-    </div>
 
-    <!-- I WAS ABOUT TO MAKE THEM ALL SIMPLE CARDS WITH PREVIEW IMAGES AND ROUND THEM-->
-    <div class="row justify-content-center">
-    {% if page_list %} 
-        {% for page in page_list %} 
-        <div class="col-sm-3">
-                <a href="{{ page.get_absolute_url }}">
-                <div class="card" style="width: 14rem;">
-                    <img style="height: 10rem;" class="card-img-top" src="{{ MEDIA_URL }}{{page.image_file}}" alt="{{page.title}} image">
-
-                    <div class="card-body card-block">
-                        <h4 style="color: black;" id="card-link" class="card-title">{{page.title}}</h4>
-                    </div>
-                </div>
-                </a>
-                
-    </div>
-        {% endfor %}
-    {% else %} 
-        <p>No Pages yet</p>
-    {% endif %} 
-    </div>
-{% else %} 
-    <h1>You don't have access to this scrapbook.</h1>
-{% endif %} 
+        </div>
 </div>
 {% endblock %}

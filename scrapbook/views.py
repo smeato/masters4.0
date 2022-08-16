@@ -85,7 +85,6 @@ class ScrapbookView(LoginRequiredMixin, ListView):
         context['scrapbook'] = self.scrapbook
         context['viewable'] = self.viewable 
         context['is_owner'] = self.is_owner
-        context['clock'] = get_clock()
             
         return context
 
@@ -101,8 +100,9 @@ def manage_sharing(request, username):
         collaborators.append(c)
             
     context = {}
-    context['clock'] = get_clock
     context['collaborators'] = collaborators
+    context['scrapbook'] = scrapbook
+    
     
     return render(request,'scrapbook/manage_sharing.html', context)
 
@@ -153,13 +153,16 @@ def add_with_code(request):
         response = {}
         data = json.load(request)
         code = data['code']
-        print(code)
-        scrapbook = Scrapbook.objects.get(share_code=code)
-        if not scrapbook:
-            response['user'] = 'none'
-        else:
+        
+        try:
+            scrapbook = Scrapbook.objects.get(share_code=code)
             response['user'] = scrapbook.owner.username
             scrapbook.collaborators.add(request.user)
+            
+        except Scrapbook.DoesNotExist:
+            response['user'] = 'none'
+            
+        print(response['user'])
         return JsonResponse(response)
 
 class PageCreateView(LoginRequiredMixin, CreateView):
@@ -172,7 +175,6 @@ class PageCreateView(LoginRequiredMixin, CreateView):
     
     def get_context_data(self, **kwargs):
         context = super(PageCreateView, self).get_context_data(**kwargs)
-        context['clock'] = get_clock()
         context['username'] = self.request.user.username
         return context
     
@@ -269,7 +271,6 @@ def complete_page(request, page_pk):
 
     context['user'] = current_user
     context['page'] = page
-    context['clock'] = get_clock()
     return render(request,'scrapbook/complete_page.html', context)
             
 
@@ -283,7 +284,6 @@ class PageImageUpdateView(UpdateView):
     
     def get_context_data(self, **kwargs):
         context = super(PageImageUpdateView, self).get_context_data(**kwargs)
-        context['clock'] = get_clock()
         context['page'] = get_object_or_404(Page, id=self.kwargs['page_pk'])
         context['username'] = self.request.user.username
         return context
@@ -300,11 +300,14 @@ def page_view(request, page_pk):
     page = get_object_or_404(Page, id=page_pk)
     scrapbook = page.scrapbook
     owner = scrapbook.owner
-    current_collaborator = scrapbook.collaborators.filter(username=request.user.username)
     
+    # get list of scrapbooks this user has access to
+    available = Scrapbook.objects.filter(collaborators__id=request.user.id) 
+    
+    # if user is not onwer or collaborator send to index
     if owner == request.user:
         pass
-    elif owner == current_collaborator:
+    elif scrapbook in available:
         pass
     else:
         return redirect(reverse('scrapbook:index'))
@@ -312,7 +315,6 @@ def page_view(request, page_pk):
     context = {}
     context['page'] = get_object_or_404(Page, pk=page_pk)
     context['scrapbook'] = context['page'].scrapbook
-    context['clock'] = get_clock() 
     return render(request, 'scrapbook/page_view.html', context)
 
 
@@ -344,7 +346,6 @@ def user_login(request):
         user = authenticate(username=username, password=password)
         
         if user:
-            
                 login(request, user)
                 return redirect(reverse('scrapbook:index'))
            
@@ -375,7 +376,6 @@ def view_notes(request, page_pk):
     for note in notes:
         context['notes'].append(note)
     context['page'] = page
-    context['clock'] = get_clock()
     return render(request, 'scrapbook/view_notes.html', context)
     
 @login_required
@@ -400,7 +400,8 @@ def register(request):
             user = reg_form.save()
             account = Account(user=user)
             user.set_password(user.password)
-            account.recovery_email = reg_form.cleaned_data['recovery_email']
+            #stores email in lowercase
+            account.recovery_email = reg_form.cleaned_data['recovery_email'].lower()
             account.recovery_relationship = reg_form.cleaned_data['recovery_relationship']
             if reg_form.cleaned_data['role'] == 'owner':
                 account.has_scrapbook = True
@@ -430,7 +431,7 @@ def register(request):
         reg_form = RegForm()
         
     context['form'] = reg_form
-    context['registered'] = registered    
+    context['registered'] = registered 
     if registered or request.user.is_authenticated:
         return redirect(reverse('scrapbook:index'))
     return render(request, 'scrapbook/register.html', context)
@@ -460,33 +461,13 @@ class AjaxTest(View):
 def is_ajax(request):
     return request.headers.get('X-Requested-With') == 'XMLHttpRequest'
 
-def get_clock():
-    tdy = date.today()
-    d8t = tdy.strftime("%d %B, %Y")
-    wkday = tdy.weekday() 
-    if wkday == 0: 
-        tday = "Monday"
-    elif wkday == 1:
-        tday = "Tuesday"
-    elif wkday == 2:
-        tday = "Wednesday"
-    elif wkday == 3:
-        tday = "Thursday"
-    elif wkday == 4:
-        tday = "Friday"
-    elif wkday == 5:
-        tday = "Saturday"
-    elif wkday == 6:
-        tday = "Sunday"
-        
-    return "Today is " + tday + "\n" + d8t
-
 
 def password_reset_request(request):
     if request.method == "POST":
         reset_form = PasswordResetForm(request.POST)
         if reset_form.is_valid():
-            data = reset_form.cleaned_data['email']
+            # checks email in lowercase to be case insensitive
+            data = reset_form.cleaned_data['email'].lower()
             users = User.objects.filter(Q(email=data))
             if users.exists():
                 for user in users:
@@ -506,7 +487,7 @@ def password_reset_request(request):
                         send_mail(subject, email, '2263320s@student.gla.ac.uk', [user.email], fail_silently=False)
                     except BadHeaderError:
                         return HttpResponse('Invalid header found.')
-                    return redirect(reverse('password_reset_done'))
+            return redirect(reverse('password_reset_done'))
     reset_form = PasswordResetForm() 
     return render(request, 'accounts/password_reset.html', context={'reset_form': reset_form})            
         

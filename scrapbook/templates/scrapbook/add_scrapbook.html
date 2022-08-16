@@ -1,6 +1,9 @@
 {% extends 'scrapbook/base.html' %} 
 {% load static %} 
 
+{% block page_title %} 
+    <h1>Add a Scrapbook</h1>
+{% endblock %}
 {% block body_block %}
 <link href="{% static 'scrapbook/css/add_scrapbook.css' %}" rel="stylesheet">
 
@@ -15,9 +18,8 @@
                     <div>
                         <h3 id="explanation"><strong>To access someone else's scrapbook you need a unique code that looks something like this:</strong></h3>
                         <button id="example_code" class="btn btn-md btn-warning"><h4><strong>BJEXTLP</h4></button>
-                        <h5>If they would like to share their scrapbook with you they can find this code in the top left of their scrapbook contents page, or any individual page.</h5>
+                        <h5>If they would like to share their scrapbook with you they can find this code in the top left of their scrapbook contents page.</h5>
                     </div>
-
                 </div>
 
             </div>
@@ -33,6 +35,7 @@
                         <input id="code_input" class="form-group" type="text">
                         {% csrf_token %}
                         <button class="btn btn-danger btn-lg" id="add_button">Add</button>
+                        <h5 class="text-danger" id="message"></h5>
                     </div>
                 </div>
 
@@ -42,6 +45,8 @@
 
 
 </div>
+
+<script type="text/javascript">var index = "{% url 'scrapbook:index' %}"</script>
 
 <script type="text/javascript" src="{% static 'scrapbook/js/add_scrapbook.js' %}"> </script>
 {% endblock %}

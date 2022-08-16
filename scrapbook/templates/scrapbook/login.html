@@ -1,6 +1,9 @@
 {% extends 'scrapbook/base.html' %} 
 {% load static %}
 
+{% block page_title %} 
+    <h1>Log In</h1>
+{% endblock %}
 {% block body_block %}
 <link href="{% static 'scrapbook/css/login.css' %}" rel="stylesheet">
 
@@ -22,7 +25,7 @@
                         {{ form.password }}
                         <input class="col-form-label-md" type="password" name="password" value="" size="40%"/>
                     </div>
-                    <button class="button btn btn-md btn-success" type="submit" value="submit">Log In</button>
+                    <button id="login_button" class="button btn btn-md btn-success" type="submit" value="submit">Log In</button>
                 </form>
                 <a href="{% url 'scrapbook:password_reset' %}"><button class="btn btn-md btn-danger">I'm not sure of my password</button></a>
             </div>

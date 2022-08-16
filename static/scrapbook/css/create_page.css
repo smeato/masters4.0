@@ -10,7 +10,7 @@
 } */
 
 #back {
-    border-radius: 20%;
+    border-radius: 15px;
     border-color: black;
     color: rgb(255, 255, 255);
     width: 115px;
@@ -30,11 +30,11 @@
 
 .idea {
     border-width: 30px;
-    border-radius: 100%;
     padding-top: 2%;
     padding-bottom: 2%;
     text-align: center;
-    background-color: rgba(226, 179, 7, 0.73);
+    background-color: #86b32d5e;
+    border-radius: 15px;
 }
 
 #done {

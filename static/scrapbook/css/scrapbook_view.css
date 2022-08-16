@@ -8,7 +8,23 @@
     background-color: #4C651A;
     color: white;
     margin: 0 auto;
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    /* max-width: 100%;
+    max-height: 250px; */
+}
 
+#contents {
+    height: 20%;
+    text-align: center;
+}
+
+.btn-group {
+    display: inline-block;
+    max-height: 100px;
+    padding-top: 0;
 }
 
 #card-link {
@@ -31,8 +47,8 @@
     border-radius: 20%;
     margin-top: 5%;
     margin-bottom: 5%;
-    width: 14rem;
-    height: 90%;
+    width: 200px;
+    height: 200px;
     border: black;
     border-width: medium;
     margin: 0 auto;
@@ -54,12 +70,12 @@
 }
 
 #random-card {
-    background-color: rgb(255, 128, 0);
+    background-color: #ff8000;
     border-radius: 20%;
     margin-top: 5%;
     margin-bottom: 5%;
-    width: 14rem;
-    height: 90%;
+    width: 200px;
+    height: 200px;
     border: black;
     border-width: medium;
     margin: 0 auto;
@@ -69,3 +85,19 @@
 #row1 {
     padding-top: 20px;
 }
+
+#page_side {
+    border-left-width: 5px;
+}
+
+#sharing_card {
+    background-color: #4C651A;
+    border-radius: 20%;
+}
+
+/* 
+#left_side {
+    border-right: black;
+    border-right-width: 10px;
+    border-right-style: ridge;
+} */
