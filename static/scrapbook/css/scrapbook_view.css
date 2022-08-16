@@ -4,6 +4,23 @@
     color: rgb(255, 255, 255);
 }
 
+#contents {
+    margin-left: 200px;
+    padding-bottom: 0px;
+    padding-top: 15px;
+}
+
+#sharing {
+    width: 150px;
+    height: 100px;
+    margin-top: 15px;
+
+}
+
+#settings {
+    background-color: #4C651A;
+}
+
 .card {
     background-color: #4C651A;
     color: white;
@@ -30,6 +47,10 @@
 #card-link {
     color: white;
     text-align: center;
+}
+
+#random_text {
+    color: black;
 }
 
 #add {
@@ -70,14 +91,14 @@
 }
 
 #random-card {
-    background-color: #ff8000;
+    background-color: rgba(226, 179, 7, 0.73);
     border-radius: 20%;
     margin-top: 5%;
     margin-bottom: 5%;
     width: 200px;
     height: 200px;
     border: black;
-    border-width: medium;
+    border-width: 2px;
     margin: 0 auto;
     margin-bottom: 2%;
 }

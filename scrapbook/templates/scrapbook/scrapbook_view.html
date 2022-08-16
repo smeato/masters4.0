@@ -6,33 +6,33 @@
 <link href="{% static 'scrapbook/css/scrapbook_view.css' %}" rel="stylesheet">
 <!-- header section with title, nav buttons and dementia clock-->
 <div class="container-fluid">
-    <div class="row justify-content-center"> 
-        <div class="col-sm-6">
+    <div class="row border"> 
+        
             {% if is_owner %} 
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="card btn-group">
-                            <div class="card-body">
-                                <div class="card-title">
-                                    <h4>Manage Sharing</h4><a href="{% url 'scrapbook:manage_sharing' username=scrapbook.owner.username %}">
-                                        <button id="code_button" class="btn btn-md btn-warning"><h5><strong>{{scrapbook.share_code}}</h5></button>
-                                    </a>
-                                </div>
-                            </div>
-                        </div> 
-                    </div>  
+            <div class="col-sm-6">
+                <div id="sharing" class="container px-0 py-0 ">
+                    <a href="{% url 'scrapbook:manage_sharing' username=scrapbook.owner.username %}">
+                    <div id="settings" class="btn btn-success"><button id="code_button" class="btn btn-md btn-warning"><h5><strong>{{scrapbook.share_code}}</h5></button>Sharing Settings</div></a>
                 </div>
+                        
+            </div> 
+            <div id="contents" class="col-sm-6 d-flex justify-content-center">
+                <h1 class="fancy">Contents</h1>
+            </div> 
+
+            {% else %} 
+            <div class="col-sm-12">
+                <h1 class="fancy text-center">Contents</h1>
+            </div>
             {% endif %}
-        </div>
-        <div id="contents" class="col-sm-6 align pt-2">
-            <h1>Contents</h1>
-        </div>
+
+                
     </div>
     <div class="row">
         <div class="col-sm-3 my-5">
             <a href="{% url 'scrapbook:create_page' username=username %}">
                 <div id="create-card" class="card" >
-                    <img id="add-icon"  class="card-img-top mx-auto" src="{% static 'scrapbook/images/add.png' %}" alt="an add button">
+                    <img id="add-icon"  class="card-img-top mx-auto" src="{% static 'scrapbook/images/add.png' %}" alt="add button">
                         <div class="card-body card-block">
                             <h4 id="card-link" class="card-title">Create New Page</h4>
                         </div>
@@ -42,9 +42,9 @@
         <div class="col-sm-3 my-5" id="left_side">
             <a href="{% url 'scrapbook:random_page' username=username %}">
                 <div id="random-card" class="card" >
-                    <img id="shuffle-icon"  class="card-img-top mx-auto" src="{% static 'scrapbook/images/shuffle.png' %}" alt="a shuffle button">
-                        <div class="card-body card-block">
-                            <h4 id="card-link" class="card-title">Go Down Memory Lane<br></h4><h5 class="text-center">(random page)</h5>
+                    <img id="shuffle-icon" class="card-img-top mx-auto" src="{% static 'scrapbook/images/shuffle.png' %}" alt="a shuffle button">
+                        <div id="random_text" class="card-body card-block text-center">
+                            <h4 class="card-title">Go Down Memory Lane<br></h4><h6 class="text-center">(random page)</h6>
                         </div>
                 </div>
             </a>    
