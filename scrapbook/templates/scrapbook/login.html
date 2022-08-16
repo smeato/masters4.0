@@ -14,18 +14,18 @@
                 <h3 class="card-title">Log In</h3>
                 <form id="login_form" method="post" action="{% url 'scrapbook:login' %}">
                     {% csrf_token %} 
-                    <div class="form-group">
+                    <div class="form-group-sm">
                         <label>Username</label>
                         {{ form.username }}
-                        <input class="col-form-label-md" type="text" name="username" value="" size="40%"/>
+                        <input class="col-xs-12" type="text" name="username" value="" size="40%"/>
                     </div>
                     
-                    <div class="form-group">
+                    <div class="form-group-sm">
                         <label>Password</label>
                         {{ form.password }}
-                        <input class="col-form-label-md" type="password" name="password" value="" size="40%"/>
+                        <input class="col-xs-12" type="password" name="password" value="" size="40%"/>
                     </div>
-                    <div clas="form-group">
+                    <div class="form-group-sm">
                         <label>Keep Me Logged In <br>Not recommended for public or shared devices</label>
                         <input name="remember_me" value="remember_me" type="checkbox">
                     </div>

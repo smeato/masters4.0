@@ -167,6 +167,21 @@ def add_with_code(request):
         print(response['user'])
         return JsonResponse(response)
 
+            
+
+@login_required
+def random_page(request, username):
+    owner = User.objects.get(username=username)
+    scrapbook = Scrapbook.objects.get(owner=owner)
+    pages = Page.objects.filter(scrapbook=scrapbook)
+    rand_page = random.choice(pages) 
+    return redirect('scrapbook:page_view', page_pk=rand_page.id)
+
+
+
+#                   PAGE CREATION 
+##############################################################
+
 class PageCreateView(LoginRequiredMixin, CreateView):
     model = Page
     form_class = PageForm
@@ -185,6 +200,21 @@ class PageCreateView(LoginRequiredMixin, CreateView):
         form.instance.scrapbook = get_object_or_404(Scrapbook, owner=get_object_or_404(User, username=self.kwargs['username']))
         
         return super().form_valid(form)
+
+        
+@login_required
+def complete_page(request, page_pk):
+    page = get_object_or_404(Page, id=page_pk)
+    context = {}
+    
+    current_user = request.user 
+    
+    if current_user != page.creator:
+        return redirect(reverse('scrapbook:index'))
+
+    context['user'] = current_user
+    context['page'] = page
+    return render(request,'scrapbook/complete_page.html', context)
 
 
 
@@ -264,64 +294,12 @@ def youtube_search(request):
         context['user'] = request.user
         return JsonResponse(data)
     
-        
-@login_required
-def complete_page(request, page_pk):
-    page = get_object_or_404(Page, id=page_pk)
-    context = {}
-    
-    current_user = request.user 
-    
-    if current_user != page.creator:
-        return redirect(reverse('scrapbook:index'))
 
-    context['user'] = current_user
-    context['page'] = page
-    return render(request,'scrapbook/complete_page.html', context)
-            
 
-class PageImageUpdateView(UpdateView):
-    model = Page 
-    fields = ['image_file']
-    template_name_suffix = '_image_update_form'
-    
-    def get_object(self, queryset= None):
-        return Page.objects.get(id=self.kwargs['page_pk'])
-    
-    def get_context_data(self, **kwargs):
-        context = super(PageImageUpdateView, self).get_context_data(**kwargs)
-        context['page'] = get_object_or_404(Page, id=self.kwargs['page_pk'])
-        context['username'] = self.request.user.username
-        return context
-    
-    def form_valid(self, form): 
-        form.instance.page = get_object_or_404(Page, id=self.kwargs['page_pk'])
-        return super().form_valid(form)
-    
-    def get_success_url(self) -> str:
-        return reverse_lazy('scrapbook:page_view', kwargs={'page_pk': self.object.id})
 
-class PageVideoUpdateView(UpdateView):
-    model = Page 
-    fields = ['video_file']
-    template_name_suffix = '_video_update_form'
-    
-    def get_object(self, queryset= None):
-        return Page.objects.get(id=self.kwargs['page_pk'])
-    
-    def get_context_data(self, **kwargs):
-        context = super(PageVideoUpdateView, self).get_context_data(**kwargs)
-        context['page'] = get_object_or_404(Page, id=self.kwargs['page_pk'])
-        context['username'] = self.request.user.username
-        return context
-    
-    def form_valid(self, form): 
-        form.instance.page = get_object_or_404(Page, id=self.kwargs['page_pk'])
-        return super().form_valid(form)
-    
-    def get_success_url(self) -> str:
-        return reverse_lazy('scrapbook:page_view', kwargs={'page_pk': self.object.id})
 
+#                   PAGE RELATED VIEWS
+##################################################################
 
 @login_required
 def page_view(request, page_pk):
@@ -347,47 +325,6 @@ def page_view(request, page_pk):
     return render(request, 'scrapbook/page_view.html', context)
 
 
-def random_page(request, username):
-    owner = User.objects.get(username=username)
-    scrapbook = Scrapbook.objects.get(owner=owner)
-    pages = Page.objects.filter(scrapbook=scrapbook)
-    rand_page = random.choice(pages) 
-    return redirect('scrapbook:page_view', page_pk=rand_page.id)
-
-def no_access(request):
-    return render(request, 'scrapbook/no_access.html')
-    
-def activities(request):
-    context = {}
-    return render(request, 'scrapbook/activities.html', context)
-
-def help_page(request):
-    context = {}
-    return render(request, 'scrapbook/help_page.html', context)
-
-def user_login(request):
-    context = {}
-    
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-        
-        if user:
-                login(request, user)
-                if request.POST.get('remember_me'):
-                    request.session.set_expiry(31536000)
-                else:
-                    request.session.set_expiry(0)
-                return redirect(reverse('scrapbook:index'))
-           
-        else:
-            context['message'] = "Log in details incorrect"
-            return render(request, 'scrapbook/login.html', context)
-    
-        
-    return render(request, 'scrapbook/login.html', context)
-
 @login_required
 def add_note(request):
     if is_ajax(request):
@@ -397,6 +334,7 @@ def add_note(request):
         new_note = TextNote(page=page, text=data['note'], creator=request.user, title=data['title'])
         new_note.save()
         return JsonResponse(data)
+
 
 @login_required
 def view_notes(request, page_pk):
@@ -409,16 +347,76 @@ def view_notes(request, page_pk):
         context['notes'].append(note)
     context['page'] = page
     return render(request, 'scrapbook/view_notes.html', context)
+
+
+class PageVideoUpdateView(UpdateView):
+    model = Page 
+    fields = ['video_file']
+    template_name_suffix = '_video_update_form'
     
-@login_required
-def user_logout(request):
-    logout(request)
-    return redirect(reverse('scrapbook:index'))
+    def get_object(self, queryset= None):
+        return Page.objects.get(id=self.kwargs['page_pk'])
+    
+    def get_context_data(self, **kwargs):
+        context = super(PageVideoUpdateView, self).get_context_data(**kwargs)
+        context['page'] = get_object_or_404(Page, id=self.kwargs['page_pk'])
+        context['username'] = self.request.user.username
+        return context
+    
+    def form_valid(self, form): 
+        form.instance.page = get_object_or_404(Page, id=self.kwargs['page_pk'])
+        return super().form_valid(form)
+    
+    def get_success_url(self) -> str:
+        return reverse_lazy('scrapbook:page_view', kwargs={'page_pk': self.object.id})
     
     
-def account_recovery(request):
+class PageImageUpdateView(UpdateView):
+    model = Page 
+    fields = ['image_file']
+    template_name_suffix = '_image_update_form'
+    
+    def get_object(self, queryset= None):
+        return Page.objects.get(id=self.kwargs['page_pk'])
+    
+    def get_context_data(self, **kwargs):
+        context = super(PageImageUpdateView, self).get_context_data(**kwargs)
+        context['page'] = get_object_or_404(Page, id=self.kwargs['page_pk'])
+        context['username'] = self.request.user.username
+        return context
+    
+    def form_valid(self, form): 
+        form.instance.page = get_object_or_404(Page, id=self.kwargs['page_pk'])
+        return super().form_valid(form)
+    
+    def get_success_url(self) -> str:
+        return reverse_lazy('scrapbook:page_view', kwargs={'page_pk': self.object.id})
+    
+    
+    
+#                       GENERAL SITE VIEWS (NOT USER SPECIFIC)
+#####################################################################
+
+def activities(request):
     context = {}
-    return render(request, 'scrapbook/account_recovery.html', context)
+    return render(request, 'scrapbook/activities.html', context)
+
+
+def help_page(request):
+    context = {}
+    return render(request, 'scrapbook/help_page.html', context)
+
+
+
+
+
+
+
+
+#                      ACCOUNT REGISTRATION/LOGIN/RECOVERY VIEWS
+#########################################################################
+     
+     
 
 def register(request):
     context = {}
@@ -467,6 +465,41 @@ def register(request):
     if registered or request.user.is_authenticated:
         return redirect(reverse('scrapbook:index'))
     return render(request, 'scrapbook/register.html', context)
+                                              
+
+def user_login(request):
+    context = {}
+    
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        
+        if user:
+                login(request, user)
+                if request.POST.get('remember_me'):
+                    request.session.set_expiry(31536000)
+                else:
+                    request.session.set_expiry(0)
+                return redirect(reverse('scrapbook:index'))
+           
+        else:
+            context['message'] = "Log in details incorrect"
+            return render(request, 'scrapbook/login.html', context)
+    
+        
+    return render(request, 'scrapbook/login.html', context)
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect(reverse('scrapbook:index'))
+    
+    
+def account_recovery(request):
+    context = {}
+    return render(request, 'scrapbook/account_recovery.html', context)
 
 def check_username(request):
     if is_ajax(request):
@@ -482,14 +515,6 @@ def check_username(request):
        
         print(response['relationship'])    
         return JsonResponse(response)
-      
-    
-class AjaxTest(View):
-    def get(self, request):
-        return render(request, 'scrapbook/ajax_test.html')
-    
-def is_ajax(request):
-    return request.headers.get('X-Requested-With') == 'XMLHttpRequest'
 
 
 def password_reset_request(request):
@@ -520,4 +545,17 @@ def password_reset_request(request):
             return redirect(reverse('password_reset_done'))
     reset_form = PasswordResetForm() 
     return render(request, 'accounts/password_reset.html', context={'reset_form': reset_form})            
-        
+          
+  
+
+
+
+
+######## HELPER  ########## 
+def is_ajax(request):
+    return request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+
+
+
+def no_access(request):
+    return render(request, 'scrapbook/no_access.html')

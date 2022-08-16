@@ -71,8 +71,18 @@
     </div>
 
     <!-- row for song-->
-    <div id="spotify_row" class="row justify-content-center">
-        <iframe id="spotify" style="border-radius:12px" src="" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    <div id="spotify_row" class="row">
+        <div class="col-sm-2 ">
+            <button id="delete" class="btn btn-danger">DELETE</button>
+        </div>
+        <div class="col-sm-8 ">
+        <iframe id="spotify" src="" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        </div>
+        <div class="col-sm-2">
+            <a href="{% url 'scrapbook:activities' %}">
+            <button id="activities" class="btn btn-success">ACTIVITIES</button>
+            </a>
+        </div>
     </div>
 
 </div>
