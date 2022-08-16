@@ -19,6 +19,7 @@ urlpatterns = [
     path('add-scrapbook/', views.add_scrapbook, name='add_scrapbook'),
     path('add-scrapbook/add-with-code/', views.add_with_code, name='add_with_code'),
     path('update-image/<int:page_pk>/', views.PageImageUpdateView.as_view(), name='image_update'),
+    path('update-video/<int:page_pk>/', views.PageVideoUpdateView.as_view(), name='video_update'),
     #path('create-gallery/<int:page_pk>/', views.create_gallery, name='create_gallery'),
     path('view/<int:page_pk>', views.page_view, name='page_view'), 
     path('view/page/add-note/', views.add_note, name='add_note'),

@@ -31,7 +31,7 @@
                 <iframe id="youtube" width="100%" height="70%" src="" 
                 frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             {% else %} 
-                <button class="btn btn-success">No video yet. Add now.</button>
+                <a href="{% url 'scrapbook:video_update' page_pk=page.id %}"><button class="btn btn-success">No video yet. Add now.</button></a>
             {% endif %}
         </div>
         <div class="col-sm-4 justify-content-center">

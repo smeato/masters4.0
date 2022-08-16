@@ -37,6 +37,7 @@ class PageForm(forms.ModelForm):
                         'video_file': forms.FileInput(attrs={'class': 'form-group', 'label':'Upload a video here or use YouTube in a later step'}), 
                         'image_file': forms.FileInput(attrs={'class': 'form-group', 'label':'Upload a picture'}),
                 }
+
         
 # class UserForm(ModelForm):
 #     password = forms.CharField(widget=forms.PasswordInput())

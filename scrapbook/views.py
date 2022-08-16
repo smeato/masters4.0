@@ -4,7 +4,9 @@ from cgitb import reset
 import os
 from django.contrib.auth.decorators import login_required 
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse, HttpResponseRedirect 
+from django.http import HttpResponse, HttpResponseRedirect
+
+from masters.settings import SESSION_EXPIRE_AT_BROWSER_CLOSE 
 from .models import Image, Page, Scrapbook, User, TextNote, Account
 from scrapbook.forms import PageForm, RegForm
 from django.contrib.auth import authenticate, login, logout
@@ -40,7 +42,7 @@ def index(request):
         user = request.user
         account = Account.objects.get(user=user)
         context['account'] = account
-        print (context['account'].shares_scrapbook)
+        
         context['books'] = []
         scrapbooks = Scrapbook.objects.filter(collaborators__id=user.id)
         if account.shares_scrapbook:
@@ -299,12 +301,35 @@ class PageImageUpdateView(UpdateView):
     def get_success_url(self) -> str:
         return reverse_lazy('scrapbook:page_view', kwargs={'page_pk': self.object.id})
 
+class PageVideoUpdateView(UpdateView):
+    model = Page 
+    fields = ['video_file']
+    template_name_suffix = '_video_update_form'
+    
+    def get_object(self, queryset= None):
+        return Page.objects.get(id=self.kwargs['page_pk'])
+    
+    def get_context_data(self, **kwargs):
+        context = super(PageVideoUpdateView, self).get_context_data(**kwargs)
+        context['page'] = get_object_or_404(Page, id=self.kwargs['page_pk'])
+        context['username'] = self.request.user.username
+        return context
+    
+    def form_valid(self, form): 
+        form.instance.page = get_object_or_404(Page, id=self.kwargs['page_pk'])
+        return super().form_valid(form)
+    
+    def get_success_url(self) -> str:
+        return reverse_lazy('scrapbook:page_view', kwargs={'page_pk': self.object.id})
+
+
 @login_required
 def page_view(request, page_pk):
     page = get_object_or_404(Page, id=page_pk)
     scrapbook = page.scrapbook
     owner = scrapbook.owner
     
+  
     # get list of scrapbooks this user has access to
     available = Scrapbook.objects.filter(collaborators__id=request.user.id) 
     
@@ -346,19 +371,22 @@ def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        
         user = authenticate(username=username, password=password)
         
         if user:
                 login(request, user)
+                if request.POST.get('remember_me'):
+                    request.session.set_expiry(31536000)
+                else:
+                    request.session.set_expiry(0)
                 return redirect(reverse('scrapbook:index'))
            
         else:
             context['message'] = "Log in details incorrect"
             return render(request, 'scrapbook/login.html', context)
+    
         
-        
-    return render(request, 'scrapbook/index.html', context)
+    return render(request, 'scrapbook/login.html', context)
 
 @login_required
 def add_note(request):

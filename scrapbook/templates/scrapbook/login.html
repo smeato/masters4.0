@@ -25,7 +25,11 @@
                         {{ form.password }}
                         <input class="col-form-label-md" type="password" name="password" value="" size="40%"/>
                     </div>
-                    <button id="login_button" class="button btn btn-md btn-success" type="submit" value="submit">Log In</button>
+                    <div clas="form-group">
+                        <label>Keep Me Logged In <br>Not recommended for public or shared devices</label>
+                        <input name="remember_me" value="remember_me" type="checkbox">
+                    </div>
+                    <button id="login_button" class="button btn btn-md btn-success mb-2" type="submit" value="submit">Log In</button>
                 </form>
                 <a href="{% url 'scrapbook:password_reset' %}"><button class="btn btn-md btn-danger">I'm not sure of my password</button></a>
             </div>

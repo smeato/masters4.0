@@ -2,6 +2,7 @@
 {% load static %} 
 
 {%  block body_block %}
+<link href='https://fonts.googleapis.com/css?family=Kurale' rel='stylesheet'>
 <link href="{% static 'scrapbook/css/index.css' %}" rel="stylesheet">
 <div class="container-fluid">
     {% block top_block %} 
@@ -12,10 +13,21 @@
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     {% if not user.is_authenticated %} 
-                        <div class="row">
-                            <h1 class="welcome">Welcome to Scrapbook! </h1>
-                            <br />
+                        <div class="row justify-content-center pt-5">
+                            <h1 class="welcome">WELCOME TO SCRAPBOOK! </h1>
                         </div>
+                        <div class="row justify-content-center">
+                            <h2 id="tagline" class="text-center">Take a Trip Down Memory Lane</h2>
+                            <br>
+                            <h3>With Scrapbook you can:</h3>
+                            <ul id="description">
+                                <li class="pb-3 h5">Create pages with pictures, notes just like a real scrapbook</li>
+                                <li class="pb-3 h5">Add a songs and videos to help you reminisce</li>
+                                <li class="pb-3 h5">Connect with your loved ones with a simple code so you can scrapbook together wherever they are</li>
+                            </ul>
+                            <h4 id="description"></h4>
+                        </div>
+                        
                     {% else %} 
                             <h1 class="welcome ">WELCOME BACK TO <BR>SCRAPBOOK<BR> {{ user.get_short_name }}</h1>
                             {% if account.has_scrapbook %} 
@@ -51,30 +63,10 @@
         <div id="right_side" class="col-sm-8">
 
             <div class="container">
-                <div class="row">
-                    <div class="card mb-3" id="login">
-                        <div class="card-body">
-                            <h5 class="card-title">Log In</h5>
-                            <form id="login_form" method="post" action="{% url 'scrapbook:login' %}">
-                                {% csrf_token %} 
-                                <div class="form-group">
-                                    <label>Username</label>
-                                    {{ form.username }}
-                                    <input class="col-form-label-sm" type="text" name="username" value="" size="5%"/>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    {{ form.password }}
-                                    <input class="col-form-label-sm" type="password" name="password" value="" size="5%"/>
-                                </div>
-                                <button id="login_button" class="button btn" type="submit" value="submit">Log In</button>
-                            </form>
-                            <a id="unsure_password" href="{% url 'scrapbook:password_reset' %}"><button class="btn btn-danger">I'm not sure</button></a>
-                        </div>
-                    
-                    </div> 
-                </div>
+                
+                    <div id="login" class="row justify-content-center"> 
+                        <a href= "{% url 'scrapbook:login' %}"><button id="my" class="button btn btn-sm"><strong><h4>Log In</h4></strong></button></a>
+                    </div>
                 <div class="row justify-content-center">
                     <a href="{% url 'scrapbook:register' %}"><button id="register_link" class="button btn btn-warning"><h4>I'm New<br></h4><h6>(Register)</h6></button></a>
                 </div>
