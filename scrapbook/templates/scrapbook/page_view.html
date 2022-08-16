@@ -1,9 +1,8 @@
 {% extends 'scrapbook/base.html' %}
 {% load static %}
 
-
     {% block page_title %} 
-        <h2>{{ page.title }} <br>({{ scrapbook.owner.first_name }}'s Scrapbook)</h2>
+        <h2 class="fancy">{{ page.title }} <br>({{ scrapbook.owner.first_name }}'s Scrapbook)</h2>
     {% endblock %}
 
     {% block extra_button %} 
@@ -15,7 +14,7 @@
 <!-- header section with title, nav buttons and dementia clock-->
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <h4>Page Created By: {{page.creator.first_name}}</h4>
+        <h4 class="fancy">Page Created By: {{page.creator.first_name}}</h4>
     </div>
     <!-- row for video, notes and image-->
     <div id="main_row" class="row px-4">

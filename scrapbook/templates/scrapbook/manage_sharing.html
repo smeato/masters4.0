@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block page_title %} 
-<h1>Manage Sharing</h1>
+<h1 class="fancy">Manage Sharing</h1>
 {% endblock %}
 
 {% block extra_button %} 
@@ -26,7 +26,7 @@
                         <div class="collabs collab row justify-content-center">
                             <h3 id="name" class="text-right">{{c.first_name}} </h3>
                             <h3 id="username" class="text-right">({{c.username}})</h3>
-                            <button id="{{c.username}}" class="remove btn btn-danger text-right">Stop Sharing</button>
+                            <button id="{{c.username}}" class="remove btn btn-danger text-right">STOP SHARING</button>
                         </div>
                     {% endfor %}
                 {% else %} 
