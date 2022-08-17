@@ -110,12 +110,14 @@
             <h5>Pick one of your pages and tell its story. It could be a treasured memory or pure daft fiction, whatever strikes your fancy.<br>
             Tell a friend, write it down, record it or play the song from the page and move to the music.</h5>
             <br>
-            <h5>Your Pages Are:</h5>
+            {% if user.is_authenticated %} 
+                <h5>Your Pages Are:</h5>
             <ul>
                 {% for page in pages %} 
                 <li>{{page.title}}</li>
                 {% endfor %}
             </ul>
+                {% endif %}
           </div>
         </div>
   
@@ -130,20 +132,21 @@
 
   <!-- Map Modal -->
   <div class="modal fade" id="mapModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
   
         <!-- Modal Header -->
-        <div class="modal-header">
+        <div class="modal-header d-block">
           <h4 class="modal-title">Historical Map</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
   
         <!-- Modal body -->
-        <div class="modal-body">
+        <div class="modal-body text-center">
           <div class="container">
             <h3>Explore the historical map.</h3>
             <h5>Can you find the area you grew up?</h5>
+            <iframe class="mx-auto" width="500" height="500" src="https://api.maptiler.com/tiles/uk-osgb1919/?key=iO8s28XvNHSi2gYxAA2R#6.7/57.26352/-4.20261"></iframe>
           </div>
         </div>
   
@@ -207,12 +210,14 @@
             <h3 class="text-center">Release Your Inner Artist</h3>
             <h5>Take the title of one of your scrapbook pages and create a piece of art based on it.<br>You could use pen, pencil, crayon, paint, whatever you have around. 
                 <br>How you do it is up to you. Sketch shapes with pencil or get your hands messy and focus on playing with paint.</h5><br>
-            <h5>Your Pages Are:</h5>
+                {% if user.is_authenticated %} 
+                <h5>Your Pages Are:</h5>
             <ul>
                 {% for page in pages %} 
                 <li>{{page.title}}</li>
                 {% endfor %}
             </ul>
+                {% endif %}
           </div>
         </div>
   
@@ -243,12 +248,14 @@
             <h5>Create a bingo card with words or pictures based on your scrapbook pages (or anyone else you share with).</h5>
             <h5>You can find bingo card makers online (like <a href="https://bingobaker.com/">bingobaker.com</a>) </h5>
             <br>
-            <h5>Your Pages Are:</h5>
+            {% if user.is_authenticated %} 
+                <h5>Your Pages Are:</h5>
             <ul>
                 {% for page in pages %} 
                 <li>{{page.title}}</li>
                 {% endfor %}
             </ul>
+                {% endif %}
           </div>
         </div>
   

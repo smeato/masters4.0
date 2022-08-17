@@ -38,3 +38,13 @@
     margin-right: 5px;
     margin-left: 5px;
 }
+
+.modal-lg {
+    width: 1000px;
+    height: 800px;
+    margin: auto;
+}
+
+iframe {
+    display: block;
+}

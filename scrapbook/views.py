@@ -404,11 +404,13 @@ class PageImageUpdateView(UpdateView):
 def activities(request):
     context = {}
     context['pages'] = []
-    scrapbook = Scrapbook.objects.get(owner=request.user)
-    pages = Page.objects.filter(scrapbook=scrapbook) 
-    for page in pages:
-        context['pages'].append(page)
-        print(page)
+    
+    if request.user.is_authenticated:
+        scrapbook = Scrapbook.objects.get(owner=request.user)
+        pages = Page.objects.filter(scrapbook=scrapbook) 
+        for page in pages:
+            context['pages'].append(page)
+            print(page)
     return render(request, 'scrapbook/activities.html', context)
 
 
