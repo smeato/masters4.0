@@ -11,7 +11,7 @@
     <div class="row justify-content-center">  
         <h3 class="title mt-4 fancy" data-aos="zoom-in">Scrapbook Favourites</h3>
     </div>
-    <div id="fav" class="row justify-content-center mt-3">
+    <div class="row justify-content-center mt-3 fav">
         <div class="card-deck">
             <div class="card" data-aos="zoom-in">
                 <img id="tree" class="card-img-top hover-zoom" src="{% static 'scrapbook/images/tree.jpg' %}" alt="Tree Image">
@@ -37,7 +37,7 @@
     <div class="row justify-content-center">  
         <h3 class="title mt-4 fancy" data-aos="zoom-in">Other Activities</h3>
     </div>
-    <div id="fav" class="row justify-content-center mt-2">
+    <div class="row justify-content-center mt-2 fav">
         <div class="card-deck">
             <div class="card" data-aos="zoom-in">
                 <img id="tree" class="card-img-top hover-zoom" src="{% static 'scrapbook/images/bird.jpg' %}" alt="Tree Image">
@@ -106,8 +106,16 @@
         <!-- Modal body -->
         <div class="modal-body">
           <div class="container">
-            <h3>Your pages are: </h3>
-            <h5>Pick one and tell us a story</h5>
+            <h3 class="text-center">Write, Speak, Move</h3>
+            <h5>Pick one of your pages and tell its story. It could be a treasured memory or pure daft fiction, whatever strikes your fancy.<br>
+            Tell a friend, write it down, record it or play the song from the page and move to the music.</h5>
+            <br>
+            <h5>Your Pages Are:</h5>
+            <ul>
+                {% for page in pages %} 
+                <li>{{page.title}}</li>
+                {% endfor %}
+            </ul>
           </div>
         </div>
   
@@ -196,9 +204,15 @@
         <!-- Modal body -->
         <div class="modal-body">
           <div class="container">
-            <h3>Your pages are:</h3>
-            <h5>With paint, pens, pencils, crayons, a tablet, or whatever you have to hand. Draw a picture based on that page. 
-                You can try to recreate the picture from the page, or use your imagination.</h5>
+            <h3 class="text-center">Release Your Inner Artist</h3>
+            <h5>Take the title of one of your scrapbook pages and create a piece of art based on it.<br>You could use pen, pencil, crayon, paint, whatever you have around. 
+                <br>How you do it is up to you. Sketch shapes with pencil or get your hands messy and focus on playing with paint.</h5><br>
+            <h5>Your Pages Are:</h5>
+            <ul>
+                {% for page in pages %} 
+                <li>{{page.title}}</li>
+                {% endfor %}
+            </ul>
           </div>
         </div>
   
@@ -225,9 +239,16 @@
         <!-- Modal body -->
         <div class="modal-body">
           <div class="container">
-            <h3>Create Your Own Bingo</h3>
+            <h3 class="text-center">Create Your Own Bingo</h3>
             <h5>Create a bingo card with words or pictures based on your scrapbook pages (or anyone else you share with).</h5>
             <h5>You can find bingo card makers online (like <a href="https://bingobaker.com/">bingobaker.com</a>) </h5>
+            <br>
+            <h5>Your Pages Are:</h5>
+            <ul>
+                {% for page in pages %} 
+                <li>{{page.title}}</li>
+                {% endfor %}
+            </ul>
           </div>
         </div>
   
