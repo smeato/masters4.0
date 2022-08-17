@@ -11,7 +11,53 @@
 {% block body_block %} 
 
 <link href="{% static 'scrapbook/css/page_view.css' %}" rel="stylesheet">
-<!-- header section with title, nav buttons and dementia clock-->
+
+
+<!-- NOTES MODAL -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Notes About {{page.title}}</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="container">
+            {% if notes %} 
+                {% for note in notes %} 
+                <div class="row">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title fancy">{{note.title}}</h5>
+                            <p>{{ note.text }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %} 
+                <h1>No notes yet.</h1>
+            {% endif %}
+          </div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+
+
+
+<!-- PAGE -->
+
 <div class="container-fluid">
     <div class="row justify-content-center">
         <h4 class="fancy">Page Created By: {{page.creator.first_name}}</h4>
@@ -20,7 +66,7 @@
     <div id="main_row" class="row px-4">
         <div class="col-sm-4">
             {% if page.video_file %}
-            <video id="uploaded_vid" source src="{{ MEDIA_URL }}{{page.video_file}}" type="video/mp4"controls width="100%">
+            <video class="embed-responsive-4by3" id="uploaded_vid" source src="{{ MEDIA_URL }}{{page.video_file}}" type="video/mp4"controls width="100%" height="70%">
                 <source src="{{ MEDIA_URL }}{{page.video_file}}" type="video/mp4">
                 <source src="{{ MEDIA_URL }}{{page.video_file}}" type="video/webm">
                 <source src="{{ MEDIA_URL }}{{page.video_file}}" type="video/ogv">
@@ -56,8 +102,9 @@
                 </div>
                 <hr>
                 <div class="text-center">
-                <a href="{% url 'scrapbook:view_notes' page_pk=page.id %}"><button id="notes_button" class="btn btn-sm btn-success border border-dark">
-                    <h5>Open Notes</h5></button></a>
+                    <button id="modal_button" type="button" class="btn btn-sm btn-success border border-dark" data-toggle="modal" data-target="#myModal">
+                        <h5>Open Notes</h5>
+                      </button>
                 </div>
             </div>
         </div>
@@ -80,7 +127,7 @@
         </div>
         <div class="col-sm-2">
             <a href="{% url 'scrapbook:activities' %}">
-            <button id="activities" class="btn btn-success">ACTIVITIES</button>
+            <button id="activities" class="btn btn-success">ACTIVITY<br>IDEAS</button>
             </a>
         </div>
     </div>

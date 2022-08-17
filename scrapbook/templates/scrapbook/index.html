@@ -80,7 +80,7 @@
                 <div class="container">
                 
                     {% if account.has_scrapbook %}
-                <div id="my_scrapbook" class="row justify-content-center"> 
+                <div id="my_scrapbook" class="row justify-content-center" > 
                     <a href= "{% url 'scrapbook:scrapbook_view' username=user.username %}"><button id="my" class="button btn btn-sm"><strong><h4>Take Me to<br>My Scrapbook</h4></strong></button></a>
                 </div>
                     {% endif %}

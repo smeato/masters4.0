@@ -13,7 +13,7 @@
 #add {
     color: #ffffff;
     background-color: #4C651A;
-
+    border-radius: 10px;
 }
 
 #picture {
@@ -23,8 +23,8 @@
 }
 
 #uploaded_vid {
-    width: 600px;
-    max-height: 500px;
+    /* width: 300px;
+    max-height: 300px; */
     overflow: hidden;
 }
 
@@ -80,4 +80,9 @@
     color: white;
     font-weight: bold;
     margin-right: 50px;
+}
+
+#modal_button {
+    background-color: #550497;
+    border-radius: 10px;
 }

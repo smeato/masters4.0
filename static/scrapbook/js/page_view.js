@@ -26,9 +26,12 @@ add_button.addEventListener("click", function (e) {
             document.getElementById("add").innerHTML = "added";
             document.getElementById("add").style = "background-color: green";
 
+
             setTimeout(() => {
                 document.getElementById("add").innerHTML = "Add Note";
                 document.getElementById("add").style = "background-color: #4C651A";
+                // refresh modal so notes are up to date
+                window.location.reload(true);
 
             }, 2000);
 

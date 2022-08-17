@@ -57,7 +57,7 @@
                         {% for page in page_list %} 
                         <div id="pages_col" class="col">
                             <a href="{{ page.get_absolute_url }}">
-                            <div class="card" style="width: 14rem;">
+                            <div class="card" style="width: 14rem;" data-aos="zoom-in">
                                 <img style="height: 10rem;" class="card-img-top" src="{{ MEDIA_URL }}{{page.image_file}}" alt="{{page.title}} image">
         
                                 <div class="card-body card-block">

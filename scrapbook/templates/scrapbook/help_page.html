@@ -1,1 +1,95 @@
-help
+{% extends 'scrapbook/base.html' %} 
+{% load static %} 
+
+{% block page_title %} 
+<h1 class="fancy">Help Page</h1>
+{% endblock %} 
+
+{% block body_block %}
+    <div class="container justify-content-center">
+        <div id="block">
+            <h1 class="text-center mt-3">How Scrapbook Works</h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h4>Jump to Section: </h4>
+                </div>
+                <div class="col">
+                    <button id="accounts" class="btn btn-success btn-lg"><h6>Creating an Account</h6></button>
+                </div>
+                <div class="col">
+                    <button id="create_page" class="btn btn-success btn-lg"><h6>Creating a Page</h6></button>
+                </div>
+                <div class="col">
+                    <button id="video" class="btn btn-success btn-lg"><h6>Adding Video</h6></button>
+                </div>
+                <div class="col">
+                    <button id="music" class="btn btn-success btn-lg"><h6>Adding Music</h6></button>
+                </div>
+                <div class="col">
+                    <button id="sharing" class="btn btn-success btn-lg"><h6>Sharing a Scrapbook</h6></button>
+                </div>
+                <div class="col" id="recovery">
+                    <button class=" btn btn-success btn-lg"><h6>Account<br> Recovery</h6></button></div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div id="accounts_section" class="container">
+            <div class="row">
+                <h3>Creating an Account</h3>
+            </div>
+           <div class="row">
+                <h5>Info info info description</h5>
+           </div>
+           <hr>
+        </div>
+        <div id="create_page_section" class="container">
+            <div class="row">
+                <h3>Creating a Page</h3>
+            </div>
+           <div class="row">
+                <h5>Info info info description</h5>
+           </div>
+           <hr>
+        </div>
+        <div id="video_section" class="container">
+            <div class="row">
+                <h3>Adding Video</h3>
+            </div>
+           <div class="row">
+                <h5>Info info info description</h5>
+           </div>
+           <hr>
+        </div>
+        <div id="music_section" class="container">
+            <div class="row">
+                <h3>Adding Music</h3>
+            </div>
+           <div class="row">
+                <h5>Info info info description</h5>
+           </div>
+           <hr>
+        </div>
+        <div id="sharing_scrapbook" class="container">
+            <div class="row">
+                <h3>Sharing Your Scrapbook</h3>
+            </div>
+           <div class="row">
+                <h5>Info info info description</h5>
+           </div>
+           <hr>
+        </div>
+        <div id="account_recovery" class="container">
+            <div class="row">
+                <h3>If You Lose Your Password</h3>
+            </div>
+           <div class="row">
+                <h5>Info info info description</h5>
+           </div>
+           <hr>
+        </div>
+    </div>
+
+{% endblock %}

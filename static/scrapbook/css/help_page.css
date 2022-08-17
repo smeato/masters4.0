@@ -1,0 +1,13 @@
+#help_button {
+    display: none;
+}
+
+#box {
+    border-left: 5px;
+    border-right: 5px;
+}
+
+.btn-md {
+    width: 100px;
+    background-color: #4C651A;
+}
