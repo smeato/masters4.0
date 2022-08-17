@@ -8,14 +8,235 @@
 {% block body_block %} 
 <link href="{% static 'scrapbook/css/activities.css' %}" rel="stylesheet">
 <div class="container-fluid">
-    <div class="row">
-        <hr>
-        <h1 class="title">Scrapbook Favourites</h1>
-        <hr>
+    <div class="row justify-content-center">  
+        <h3 class="title mt-4 fancy" data-aos="zoom-in">Scrapbook Favourites</h3>
     </div>
-    <div class="row">
+    <div id="fav" class="row justify-content-center mt-3">
+        <div class="card-deck">
+            <div class="card" data-aos="zoom-in">
+                <img id="tree" class="card-img-top hover-zoom" src="{% static 'scrapbook/images/tree.jpg' %}" alt="Tree Image">
+                <div class="card-img-overlay">
+                <a class="btn" data-toggle="modal" data-target="#ancestryModal"><h5 class="card-title text-center">Ancestry Search</h5></a>
+                </div>
+            </div>
+            <div class="card" data-aos="zoom-in">
+                <img id="mic" class="card-img-top hover-zoom" src="{% static 'scrapbook/images/microphone.jpg' %}" alt="Microphone Image">
+                <div class="card-img-overlay">
+                    <a class="btn" data-toggle="modal" data-target="#storyModal"><h5 class="card-title text-center">Tell Us a Story</h5></a>
+                </div>
+            </div>
+            <div class="card" data-aos="zoom-in">
+                <img id="tree" class="card-img-top hover-zoom" src="{% static 'scrapbook/images/map.jpg' %}" alt="Map Image">
+                <div class="card-img-overlay">
+                    <a class="btn" data-toggle="modal" data-target="#mapModal"><h5 class="card-title text-center">Historical Map</h5></a>
+                </div>
+            </div>
 
+        </div>
+    </div>
+    <div class="row justify-content-center">  
+        <h3 class="title mt-4 fancy" data-aos="zoom-in">Other Activities</h3>
+    </div>
+    <div id="fav" class="row justify-content-center mt-2">
+        <div class="card-deck">
+            <div class="card" data-aos="zoom-in">
+                <img id="tree" class="card-img-top hover-zoom" src="{% static 'scrapbook/images/bird.jpg' %}" alt="Tree Image">
+                <div class="card-img-overlay">
+                    <a class="btn" data-toggle="modal" data-target="#natureModal"><h5 class="card-title text-center">Nature Watch</h5></a>
+                </div>
+            </div>
+            <div class="card" data-aos="zoom-in">
+                <img id="mic" class="card-img-top hover-zoom" src="{% static 'scrapbook/images/painting.jpg' %}" alt="Microphone Image">
+                <div class="card-img-overlay">
+                    <a class="btn" data-toggle="modal" data-target="#paintingModal"><h5 class="card-title text-center">Getting Colourful</h5></a>
+                </div>
+            </div>
+            <div class="card" data-aos="zoom-in">
+                <img id="tree" class="card-img-top hover-zoom" src="{% static 'scrapbook/images/bingo.png' %}" alt="Map Image">
+                <div class="card-img-overlay">
+                    <a class="btn" data-toggle="modal" data-target="#bingoModal"><h5 class="card-title text-center">DIY Bingo</h5></a>
+                </div>
+            </div>
+        </div>
     </div>
 </div> 
 
+
+<!-- Ancestry Modal -->
+
+<!-- NOTES MODAL -->
+<div class="modal fade" id="ancestryModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Ancestry Search</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="container">
+            <h3>Enter your name and see what ancestry results come back.</h3>
+            <h5>Recognise anyone?</h5>
+          </div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+<!-- Story Modal -->
+<div class="modal fade" id="storyModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Tell us a Story</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="container">
+            <h3>Your pages are: </h3>
+            <h5>Pick one and tell us a story</h5>
+          </div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+  <!-- Map Modal -->
+  <div class="modal fade" id="mapModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Historical Map</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="container">
+            <h3>Explore the historical map.</h3>
+            <h5>Can you find the area you grew up?</h5>
+          </div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Nature Modal -->
+  <div class="modal fade" id="natureModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Nature Watch</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="container">
+            <h3>From your window, or from a wander outside see how many different species of animal you can find.</h3>
+            <h5>Some things you can do:</h5>
+            <ul>
+                <li>Take photographs</li>
+                <li>Sketch your favourite (or describe it to someone for them to try and copy)</li>
+                <li>Collect some souvenirs (bright leaves)</li>
+            </ul>
+          </div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+  <!-- Painting Modal -->
+  <div class="modal fade" id="paintingModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Getting Colourful</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="container">
+            <h3>Your pages are:</h3>
+            <h5>With paint, pens, pencils, crayons, a tablet, or whatever you have to hand. Draw a picture based on that page. 
+                You can try to recreate the picture from the page, or use your imagination.</h5>
+          </div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+  <!-- Bingo Modal -->
+  <div class="modal fade" id="bingoModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">DIY Bingo</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="container">
+            <h3>Create Your Own Bingo</h3>
+            <h5>Create a bingo card with words or pictures based on your scrapbook pages (or anyone else you share with).</h5>
+            <h5>You can find bingo card makers online (like <a href="https://bingobaker.com/">bingobaker.com</a>) </h5>
+          </div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
 {% endblock %}

@@ -122,3 +122,21 @@
     border-right-width: 10px;
     border-right-style: ridge;
 } */
+
+#activities {
+    border-radius: 15px;
+    border-color: black;
+    color: rgb(255, 255, 255);
+    width: 115px;
+    background-color: #4C651A;
+    margin-left: 15px;
+}
+
+.card {
+    transition: .3s;
+}
+
+.card:hover {
+    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.523);
+    transform: scale(1.2);
+}

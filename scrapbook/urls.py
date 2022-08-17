@@ -25,6 +25,7 @@ urlpatterns = [
     path('view/page/add-note/', views.add_note, name='add_note'),
     path('view/page/<int:page_pk>/notes', views.view_notes, name='view_notes'),
     path('activities/', views.activities, name='activities'),
+    path('ancestry-search/', views.ancestry, name='ancestry'),
     path('help/', views.help_page, name='help'),
     path('login', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),

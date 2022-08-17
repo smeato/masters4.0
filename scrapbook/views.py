@@ -411,7 +411,9 @@ def help_page(request):
     return render(request, 'scrapbook/help_page.html', context)
 
 
-
+def ancestry(request):
+    context = {}
+    return render(request, 'scrapbook/ancestry.html', context)
 
 
 

@@ -13,49 +13,6 @@
 <link href="{% static 'scrapbook/css/page_view.css' %}" rel="stylesheet">
 
 
-<!-- NOTES MODAL -->
-  <div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-  
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Notes About {{page.title}}</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-  
-        <!-- Modal body -->
-        <div class="modal-body">
-          <div class="container">
-            {% if notes %} 
-                {% for note in notes %} 
-                <div class="row">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title fancy">{{note.title}}</h5>
-                            <p>{{ note.text }}</p>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            {% else %} 
-                <h1>No notes yet.</h1>
-            {% endif %}
-          </div>
-        </div>
-  
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-  
-      </div>
-    </div>
-  </div>
-
-
-
-
 <!-- PAGE -->
 
 <div class="container-fluid">
@@ -136,6 +93,49 @@
 
 
 <div id="player"></div> 
+
+
+<!-- NOTES MODAL -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Notes About {{page.title}}</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="container">
+            {% if notes %} 
+                {% for note in notes %} 
+                <div class="row">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title fancy">{{note.title}}</h5>
+                            <p>{{ note.text }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %} 
+                <h1>No notes yet.</h1>
+            {% endif %}
+          </div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+
 
 
 

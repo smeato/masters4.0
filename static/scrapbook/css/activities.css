@@ -1,5 +1,41 @@
-hr {
-    height: 3px;
-    background-color: #000;
-    border: none;
+.title {
+    border: 3px solid #550497;
+    padding: 10px;
+    box-shadow: 6px 4px #550497;
+    /* rgb(243, 54, 54); */
+}
+
+.card-img-top {
+
+    overflow: hidden;
+    width: auto;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-title {
+    margin-top: 120px;
+    background-color: white;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.card {
+    transition: .3s;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.card:hover {
+    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.523);
+    transform: scale(1.2);
+}
+
+#fav {
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.523);
+    border-top: 0.5px solid rgba(0, 0, 0, 0.523);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
 }

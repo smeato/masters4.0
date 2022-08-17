@@ -1,6 +1,12 @@
 {% extends 'scrapbook/base.html' %} 
 {% load static %} 
 
+{% block extra_button %} 
+<a href="{% url 'scrapbook:activities' %}">
+    <button id="activities" class="btn btn-success"><strong>ACTIVITIES</strong></button>
+    </a>
+{% endblock %}
+
 {% block body_block %}
 
 <link href="{% static 'scrapbook/css/scrapbook_view.css' %}" rel="stylesheet">
@@ -50,6 +56,8 @@
             </a>    
         </div>
   
+
+            
         <div class="col-sm-6">
             <div class="container-fluid">
                 <div id="page_side" class="row border-left">
