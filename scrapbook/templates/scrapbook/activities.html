@@ -14,9 +14,9 @@
     <div class="row justify-content-center mt-3 fav">
         <div class="card-deck">
             <div class="card" data-aos="zoom-in">
-                <img id="tree" class="card-img-top hover-zoom" src="{% static 'scrapbook/images/tree.jpg' %}" alt="Tree Image">
+                <img id="tree" class="card-img-top hover-zoom" src="{% static 'scrapbook/images/maps.jpg' %}" alt="Tree Image">
                 <div class="card-img-overlay">
-                <a class="btn" data-toggle="modal" data-target="#ancestryModal"><h5 class="card-title text-center">Ancestry Search</h5></a>
+                <a class="btn" data-toggle="modal" data-target="#streetModal"><h5 class="card-title text-center">Street View</h5></a>
                 </div>
             </div>
             <div class="card" data-aos="zoom-in">
@@ -65,21 +65,30 @@
 <!-- Ancestry Modal -->
 
 <!-- NOTES MODAL -->
-<div class="modal fade" id="ancestryModal">
-    <div class="modal-dialog">
+<div class="modal fade" id="streetModal">
+    <div id="big_modal"class="modal-dialog">
       <div class="modal-content">
   
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Ancestry Search</h4>
+          <h4 class="modal-title">Street View</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
   
         <!-- Modal body -->
-        <div class="modal-body">
-          <div class="container">
-            <h3>Enter your name and see what ancestry results come back.</h3>
-            <h5>Recognise anyone?</h5>
+        <div class="modal-body mx-auto">
+          <div class="container justify-content-center">
+            <h3 class="text-center">Travel the world from wherever you are.</h3>
+            <h5 class="text-center">Enter an address and Google StreetView will take you there. </h5>
+            <h6 class="text-center">Explore locations that mean something to you, or places you'd like to go.
+              <br>Use it as inspiration for your next scrapbook page
+            </h6>
+
+              <label id="label" class="ml-5">Address:</label>
+              <input class="ml-5" type="text" id="address">
+              <button id="map_trigger" class="btn btn-success btn-md ml-5">GO</button>
+              <iframe class="text-center" style="display: none;" width="300px" height="300px" id="streetview" src=" "></iframe>
+
           </div>
         </div>
   
@@ -270,10 +279,11 @@
     </div>
   </div>
 
+
+  <script type="text/javascript" src="{% static 'scrapbook/js/activities.js' %}"> </script>
 <script>
   key = "{{HISTORIC_KEY}}"
-  window.onload = function() {
-      document.getElementById("historical").src =  "https://api.maptiler.com/tiles/uk-osgb1919/?key=" + key + "#6.7/57.26352/-4.20261"
-  }
+  streetKey = "{{MAPS_KEY}}"
+  console.log(streetKey)
 </script>
 {% endblock %}

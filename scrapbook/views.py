@@ -406,6 +406,7 @@ def activities(request):
     context = {}
     context['pages'] = []
     context['HISTORIC_KEY'] = settings.HISTORIC_KEY
+    context['MAPS_KEY'] = settings.MAPS_KEY
     if request.user.is_authenticated:
         scrapbook = Scrapbook.objects.get(owner=request.user)
         pages = Page.objects.filter(scrapbook=scrapbook) 
