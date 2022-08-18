@@ -45,10 +45,10 @@
             {% csrf_token %}
             {% for field in form %}
             <div class="col-col-sm-4">
-                <h4>{{field.label}}: {{ field}}</h4>
+                <h6><strong>{{field.label}}</strong>: {{ field}}</h6>
             </div>
             {% endfor %}
-            <input id="done" class="btn btn-lg" type="submit" value="DONE">
+            <input id="done" class="btn btn-md justify-content-center" type="submit" value="DONE">
             </form>
         </div>
 </div>

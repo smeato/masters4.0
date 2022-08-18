@@ -20,17 +20,17 @@
         <h4 class="fancy">Page Created By: {{page.creator.first_name}}</h4>
     </div>
     <!-- row for video, notes and image-->
-    <div id="main_row" class="row px-4">
-        <div class="col-sm-4">
+    <div class="row px-4">
+        <div class="col-sm-4 ">
             {% if page.video_file %}
-            <video class="embed-responsive-4by3" id="uploaded_vid" source src="{{ MEDIA_URL }}{{page.video_file}}" type="video/mp4"controls width="100%" height="70%">
+            <video class="embed-responsive-4by3" id="uploaded_vid" source src="{{ MEDIA_URL }}{{page.video_file}}" type="video/mp4"controls width="100%" height="90%">
                 <source src="{{ MEDIA_URL }}{{page.video_file}}" type="video/mp4">
                 <source src="{{ MEDIA_URL }}{{page.video_file}}" type="video/webm">
                 <source src="{{ MEDIA_URL }}{{page.video_file}}" type="video/ogv">
                 <p>Sorry, your internet browser is having trouble with playing videos on the page.</p> 
             </video>
             {% elif page.vid_src %}
-                <iframe id="youtube" width="100%" height="70%" src="" 
+                <iframe id="youtube" width="100%" height="100%" src="" 
                 frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             {% else %} 
                 <a href="{% url 'scrapbook:video_update' page_pk=page.id %}"><button class="btn btn-success">No video yet. Add now.</button></a>
@@ -54,15 +54,14 @@
                         </div>
                         
                         <button class="btn btn-sm btn-success" id="add">
-                        Add Note</button>
+                        <h5><strong>ADD</strong></h5></button>
+                        <button id="modal_button" type="button" class="btn btn-sm btn-success border border-dark" data-toggle="modal" data-target="#myModal">
+                            <h6><strong>Open Notes</strong></h6>
+                        </button>
                     </div>
                 </div>
                 <hr>
-                <div class="text-center">
-                    <button id="modal_button" type="button" class="btn btn-sm btn-success border border-dark" data-toggle="modal" data-target="#myModal">
-                        <h5>Open Notes</h5>
-                      </button>
-                </div>
+                
             </div>
         </div>
         <div class="col-sm-4 px-0">
@@ -72,12 +71,15 @@
                 <a href="{% url 'scrapbook:image_update' page_pk=page.id %}"><button class="btn btn-success justify-content-center">No image yet<br> Add now</button></a>
             {% endif %}
             </div>
+            
     </div>
+
 
     <!-- row for song-->
     <div id="spotify_row" class="row">
         <div class="col-sm-2 ">
-            <button id="delete" class="btn btn-danger">DELETE</button>
+            <a href="{% url 'scrapbook:manage_sharing' username=scrapbook.owner.username %}">
+            <button id="sharing" class="btn">SHARING</button></a>
         </div>
         <div class="col-sm-8 ">
         <iframe id="spotify" src="" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>

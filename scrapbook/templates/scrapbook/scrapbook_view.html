@@ -1,87 +1,80 @@
 {% extends 'scrapbook/base.html' %} 
 {% load static %} 
 
-{% block extra_button %} 
-<a href="{% url 'scrapbook:activities' %}">
-    <button id="activities" class="btn btn-success"><strong>ACTIVITIES</strong></button>
-    </a>
-{% endblock %}
 
 {% block body_block %}
 
 <link href="{% static 'scrapbook/css/scrapbook_view.css' %}" rel="stylesheet">
-<!-- header section with title, nav buttons and dementia clock-->
-<div class="container-fluid">
-    <div class="row border"> 
-        
-            {% if is_owner %} 
-            <div class="col-sm-6">
-                <div id="sharing" class="container px-0 py-0 ">
-                    <a href="{% url 'scrapbook:manage_sharing' username=scrapbook.owner.username %}">
-                    <div id="settings" class="btn btn-success"><button id="code_button" class="btn btn-md btn-warning"><h5><strong>{{scrapbook.share_code}}</h5></button>Sharing Settings</div></a>
-                </div>
-                        
-            </div> 
-            <div id="contents" class="col-sm-6 d-flex justify-content-center">
-                <h1 class="fancy">Contents</h1>
-            </div> 
 
-            {% else %} 
-            <div class="col-sm-12">
-                <h1 class="fancy text-center">Contents</h1>
-            </div>
-            {% endif %}
-
-                
-    </div>
-    <div class="row">
-        <div class="col-sm-3 my-5">
-            <a href="{% url 'scrapbook:create_page' username=username %}">
-                <div id="create-card" class="card" >
-                    <img id="add-icon"  class="card-img-top mx-auto" src="{% static 'scrapbook/images/add.png' %}" alt="add button">
+<div class="container-fluid px-0 mx-0">
+    <div class="row mx-5 mb-4">
+        <div class="col-sm-4 mt-3">
+            <div id="create-card" class="card" >
+                <a href="{% url 'scrapbook:create_page' username=username %}">
+                    <img id="add-icon"  class="card-img-top" src="{% static 'scrapbook/images/add.png' %}" alt="add button">
                         <div class="card-body card-block">
-                            <h4 id="card-link" class="card-title">Create New Page</h4>
+                            <h4 id="new_page" class="card-title">Create New Page</h4>
                         </div>
-                </div>
-            </a>
-        </div>  
-        <div class="col-sm-3 my-5" id="left_side">
-            <a href="{% url 'scrapbook:random_page' username=username %}">
-                <div id="random-card" class="card" >
-                    <img id="shuffle-icon" class="card-img-top mx-auto" src="{% static 'scrapbook/images/shuffle.png' %}" alt="a shuffle button">
+                </a>
+            </div> 
+        </div>
+        <div class="col-sm-4 mt-3 ">
+            <div id="random-card" class="card" >
+                <a href="{% url 'scrapbook:random_page' username=username %}">
+                    <img id="shuffle-icon" class="card-img-top" src="{% static 'scrapbook/images/shuffle.png' %}" alt="a shuffle button">
                         <div id="random_text" class="card-body card-block text-center">
                             <h4 class="card-title">Go Down Memory Lane<br></h4><h6 class="text-center">(random page)</h6>
                         </div>
+                    </a>
                 </div>
             </a>    
         </div>
-  
-
-            
-        <div class="col-sm-6">
-            <div class="container-fluid">
-                <div id="page_side" class="row border-left">
-                    {% if page_list %} 
-                        {% for page in page_list %} 
-                        <div id="pages_col" class="col">
-                            <a href="{{ page.get_absolute_url }}">
-                            <div class="card" style="width: 14rem;" data-aos="zoom-in">
-                                <img style="height: 10rem;" class="card-img-top" src="{{ MEDIA_URL }}{{page.image_file}}" alt="{{page.title}} image">
-        
-                                <div class="card-body card-block">
-                                    <h4 style="color: white;" id="card-link" class="card-title">{{page.title}}</h4>
-                                </div>
-                            </div>
-                            </a>   
+        <div class="col-sm-4 mt-3">
+            <div id="activity_card" class="card" >
+                <a href="{% url 'scrapbook:activities' %}">
+                    <img id="paint_icon" class="card-img-top" src="{% static 'scrapbook/images/paintbrush.png' %}" alt="a paintbrush">
+                        <div id="activity_text" class="card-body card-block text-center">
+                            <h4 class="card-title">Go To Activities</h4>
                         </div>
-                        {% endfor %}
-                    {% else %} 
-                    <h3>No pages yet. Click 'Create New Page' to get started. </h3> 
-                    {% endif %}
+                    </a>
                 </div>
-            </div>
-
+            </a>    
         </div>
     </div>
+    <div class="row mb-2">
+            {% if is_owner %}
+            <div id="sharing" >
+                <a href="{% url 'scrapbook:manage_sharing' username=scrapbook.owner.username %}" class="text-center">
+                <div id="settings" class="btn btn-success card"><button id="code_button" class="btn btn-md btn-warning"><h5><strong>{{scrapbook.share_code}}</h5></button><h5>View Sharing Settings</h5></div></a>
+            </div>  
+            {% endif %}    
+        </div>         
+    </div>
+        <div  id="content" class="row mt-3">
+            <h1 class="fancy title mx-auto text-center mb-4">Contents</h1>
+            {% if page_list %} 
+            <div class="container-fluid">
+            <div class="row">
+            {% for page in page_list %} 
+            <div id="pages_col" class="col-sm-3">
+                <a href="{{ page.get_absolute_url }}">
+                <div class="card" style="width: 14rem;" data-aos="zoom-in">
+                    <img style="height: 10rem;" class="card-img-top" src="{{ MEDIA_URL }}{{page.image_file}}" alt="{{page.title}} image">
+
+                    <div id="title" class="card-body card-block">
+                        <h3 id="card-link" class="card-title fancy py-auto">{{page.title}}</h3>
+                    </div>
+                </div>
+                </a>   
+            </div>
+            {% endfor %}
+        {% else %} 
+        <h3>No pages yet. Click 'Create New Page' to get started. </h3> 
+            </div>
+        </div>
+        {% endif %}
+            
+        </div>
+
 </div>
 {% endblock %}

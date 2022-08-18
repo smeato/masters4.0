@@ -37,6 +37,11 @@ class PageForm(forms.ModelForm):
                         'video_file': forms.FileInput(attrs={'class': 'form-group', 'label':'Upload a video here or use YouTube in a later step'}), 
                         'image_file': forms.FileInput(attrs={'class': 'form-group', 'label':'Upload a picture'}),
                 }
+                labels = {
+                        'title': 'Give Your Page a Title',
+                        'video_file': 'Upload a Video Here or Use YouTube in a Later Step',
+                        'image_file': 'Upload a Picture'
+                }
 
         
 # class UserForm(ModelForm):

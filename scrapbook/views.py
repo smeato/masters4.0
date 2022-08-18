@@ -31,7 +31,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.contrib.auth import authenticate
-
+from django.conf import settings
 
 # Create your views here.
 def index(request): 
@@ -350,6 +350,7 @@ def view_notes(request, page_pk):
     for note in notes:
         context['notes'].append(note)
     context['page'] = page
+    context['MAP_KEY'] = settings.MAPS_KEY
     return render(request, 'scrapbook/view_notes.html', context)
 
 
@@ -404,7 +405,7 @@ class PageImageUpdateView(UpdateView):
 def activities(request):
     context = {}
     context['pages'] = []
-    
+    context['HISTORIC_KEY'] = settings.HISTORIC_KEY
     if request.user.is_authenticated:
         scrapbook = Scrapbook.objects.get(owner=request.user)
         pages = Page.objects.filter(scrapbook=scrapbook) 

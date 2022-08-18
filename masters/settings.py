@@ -12,9 +12,15 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
 
 # template path
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
@@ -31,7 +37,9 @@ STATICFILES_DIRS = [STATIC_DIR, ]
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-yg+6_yydyaiyzmglggs8#1pp7s09-9ked(gv-2^_r!t=78c7yz'
+SECRET_KEY = env('SECRET_KEY')
+MAPS_KEY = env('MAPS_KEY')
+HISTORIC_KEY = env('HISTORIC_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

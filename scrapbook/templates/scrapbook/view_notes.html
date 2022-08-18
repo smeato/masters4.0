@@ -1,32 +1,26 @@
-{% extends 'scrapbook/base.html' %} 
-{% load static %} 
+<label>Address:</label>
+<input type="text" id="address">
+<button id="button" class="btn btn-success btn-lg">GO</button>
+   <iframe width="300px" height="300px" id="streetview" src=""></iframe>
 
-{% block page_title %} 
-    <h1 class="fancy">{{page.title}}: Notes</h1>
-{% endblock %} 
+ </body>
+ 
+<script>
+  key = "{{MAP_KEY}}"
+  
+  document.getElementById("button").addEventListener('click', function() {
+      const address = document.getElementById("address").value
+      console.log(address) 
 
-{% block extra_button %} 
-    <a href="{% url 'scrapbook:scrapbook_view' username=page.scrapbook.owner.username %}"><button id="back" class="btn btn-primary"><strong>BACK</strong></button></a> 
-{% endblock %}
+      fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${key}`)
+      .then((response) => {
+          return response.json()
+      }).then(data => {
+        console.log(data.results[0].geometry.location['lat']);
+        document.getElementById("streetview").src = "https://www.google.com/maps/embed/v1/streetview?key=" + key + "&location=" + data.results[0].geometry.location['lat'] + "," + data.results[0].geometry.location['lng'] + "&heading=210&pitch=10&fov=35"
+      }).catch(error => {
+        console.log(error)
+      })
+  })
 
-{% block body_block %} 
-<link href="{% static 'scrapbook/css/view_notes.css' %}" rel="stylesheet">
-<div class="container">
-    {% if notes %} 
-        {% for note in notes %}
-
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{note.title}}</h5>
-                    <p>{{ note.text }}</p>
-                </div>
-            </div>
-                
-        {% endfor %} 
-    {% else %} 
-        <div class="row justify-content-center">
-            <h3>No Notes Yet. Click or tap 'back' and add a note from there.</h3>
-        </div>    
-    {% endif %} 
-</div>
-{% endblock %}
+</script>

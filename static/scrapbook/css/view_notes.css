@@ -1,8 +1,13 @@
-#back {
-    border-radius: 15px;
-    border-color: black;
-    color: rgb(255, 255, 255);
-    width: 115px;
-    background-color: #4C651A;
-    margin-left: 15px;
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#map,
+#pano {
+    float: left;
+    height: 100%;
+    width: 50%;
 }
