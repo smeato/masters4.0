@@ -31,9 +31,9 @@ body {
 
 #home_button {
     border-radius: 15px;
-    background-color: #550497;
+    background-color: #4C651A;
     border-color: black;
-    color: rgb(255, 255, 255);
+    color: white;
     width: 115px;
     margin-bottom: 5%;
     margin-left: 15px;
@@ -45,4 +45,5 @@ body {
     border-radius: 15px;
     padding-top: 5%;
     margin-right: 5px;
+    font-weight: bold;
 }
