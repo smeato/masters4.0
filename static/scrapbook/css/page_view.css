@@ -6,6 +6,10 @@
     background-color: #fff399e4;
 }
 
+.note {
+    width: 100%;
+}
+
 #add {
     color: white;
     background-color: #4C651A;

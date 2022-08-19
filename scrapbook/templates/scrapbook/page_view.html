@@ -116,10 +116,12 @@
             {% if notes %} 
                 {% for note in notes %} 
                 <div class="row">
-                    <div class="card mb-3">
+                    <div class="col-sm-12 card mb-3 note">
                         <div class="card-body">
                             <h5 class="card-title fancy">{{note.title}}</h5>
                             <p>{{ note.text }}</p>
+                            <br>
+                            <p><strong>By: {{note.creator}}</strong></p>
                         </div>
                     </div>
                 </div>
