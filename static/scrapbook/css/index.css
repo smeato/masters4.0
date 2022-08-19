@@ -112,9 +112,6 @@ a {
     color: white;
 }
 
-#logout {
-    margin-top: 2%;
-}
 
 #unsure_password {
     width: 100%;
@@ -136,4 +133,21 @@ a {
 
 #book_cover {
     margin-top: 5%;
+}
+
+#logout {
+    background-color: rgb(211, 4, 4);
+}
+
+#help_link {
+    background-color: rgb(234, 220, 248);
+    z-index: 10;
+}
+
+button:hover {
+    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.523);
+}
+
+button {
+    border: 1px solid black;
 }

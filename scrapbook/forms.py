@@ -27,6 +27,12 @@ class RegForm(UserCreationForm):
                 model = User
                 fields = ['username', 'password1', 'password2', 'first_name', 'recovery_email', 'recovery_relationship', 'role',]
         
+        def save(self, commit=False):
+                user = super(RegForm, self).save(commit=False)
+                if commit:
+                        user.set_password(user.password)
+                        user.save() 
+                return user
 
 class PageForm(forms.ModelForm):
         class Meta:

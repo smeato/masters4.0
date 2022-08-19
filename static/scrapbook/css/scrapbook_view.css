@@ -131,6 +131,7 @@
 
 .card {
     transition: .3s;
+    border: 2px solid black;
 }
 
 .card:hover {
@@ -143,6 +144,10 @@
     box-shadow: 6px 4px #550497;
 
     /* rgb(243, 54, 54); */
+}
+
+.card-title {
+    font-weight: bolder;
 }
 
 #content {

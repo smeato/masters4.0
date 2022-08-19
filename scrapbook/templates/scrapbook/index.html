@@ -70,6 +70,9 @@
                 <div class="row justify-content-center">
                     <a href="{% url 'scrapbook:register' %}"><button id="register_link" class="button btn btn-warning"><h4>I'm New<br></h4><h6>(Register)</h6></button></a>
                 </div>
+                <div class="row justify-content-center">
+                    <a href="{% url 'scrapbook:help' %}"><button id="help_link" class="btn mt-2">Help & Info</button></a>
+                </div>
             </div>
         </div>
             
@@ -99,7 +102,11 @@
                 {% endif %}
 
                 <div class="row justify-content-center">
-                    <a id="logout"href="{% url 'scrapbook:logout' %}"><button class="btn btn-danger">Log out</button></a>
+                    <a href="{% url 'scrapbook:help' %}"><button id="help_link" class="btn mt-2">Help & Info</button></a>
+                </div>
+
+                <div class="row justify-content-center">
+                    <a href="{% url 'scrapbook:logout' %}"><button id="logout" class="btn btn-danger mt-2">Log out</button></a>
                 </div>
 
             {% endif %}

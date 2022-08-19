@@ -444,10 +444,12 @@ def register(request):
         
         if reg_form.is_valid():
             user = reg_form.save()
+            user.save()
             account = Account(user=user)
-            user.set_password(user.password)
             #stores email in lowercase
-            account.recovery_email = reg_form.cleaned_data['recovery_email']
+            account.recovery_email = reg_form.cleaned_data['recovery_email'].lower()
+            user.email = account.recovery_email
+            user.save()
             account.recovery_relationship = reg_form.cleaned_data['recovery_relationship']
             if reg_form.cleaned_data['role'] == 'owner':
                 account.has_scrapbook = True
@@ -462,7 +464,6 @@ def register(request):
             account.save()
             new_scrapbook = Scrapbook(owner=user)
             new_scrapbook.save()
-            user.save()
             
             registered = True
             
@@ -500,7 +501,7 @@ def user_login(request):
                 return redirect(reverse('scrapbook:index'))
            
         else:
-            context['message'] = "Log in details incorrect"
+            context['errors'] = "Log in details incorrect"
             return render(request, 'scrapbook/login.html', context)
     
         
@@ -538,7 +539,7 @@ def password_reset_request(request):
         reset_form = PasswordResetForm(request.POST)
         if reset_form.is_valid():
             # checks email in lowercase to be case insensitive
-            data = reset_form.cleaned_data['email']
+            data = reset_form.cleaned_data['email'].lower()
             users = User.objects.filter(Q(email=data))
             if users.exists():
                 for user in users:

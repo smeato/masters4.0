@@ -6,90 +6,136 @@
 {% endblock %} 
 
 {% block body_block %}
+<link href="{% static 'scrapbook/css/help_page.css' %}" rel="stylesheet">
+
     <div class="container justify-content-center">
         <div id="block">
-            <h1 class="text-center mt-3">How Scrapbook Works</h1>
+            <h1  class="title text-center mt-3">How Scrapbook Works</h1>
         </div>
-        <div class="container">
+        <div class="container mt-2">
             <div class="row">
-                <div class="col">
-                    <h4>Jump to Section: </h4>
+                <div class="col-sm-3">
+                    <h4 id="jump" class="mx-5 mt-4">Jump to Section: </h4>
                 </div>
-                <div class="col">
-                    <button id="accounts" class="btn btn-success btn-lg"><h6>Creating an Account</h6></button>
-                </div>
-                <div class="col">
-                    <button id="create_page" class="btn btn-success btn-lg"><h6>Creating a Page</h6></button>
-                </div>
-                <div class="col">
-                    <button id="video" class="btn btn-success btn-lg"><h6>Adding Video</h6></button>
-                </div>
-                <div class="col">
-                    <button id="music" class="btn btn-success btn-lg"><h6>Adding Music</h6></button>
-                </div>
-                <div class="col">
-                    <button id="sharing" class="btn btn-success btn-lg"><h6>Sharing a Scrapbook</h6></button>
-                </div>
-                <div class="col" id="recovery">
-                    <button class=" btn btn-success btn-lg"><h6>Account<br> Recovery</h6></button></div>
+                <div class="col-sm-8">
+                    <div class="btn-group" role="group">
+         
+                        <button type="button" id="accounts" class="btn  btn-md"><h5><strong>Creating an Account</strong></h5></button>
+                   
+                        <button type="button" id="video" class="btn  btn-md"><h5><strong>Types of Account</strong></h5></button>
+                
+                        <button type="button" id="create_page" class="btn  btn-md"><h5><strong>Creating a Page</strong></h5></button>
+                  
+                        <button type="button" id="sharing" class="btn  btn-md"><h5><strong>Sharing a Scrapbook</strong></h5></button>
+             
+                        <button type="button" id="recov" class=" btn  btn-md"><h5><strong>Account<br> Recovery</strong></h5></button></div>
+                    </div>
                 </div>
             </div>
         </div>
         <hr>
         <div id="accounts_section" class="container">
             <div class="row">
-                <h3>Creating an Account</h3>
+                <div  id="account_card"  class="card col-sm-12">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <h3>Creating an Account</h3>
+                        </div>
+                        <h5>Here are the steps for creating an account:</h5>
+                        <ul>
+                            <li><h5>When you register for an account you will need to decide a unique username and a password.</h5> </li>
+                            <li><h5>You'll be asked what you want to do with your account. If you're here to make a scrapbook and share it with your friends and family, select 'I want to make a scrapbook'. 
+                                If someone, or multiple people you know have made a scrapbook and you're here to collaborate with them on theirs then select 'I want to help someone with their scrapbook'. If you want to join in with making a scrapbook with someone but you also want to make your own, select 'I want to do both'. </h5></li>
+                            <li><h5>You will also be asked for a recovery email. This is an email we can use to send a password reset link if you lose your password. If you would prefer to have someone else be sent the reset link be aware that whoever the email belongs to would have access to your account should the link be sent.</li></h5></li>
+                            <li><h5>We'll ask you who the email belongs to so that we can remind you if you aren't sure of the email you used.</h5></li>
+                            <li><h5 class="text-danger"><strong>Make sure to keep your username safe. We can reset your password if you provide the recovery email, but we can only remind you who it belongs to if you can give us the username of the account.</strong></h5></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-           <div class="row">
-                <h5>Info info info description</h5>
-           </div>
-           <hr>
+        </div>
+        <div id="types_section" class="container">
+            <div class="row mt-4">
+                <div  id="types_card"  class="card col-sm-12">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <h3>Types of Account</h3>
+                        </div>
+                        <h5>When you register you'll be asked what you want to do with your account.</h5>
+                        <ul>
+                            <li><h5>If you're here to make a scrapbook and share it with your friends and family, select 'I want to make a scrapbook'. </h5></li>
+                            <li><h5>If someone, or multiple people you know have made a scrapbook and you're here to collaborate with them on theirs then select 'I want to help someone with their scrapbook'. </h5></li> 
+                            <li><h5>If you want to join in with making a scrapbook with someone but you also want to make your own, select 'I want to do both'.</h5></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="create_page_section" class="container">
-            <div class="row">
-                <h3>Creating a Page</h3>
+            <div class="row mt-4">
+                <div id="page" class="card col-sm-12">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <h3>Creating a Page</h3>
+                        </div>
+                        <h5>To create a page click the 'create page' button in your scrapbook.</h5>
+                        <ul>
+                            <li>
+                                <h5>To start type in a title, and ideally upload a picture. (It can be yours or one you found on the internet) </h5>
+                            </li>
+                            <li>
+                                <h5>The next step will invite you to search for a song to add. Think of one which reminds you of your topic and search the name. 
+                                    You can add the artist or band but you don't have to.</h5>
+                            </li>
+                            <li><h5>If you search the wrong artist or title you may not see the result you want. 
+                                    Try searching without the artist/band, or check the title (for example: Judy Garland's song 'Over the Rainbow' may not appear if you search 'Somewhere Over the Rainbow')</h5>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
             </div>
-           <div class="row">
-                <h5>Info info info description</h5>
-           </div>
-           <hr>
         </div>
-        <div id="video_section" class="container">
-            <div class="row">
-                <h3>Adding Video</h3>
-            </div>
-           <div class="row">
-                <h5>Info info info description</h5>
-           </div>
-           <hr>
-        </div>
-        <div id="music_section" class="container">
-            <div class="row">
-                <h3>Adding Music</h3>
-            </div>
-           <div class="row">
-                <h5>Info info info description</h5>
-           </div>
-           <hr>
-        </div>
+        
         <div id="sharing_scrapbook" class="container">
-            <div class="row">
-                <h3>Sharing Your Scrapbook</h3>
+            <div class="row  mt-4">
+                <div id="share" class="card col-sm-12">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <h3>Sharing Scrapbooks</h3>
+                        </div>
+                        <h5>To share your scrapbook:</h5>
+                        <ul>
+                            <li><h5>To share your scrapbook look out for a code right in the middle of your scrapbook contents page.</h5></li>
+                            <li><h5>All you have to do is give that code to the person you want to share with. They can create an account and select that they want to help with a scrapbook or both make a scrapbook and help with one. </h5></li>
+                            <li><h5>On their homepage they will have a button which says 'add a scrapbook'. All they need to do is enter your code and they will be able to see and join in with yours.</h5></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-           <div class="row">
-                <h5>Info info info description</h5>
-           </div>
-           <hr>
         </div>
         <div id="account_recovery" class="container">
-            <div class="row">
-                <h3>If You Lose Your Password</h3>
+            <div class="row  mt-4">
+                <div id="recovery" class="card col-sm-12">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <h3>Account Recovery</h3>
+                        </div>
+                            <h5>If you're not sure of your password there are ways to help.</h5>
+                            <ul class="h5">
+                                <li>Click 'I'm not sure' on the login page to be directed to the password reset screen</li>
+                                <li>If you know the email you used as a recovery email when you registered, you can enter it to send a reset link.</li>
+                                <li>If you don't know the email but you have your username we can tell you who you said the recovery email belongs to when you registered.</li>
+                                <li>If you think you might lose track of your log in details we recommend making a note of your username or sharing it with someone trusted like a family member.</li>
+                                <li>If you aren't confident with email you can use a trusted person's email and they can reset your password for you. When you register you can say whether the email 
+                                    belongs to you, a partner/spouse, a child, or a friend. We can remind you which if you provide your username on the forgotten password page. 
+                                </li>
+                            </ul>
+                    </div>
+                </div>
             </div>
-           <div class="row">
-                <h5>Info info info description</h5>
-           </div>
-           <hr>
         </div>
     </div>
 
+<script type="text/javascript" src="{% static 'scrapbook/js/help_page.js' %}"> </script>
 {% endblock %}

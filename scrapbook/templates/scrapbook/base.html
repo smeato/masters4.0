@@ -23,6 +23,7 @@
 </head>
 
 <body>
+    <div class="container-fluid">
     {% block top_block %} 
     <div id="header" class="row">
 
@@ -68,10 +69,12 @@
     {% endblock %}
 
     
-    <script>$(document).ready(function() {
-        AOS.init()});
-        </script>
-    {% block body_block %} 
-    {% endblock %} 
+ 
+</div>
+<script>$(document).ready(function() {
+    AOS.init()});
+    </script>
+{% block body_block %} 
+{% endblock %} 
 </body>
 </html>
