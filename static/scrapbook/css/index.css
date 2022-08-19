@@ -14,6 +14,18 @@
     background-size: contain;
 }
 
+@media only screen and (max-width: 600px) {
+    #right_side {
+        background: none;
+        background-color: rgba(175, 175, 175, 0.185);
+    }
+
+    #right {
+        background: none;
+        background-color: rgba(175, 175, 175, 0.185);
+    }
+}
+
 #left_side {
     background-color: #e2b307ba;
     height: 100vh;

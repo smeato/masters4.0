@@ -1,5 +1,6 @@
 const csrf_token = document.querySelector('[name=csrfmiddlewaretoken]').value;
 // document.getElementById("add_button").addEventListener('click', addCollab, false);
+document.getElementById("code_button").addEventListener('click', copyCode, false);
 
 
 window.onload = function () {
@@ -30,6 +31,14 @@ function addListeners() {
         });
 
     }
+}
+
+function copyCode() {
+    var code = document.getElementById("code");
+    code.select();
+    code.setSelectionRange(0, 99999);
+    navigatornavigator.clipboard.writeText(copyText.value);
+    alert("Code Copied");
 }
 
 // function addCollab() {

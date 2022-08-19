@@ -1,11 +1,25 @@
 body {
     background-color: rgba(224, 198, 248, 0.085);
     font-weight: bold;
-    font-size: large;
+}
+
+
+@media only screen and (max-width: 600px) {
+    #box {
+        margin: 2%;
+        font-size: small;
+    }
 }
 
 #box {
     background-color: white;
+
+    font-size: medium;
+    padding: 20px;
+}
+
+form {
+    padding: 0px;
 }
 
 #register {

@@ -14,8 +14,13 @@
     width: 150px;
     height: 100px;
     text-align: center;
-    margin-left: 490px;
 
+}
+
+@media only screen and (max-width: 800px) {
+    #sharing {
+        margin: 0px;
+    }
 }
 
 #settings {
