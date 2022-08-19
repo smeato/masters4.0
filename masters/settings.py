@@ -40,9 +40,9 @@ STATICFILES_DIRS = [STATIC_DIR, ]
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
-MAPS_KEY = env('MAPS_KEY')
-HISTORIC_KEY = env('HISTORIC_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
+MAPS_KEY = os.getenv('MAPS_KEY')
+HISTORIC_KEY = os.getenv('HISTORIC_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
