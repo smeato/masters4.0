@@ -78,8 +78,10 @@
     <!-- row for song-->
     <div id="spotify_row" class="row">
         <div class="col-sm-2 ">
+            {% if owner  %}
             <a href="{% url 'scrapbook:manage_sharing' username=scrapbook.owner.username %}">
             <button id="sharing" class="btn">SHARING SETTINGS</button></a>
+            {% endif %}
         </div>
         <div class="col-sm-8 ">
         <iframe id="spotify" src="" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>

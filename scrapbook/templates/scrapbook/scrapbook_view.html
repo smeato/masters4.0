@@ -9,7 +9,7 @@
 <div class="container-fluid px-0 mx-0">
     <div class="row mx-5 mb-4">
         <div class="col-sm-4 mt-3">
-            <div id="create-card" class="card" >
+            <div id="create-card" class="card big_card" >
                 <a href="{% url 'scrapbook:create_page' username=username %}">
                     <img id="add-icon"  class="card-img-top" src="{% static 'scrapbook/images/add.png' %}" alt="add button">
                         <div class="card-body card-block">
@@ -18,19 +18,33 @@
                 </a>
             </div> 
         </div>
+        {% if pages %} 
         <div class="col-sm-4 mt-3 ">
-            <div id="random-card" class="card" >
+            <div id="random-card" class="card big_card" >
+                
                 <a href="{% url 'scrapbook:random_page' username=username %}">
                     <img id="shuffle-icon" class="card-img-top" src="{% static 'scrapbook/images/shuffle.png' %}" alt="a shuffle button">
                         <div id="random_text" class="card-body card-block text-center">
                             <h4 class="card-title">Go Down Memory Lane<br></h4><h6 class="text-center">(random page)</h6>
                         </div>
-                    </a>
-                </div>
-            </a>    
+                </a>
+            </div>    
         </div>
+        {% else %} 
+        <div class="col-sm-4 mt-3 ">
+            <div id="random-card" class="card" >
+                <a href="">
+                    <img id="shuffle-icon" class="card-img-top" src="{% static 'scrapbook/images/shuffle.png' %}" alt="a shuffle button">
+                        <div id="random_text" class="card-body card-block text-center">
+                            <h4 class="card-title">Go Down Memory Lane<br></h4><h6 class="text-center">(Add Pages First)</h6>
+                        </div>
+                </a>
+            </div>    
+        </div>
+        {% endif %}
+            
         <div class="col-sm-4 mt-3">
-            <div id="activity_card" class="card" >
+            <div id="activity_card" class="card big_card" >
                 <a href="{% url 'scrapbook:activities' %}">
                     <img id="paint_icon" class="card-img-top" src="{% static 'scrapbook/images/paintbrush.png' %}" alt="a paintbrush">
                         <div id="activity_text" class="card-body card-block text-center">
@@ -79,4 +93,5 @@
         </div>
 
 </div>
+<script type="text/javascript" src="{% static 'scrapbook/js/scrapbook_view.js' %}"> </script>
 {% endblock %}

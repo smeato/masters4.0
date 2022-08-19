@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.db import models
 import subprocess
 from base64 import b64encode, b32encode
+import uuid
 from os import urandom
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -46,20 +47,20 @@ def create_account(sender, instance, created, **kwargs):
 class Scrapbook(models.Model):
     owner = models.OneToOneField(User, related_name='owner', on_delete=models.CASCADE)
     collaborators = models.ManyToManyField(User, related_name='collaborators', blank=True)
-    share_code = models.CharField(max_length=20)    #new test
+    share_code = models.CharField(max_length=20) 
 
     def __str__(self):
         return self.owner.username 
     
     def save(self, *args, **kwargs):
-        code = str(b32encode(urandom(5)))
+        code = uuid.uuid4().hex[:6].upper()
         
         if "'" in code:
             self.share_code = code.replace("'", "")
         else:
             self.share_code = code
         while Scrapbook.objects.filter(share_code=self.share_code):
-            code = str(b32encode(urandom(5)))
+            code = uuid.uuid4().hex[:6].upper()
             if "'" in code:
                 self.share_code = code.replace("'", "")
             else:

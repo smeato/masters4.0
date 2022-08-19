@@ -306,22 +306,23 @@ def page_view(request, page_pk):
     page = get_object_or_404(Page, id=page_pk)
     scrapbook = page.scrapbook
     owner = scrapbook.owner
-
+    context = {}
     # get list of scrapbooks this user has access to
     available = Scrapbook.objects.filter(collaborators__id=request.user.id) 
     
     # if user is not onwer or collaborator send to index
     if owner == request.user:
-        pass
+        context['owner'] = True
     elif scrapbook in available:
-        pass
+        context['owner'] = False
     else:
         return redirect(reverse('scrapbook:index'))
     
-    context = {}
+    
     context['page'] = get_object_or_404(Page, pk=page_pk)
     context['scrapbook'] = context['page'].scrapbook
     context['notes'] = []
+    
     notes = TextNote.objects.filter(page = page)
     for note in notes:
         context['notes'].append(note)

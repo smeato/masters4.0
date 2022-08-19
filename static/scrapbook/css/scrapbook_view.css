@@ -91,7 +91,13 @@
     width: 5rem;
     margin-left: 30%;
     margin-top: 2%;
+}
 
+#no_pages_shuffle {
+    height: 5rem;
+    width: 5rem;
+    margin-left: 30%;
+    margin-top: 2%;
 }
 
 #random-card {
@@ -129,12 +135,12 @@
     border: 3px solid black;
 }
 
-.card {
+.big_card {
     transition: .3s;
     border: 2px solid black;
 }
 
-.card:hover {
+.big_card:hover {
     box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.523);
     transform: scale(1.2);
 }
