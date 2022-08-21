@@ -221,7 +221,7 @@ def complete_page(request, page_pk):
 @login_required
 def song_search(request):
     if is_ajax(request):
-        spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
+        spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id=settings.SPOTIPY_CLIENT_ID, client_secret=settings.SPOTIPY_CLIENT_SECRET))
         data = json.load(request)
         artist = data['artist']
         title = data['song_title']

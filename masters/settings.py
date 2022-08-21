@@ -43,6 +43,8 @@ STATICFILES_DIRS = [STATIC_DIR, ]
 SECRET_KEY = os.getenv('SECRET_KEY')
 MAPS_KEY = os.getenv('MAPS_KEY')
 HISTORIC_KEY = os.getenv('HISTORIC_KEY')
+SPOTIPY_CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
+SPOTIPY_CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
