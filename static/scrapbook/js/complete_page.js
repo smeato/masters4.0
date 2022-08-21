@@ -94,13 +94,13 @@ async function getSong(e) {
         embed = document.getElementById("embed1").src;
     }
     else if ((clicked == 'button2')) {
-        embed = document.getElementById("embed1").src;
+        embed = document.getElementById("embed2").src;
     }
     else if (clicked == 'button3') {
-        embed = document.getElementById("embed1").src;
+        embed = document.getElementById("embed3").src;
     }
     else if (clicked == 'button4') {
-        embed = document.getElementById("embed1").src;
+        embed = document.getElementById("embed4").src;
     }
 
 
