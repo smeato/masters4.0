@@ -214,6 +214,8 @@ def complete_page(request, page_pk):
 
     context['user'] = current_user
     context['page'] = page
+    context['yt_key'] = settings.YT_API_KEY
+    context['yt_client_id'] = settings.YT_CLIENT_ID
     return render(request,'scrapbook/complete_page.html', context)
 
 

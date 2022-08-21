@@ -45,6 +45,8 @@ MAPS_KEY = os.getenv('MAPS_KEY')
 HISTORIC_KEY = os.getenv('HISTORIC_KEY')
 SPOTIPY_CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
 SPOTIPY_CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET')
+YT_API_KEY = os.getenv('YT_API_KEY')
+YT_CLIENT_ID = os.getenv('YT_CLIENT_ID')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"

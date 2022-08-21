@@ -12,6 +12,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <div class="container-fluid justify-content-center">
+
+
+<!-- SONG SECTION -->
 <div class="text-center" id="song_selection">
     <h1>Choose a Song</h1>
     <h4 >What song makes you think of "{{page.title}}"?</h4>
@@ -53,27 +56,66 @@
 </div>
 
 
+<!-- VIDEO SECTION -->
 
 
 <div class="text-center" id="video_selection" style="display: none">
     <h1>Video Selection</h1>
-    <h4>Since you haven't uploaded a video you can find one on YouTube to use instead.</h3><br>
-    <h5 class="text-danger">Info: YouTube won't let you use a video with copyrighted music so some videos may not work, sorry!</h2>
+    <h4>Since you haven't uploaded a video you can find one on YouTube to use instead.<br>Search for a video below and pick your favourite.</h3> 
 
     <div class="form-group">
-    <input class="form-control-lg" id="yt_link" type="url" placeholder="paste the link here">
-    <button id="yt_button" class="btn btn-lg" type="submit">Check</button>
-    <button id="no_vid" class="btn btn-warning btn-lg" type="button">Skip</button>
+        <input class="form-control-lg" id="yt_q" type="url" placeholder="What would you like to search for?">
+        <button id="yt_search" class="btn btn-lg" type="submit">Search</button>
+        <button id="no_vid" class="btn btn-warning btn-lg" type="button">Skip</button>
     </div>
 
     <br>
     <br>
-    <iframe id="yt_vid" width="560" height="315" src="" 
-    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-    <button id="add_vid" class="btn btn-success btn-lg" type="button">Add to Page</button>
+    <div id="videos" style="display: none;">
+        <div class="row">
+            <div class="col-sm-4">
+                <button id="add_vid1" class="btn btn-success btn-lg" type="button">This One</button>
+                <iframe id="yt_vid1" width="300" height="250" src="" 
+                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+            <div class="col-sm-4">
+                <button id="add_vid2" class="btn btn-success btn-lg" type="button">This One</button>
+                <iframe id="yt_vid2" width="300" height="250" src="" 
+                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+            <div class="col-sm-4">
+                <button id="add_vid3" class="btn btn-success btn-lg" type="button">This One</button>
+                <iframe id="yt_vid3" width="300" height="250" src="" 
+                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <button id="add_vid4" class="btn btn-success btn-lg" type="button">This One</button>
+                <iframe id="yt_vid4" width="300" height="250" src="" 
+                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+            <div class="col-sm-4">
+                <button id="add_vid5" class="btn btn-success btn-lg" type="button">This One</button>
+                <iframe id="yt_vid5" width="300" height="250" src="" 
+                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+            <div class="col-sm-4">
+                <button id="add_vid6" class="btn btn-success btn-lg" type="button">This One</button>
+                <iframe id="yt_vid6" width="300" height="250" src="" 
+                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    
     
 </div>
+
+
+
+
+<!-- COMPLETE SECTION -->
 
 <div id="finished" style="display:none" class="container">
     <div class="row justify-content-center">
@@ -94,10 +136,13 @@
 </script>
 {% endif %}
 
+<script src="https://apis.google.com/js/api.js"></script>
 <script type="text/javascript" src="{% static 'scrapbook/js/complete_page.js' %}"> </script>
 
 <script id="pageIdScript">
     var page_id = "{{page.id}}";
+    var yt_key = "{{yt_key}}";
+    var yt_client_id = "{{yt_client_id}}";
 </script>
 
 {% endblock %}
